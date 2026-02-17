@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Modul Spesial Project | Poltek Nuklir × Nayif</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0e1a; --surface:#111827; --surface2:#1a2235; --surface3:#222f47;
+  --accent:#00e5ff; --accent2:#7c3aed; --accent3:#10b981; --accent4:#f59e0b;
+  --danger:#ef4444; --info:#3b82f6;
+  --text:#e2e8f0; --muted:#94a3b8; --border:rgba(255,255,255,0.08);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;}
+body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse 600px 400px at 20% 20%,rgba(0,229,255,0.04) 0%,transparent 60%),radial-gradient(ellipse 500px 300px at 80% 80%,rgba(124,58,237,0.05) 0%,transparent 60%);pointer-events:none;z-index:0;}
+
+/* SIDEBAR */
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:290px;background:rgba(10,14,26,0.98);border-right:1px solid var(--border);z-index:100;overflow-y:auto;padding:0 0 32px;backdrop-filter:blur(20px);transition:transform .3s;}
+.sidebar::-webkit-scrollbar{width:4px;} .sidebar::-webkit-scrollbar-thumb{background:var(--surface3);}
+.sb-logo{padding:20px 20px 16px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,rgba(0,229,255,0.08),rgba(124,58,237,0.08));}
+.sb-logo-badge{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.atom-spin{font-size:28px;animation:spin 8s linear infinite;display:inline-block;}
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.sb-title{font-family:'DM Serif Display',serif;font-size:16px;line-height:1.2;color:var(--accent);}
+.sb-sub{font-size:10px;color:var(--muted);margin-top:2px;}
+.sb-version{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);background:var(--surface2);padding:2px 8px;border-radius:4px;margin-top:6px;display:inline-block;}
+.sb-section{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);padding:12px 20px 4px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 20px;cursor:pointer;transition:all .2s;border-left:3px solid transparent;font-size:13px;color:var(--muted);text-decoration:none;}
+.nav-item:hover,.nav-item.active{background:rgba(0,229,255,0.06);color:var(--accent);border-left-color:var(--accent);}
+.nav-num{font-family:'Space Mono',monospace;font-size:10px;background:var(--surface2);padding:2px 6px;border-radius:4px;color:var(--muted);min-width:26px;text-align:center;flex-shrink:0;}
+.nav-item.active .nav-num{background:var(--accent);color:var(--bg);}
+.nav-sub{padding-left:46px !important;font-size:12px;}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0;}
+
+/* PROGRESS */
+.reading-progress{position:fixed;top:0;left:290px;right:0;height:3px;background:var(--surface);z-index:200;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));width:0%;transition:width .1s linear;}
+
+/* MAIN */
+.main{margin-left:290px;min-height:100vh;position:relative;z-index:1;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px 60px;position:relative;overflow:hidden;border-bottom:1px solid var(--border);}
+.hero::after{content:'';position:absolute;right:-80px;top:50%;transform:translateY(-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(0,229,255,0.07) 0%,transparent 70%);border-radius:50%;border:1px solid rgba(0,229,255,0.06);animation:heroG 7s ease-in-out infinite alternate;}
+@keyframes heroG{from{opacity:.5;transform:translateY(-50%) scale(.95);}to{opacity:1;transform:translateY(-50%) scale(1.05);}}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.3);border-radius:100px;padding:6px 16px;font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px;width:fit-content;}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:blink 1.5s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(36px,5vw,66px);line-height:1.1;margin-bottom:10px;}
+.grad{background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:17px;color:var(--muted);margin-bottom:36px;max-width:580px;}
+.hero-stats{display:flex;gap:36px;margin-bottom:40px;flex-wrap:wrap;}
+.stat-num{font-family:'Space Mono',monospace;font-size:30px;font-weight:700;color:var(--accent);display:block;}
+.stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
+.hero-pills{display:flex;flex-wrap:wrap;gap:8px;}
+.pill{display:flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-size:12px;transition:all .2s;cursor:default;}
+.pill:hover{border-color:var(--accent);background:rgba(0,229,255,0.05);transform:translateY(-2px);}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+/* SECTION */
+.section{padding:72px 60px;border-top:1px solid var(--border);}
+.section-tag{font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;}
+.section-title{font-family:'DM Serif Display',serif;font-size:clamp(26px,3.5vw,42px);line-height:1.2;margin-bottom:12px;}
+.section-desc{color:var(--muted);max-width:640px;font-size:15px;margin-bottom:40px;}
+.chapter-div{display:flex;align-items:center;gap:14px;margin:36px 0 28px;}
+.chapter-div::before,.chapter-div::after{content:'';flex:1;height:1px;background:var(--border);}
+.chapter-div span{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;white-space:nowrap;}
+
+/* TOPIC TABS */
+.topic-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;}
+.t-tab{padding:8px 18px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:13px;cursor:pointer;transition:all .2s;color:var(--muted);}
+.t-tab:hover,.t-tab.active{border-color:var(--accent);background:rgba(0,229,255,0.08);color:var(--accent);}
+.topic-section{display:none;}.topic-section.active{display:block;}
+
+/* CARDS */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;margin:24px 0;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;transition:all .3s;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0;}
+.card.c1::before{background:var(--accent);} .card.c2::before{background:var(--accent2);} .card.c3::before{background:var(--accent3);} .card.c4::before{background:var(--accent4);} .card.c5::before{background:var(--danger);} .card.c6::before{background:var(--info);}
+.card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,0.14);box-shadow:0 20px 40px rgba(0,0,0,0.3);}
+.card-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;}
+.card.c1 .card-icon{background:rgba(0,229,255,0.1);} .card.c2 .card-icon{background:rgba(124,58,237,0.15);} .card.c3 .card-icon{background:rgba(16,185,129,0.1);} .card.c4 .card-icon{background:rgba(245,158,11,0.1);} .card.c5 .card-icon{background:rgba(239,68,68,0.1);} .card.c6 .card-icon{background:rgba(59,130,246,0.1);}
+.card-title{font-size:16px;font-weight:700;margin-bottom:8px;}
+.card-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+
+/* IPO */
+.ipo-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;align-items:stretch;margin:32px 0;}
+.ipo-block{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px 20px;text-align:center;transition:all .3s;}
+.ipo-block:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,0.3);}
+.ipo-block.ib1{border-top:3px solid var(--accent);} .ipo-block.ib2{border-top:3px solid var(--accent2);} .ipo-block.ib3{border-top:3px solid var(--accent3);}
+.ipo-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px;}
+.ib1 .ipo-label{color:var(--accent);} .ib2 .ipo-label{color:var(--accent2);} .ib3 .ipo-label{color:var(--accent3);}
+.ipo-icon{font-size:32px;margin-bottom:12px;display:block;}
+.ipo-title{font-size:16px;font-weight:700;margin-bottom:10px;}
+.ipo-items{list-style:none;text-align:left;}
+.ipo-items li{font-size:12px;color:var(--muted);padding:5px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px;}
+.ipo-items li:last-child{border-bottom:none;}
+.ipo-items li::before{content:'▸';font-size:9px;flex-shrink:0;}
+.ib1 .ipo-items li::before{color:var(--accent);} .ib2 .ipo-items li::before{color:var(--accent2);} .ib3 .ipo-items li::before{color:var(--accent3);}
+.ipo-arrow{display:flex;align-items:center;justify-content:center;padding:0 6px;color:var(--muted);font-size:24px;animation:arP 2s ease-in-out infinite;}
+@keyframes arP{0%,100%{opacity:.3;transform:scale(1);}50%{opacity:1;transform:scale(1.1);}}
+
+/* CODE */
+.code-block{background:#0d1117;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:18px 0;font-family:'Space Mono',monospace;}
+.code-hdr{background:rgba(255,255,255,0.04);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+.code-dots{display:flex;gap:6px;} .cdot{width:10px;height:10px;border-radius:50%;}
+.cdot.r{background:#ff5f57;} .cdot.y{background:#febc2e;} .cdot.g{background:#28c840;}
+.code-lang{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+.code-body{padding:20px;overflow-x:auto;}
+pre{font-size:12px;line-height:1.9;color:#e2e8f0;white-space:pre;}
+.kw{color:#c792ea;} .fn{color:#82aaff;} .str{color:#c3e88d;} .num{color:#f78c6c;} .cmt{color:#546e7a;font-style:italic;} .tp{color:#ffcb6b;} .vr{color:#89ddff;}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;margin:20px 0;border-radius:12px;overflow:hidden;border:1px solid var(--border);}
+.tbl th{background:var(--surface2);padding:12px 18px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);}
+.tbl td{padding:12px 18px;border-top:1px solid var(--border);font-size:13px;vertical-align:top;}
+.tbl tr:hover td{background:rgba(255,255,255,0.02);}
+
+/* BADGES */
+.badge{display:inline-block;padding:2px 9px;border-radius:100px;font-size:10px;font-weight:700;}
+.b-sensor{background:rgba(0,229,255,0.15);color:var(--accent);border:1px solid rgba(0,229,255,0.3);}
+.b-mcu{background:rgba(124,58,237,0.15);color:#a78bfa;border:1px solid rgba(124,58,237,0.3);}
+.b-output{background:rgba(16,185,129,0.15);color:var(--accent3);border:1px solid rgba(16,185,129,0.3);}
+.b-power{background:rgba(245,158,11,0.15);color:var(--accent4);border:1px solid rgba(245,158,11,0.3);}
+.b-safety{background:rgba(239,68,68,0.15);color:var(--danger);border:1px solid rgba(239,68,68,0.3);}
+.b-ai{background:rgba(59,130,246,0.15);color:var(--info);border:1px solid rgba(59,130,246,0.3);}
+
+/* INFO BOX */
+.info-box{border-radius:12px;padding:18px 22px;margin:18px 0;display:flex;gap:14px;align-items:flex-start;}
+.ib-tip{background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);}
+.ib-warn{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);}
+.ib-info{background:rgba(0,229,255,0.06);border:1px solid rgba(0,229,255,0.2);}
+.ib-danger{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);}
+.ib-icon{font-size:18px;flex-shrink:0;margin-top:2px;}
+.ib-text{font-size:13px;line-height:1.7;}
+.ib-text strong{display:block;margin-bottom:3px;}
+.ib-tip .ib-text strong{color:var(--accent3);} .ib-warn .ib-text strong{color:var(--accent4);} .ib-info .ib-text strong{color:var(--accent);} .ib-danger .ib-text strong{color:var(--danger);}
+
+/* ANALOGY */
+.analogy{background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(0,229,255,0.05));border:1px solid rgba(124,58,237,0.25);border-radius:16px;padding:24px;margin:20px 0;position:relative;overflow:hidden;}
+.analogy::before{content:'"';position:absolute;top:-10px;left:20px;font-size:80px;font-family:'DM Serif Display',serif;color:rgba(124,58,237,0.15);line-height:1;}
+.analogy-lbl{font-family:'Space Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.15em;color:#a78bfa;margin-bottom:7px;}
+.analogy-text{font-size:15px;font-style:italic;color:var(--text);padding-left:18px;border-left:3px solid var(--accent2);}
+
+/* EXPERT BOX */
+.expert-box{background:var(--surface2);border:1px solid rgba(245,158,11,0.3);border-radius:14px;padding:24px;margin:28px 0;position:relative;}
+.expert-box::before{content:'⚡ EXPERT INSIGHT';font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.15em;color:var(--accent4);display:block;margin-bottom:10px;}
+.expert-box p{font-size:13px;color:var(--muted);line-height:1.8;}
+.expert-box strong{color:var(--accent4);}
+
+/* FORMULA BOX */
+.formula{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin:18px 0;text-align:center;}
+.formula .f-eq{font-family:'Space Mono',monospace;font-size:18px;color:var(--accent4);margin:10px 0;}
+.formula .f-label{font-size:11px;color:var(--muted);}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:36px;margin:28px 0;}
+.timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--accent2),var(--accent3));}
+.tl-item{position:relative;margin-bottom:28px;}
+.tl-dot{position:absolute;left:-32px;top:4px;width:14px;height:14px;border-radius:50%;border:2px solid var(--bg);background:var(--accent);z-index:1;}
+.tl-item:nth-child(2) .tl-dot{background:var(--accent2);} .tl-item:nth-child(3) .tl-dot{background:var(--accent3);} .tl-item:nth-child(4) .tl-dot{background:var(--accent4);} .tl-item:nth-child(5) .tl-dot{background:var(--danger);} .tl-item:nth-child(6) .tl-dot{background:#a78bfa;}
+.tl-date{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);margin-bottom:3px;text-transform:uppercase;}
+.tl-title{font-size:15px;font-weight:700;margin-bottom:4px;}
+.tl-desc{font-size:13px;color:var(--muted);}
+
+/* EXERCISE */
+.ex-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:28px;}
+.ex-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .3s;}
+.ex-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,0.3);}
+.ex-hdr{padding:16px 20px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+.ex-level{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:100px;}
+.lv-basic{background:rgba(16,185,129,0.15);color:var(--accent3);border:1px solid rgba(16,185,129,0.3);}
+.lv-mid{background:rgba(245,158,11,0.15);color:var(--accent4);border:1px solid rgba(245,158,11,0.3);}
+.lv-adv{background:rgba(239,68,68,0.15);color:var(--danger);border:1px solid rgba(239,68,68,0.3);}
+.ex-title{font-size:15px;font-weight:700;}
+.ex-body{padding:18px 20px;}
+.ex-q{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.7;}
+.ex-clue{background:var(--surface2);border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 8px 8px 0;font-size:12px;color:var(--muted);}
+.ex-clue strong{color:var(--accent);display:block;margin-bottom:3px;}
+
+/* ACCORDION */
+.accordion{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:14px;}
+.acc-hdr{padding:12px 18px;background:var(--surface2);cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:600;color:var(--accent);transition:all .2s;user-select:none;}
+.acc-hdr:hover{background:rgba(0,229,255,0.08);}
+.acc-icon{width:18px;height:18px;border:1px solid currentColor;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;transition:transform .3s;flex-shrink:0;}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+.acc-body.open{max-height:1200px;}
+.accordion.open .acc-icon{transform:rotate(45deg);}
+.acc-content{padding:18px;font-size:13px;color:var(--muted);line-height:1.7;border-top:1px solid var(--border);}
+
+/* SENSOR CARDS */
+.sensor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin:20px 0;}
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;text-align:center;transition:all .2s;position:relative;overflow:hidden;}
+.sc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;transform:scaleX(0);transition:transform .3s;}
+.sc.s1::after{background:var(--accent);} .sc.s2::after{background:var(--accent4);} .sc.s3::after{background:var(--danger);} .sc.s4::after{background:var(--accent3);}
+.sc:hover::after{transform:scaleX(1);} .sc:hover{transform:translateY(-3px);border-color:rgba(255,255,255,0.12);}
+.sc-em{font-size:36px;margin-bottom:10px;display:block;}
+.sc-name{font-size:14px;font-weight:700;margin-bottom:5px;}
+.sc-model{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);background:rgba(0,229,255,0.08);padding:2px 9px;border-radius:100px;display:inline-block;margin-bottom:8px;}
+.sc-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+
+/* MCU CARDS */
+.mcu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:14px;margin:20px 0;}
+.mcu-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;text-align:center;transition:all .3s;}
+.mcu-card:hover{transform:translateY(-4px);}
+.mcu-card.rec{border-color:var(--accent);box-shadow:0 0 20px rgba(0,229,255,0.1);}
+.mcu-name{font-size:15px;font-weight:700;margin:8px 0 4px;}
+.mcu-chip{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:12px;}
+.mcu-specs{list-style:none;text-align:left;}
+.mcu-specs li{font-size:12px;color:var(--muted);padding:4px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px;}
+.mcu-specs li:last-child{border-bottom:none;}
+.mcu-specs li::before{content:'✓';color:var(--accent3);font-size:10px;}
+.mcu-rec-tag{margin-top:12px;font-size:10px;background:rgba(0,229,255,0.08);color:var(--accent);padding:5px;border-radius:6px;border:1px solid rgba(0,229,255,0.2);}
+
+/* SUMMARY */
+.summary-box{background:linear-gradient(135deg,rgba(0,229,255,0.05),rgba(124,58,237,0.05));border:1px solid var(--border);border-radius:18px;padding:36px;margin-top:40px;}
+.summary-title{font-family:'DM Serif Display',serif;font-size:26px;margin-bottom:22px;color:var(--accent);}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;}
+.sum-item{display:flex;gap:12px;align-items:flex-start;}
+.sum-check{width:26px;height:26px;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--accent3);font-size:13px;flex-shrink:0;}
+.sum-text{font-size:13px;color:var(--muted);line-height:1.5;}
+.sum-text strong{color:var(--text);display:block;margin-bottom:2px;}
+
+/* REF LIST */
+.ref-list{list-style:none;margin:20px 0;}
+.ref-list li{padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--muted);display:flex;gap:12px;align-items:flex-start;}
+.ref-list li:last-child{border-bottom:none;}
+.ref-num{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.2);border-radius:5px;padding:2px 7px;flex-shrink:0;}
+.ref-link{color:var(--accent);text-decoration:none;display:inline;}
+.ref-link:hover{text-decoration:underline;}
+
+/* TWO COL */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:20px 0;}
+@media(max-width:700px){.two-col{grid-template-columns:1fr;}}
+
+/* SCROLL TOP */
+.scroll-top{position:fixed;bottom:28px;right:28px;width:42px;height:42px;background:var(--accent);color:var(--bg);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;opacity:0;transform:translateY(10px);transition:all .3s;z-index:200;border:none;box-shadow:0 4px 20px rgba(0,229,255,0.3);font-weight:700;}
+.scroll-top.visible{opacity:1;transform:translateY(0);}
+.scroll-top:hover{transform:translateY(-3px);}
+
+/* HAMBURGER */
+.hamburger{display:none;position:fixed;top:14px;left:14px;z-index:300;background:var(--surface);border:1px solid var(--border);border-radius:8px;width:38px;height:38px;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;}
+@media(max-width:950px){.hamburger{display:flex;} .sidebar{transform:translateX(-100%);} .sidebar.open{transform:translateX(0);} .main{margin-left:0;} .reading-progress{left:0;} .hero,.section{padding:60px 24px;} .ipo-flow{grid-template-columns:1fr;} .ipo-arrow{transform:rotate(90deg);} footer{padding:40px 24px;}}
+.hamburger span{width:18px;height:2px;background:var(--text);border-radius:2px;transition:all .3s;}
+
+/* FOOTER */
+footer{background:var(--surface);border-top:1px solid var(--border);padding:40px 60px;text-align:center;font-size:12px;color:var(--muted);}
+footer .f-logo{font-family:'DM Serif Display',serif;font-size:20px;color:var(--accent);margin-bottom:6px;}
+
+/* FADE IN */
+.fade-in{opacity:0;transform:translateY(18px);transition:all .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+/* NUMBERED LIST */
+ol.styled{counter-reset:item;list-style:none;padding:0;}
+ol.styled li{counter-increment:item;display:flex;gap:14px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px;}
+ol.styled li:last-child{border-bottom:none;}
+ol.styled li::before{content:counter(item,decimal-leading-zero);font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.2);border-radius:5px;padding:3px 7px;flex-shrink:0;line-height:1.5;}
+
+/* COMPARISON */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0;}
+@media(max-width:700px){.compare-grid{grid-template-columns:1fr;}}
+.compare-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;}
+.compare-title{font-size:15px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+
+/* TOPIC HEADER */
+.topic-hdr{background:linear-gradient(135deg,rgba(0,229,255,0.07),rgba(124,58,237,0.07));border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:28px;display:flex;gap:18px;align-items:flex-start;}
+.topic-hdr-icon{font-size:40px;flex-shrink:0;}
+.topic-hdr-title{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:6px;}
+.topic-hdr-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+.topic-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+
+/* ELEC CARDS */
+.elec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0;}
+.elec-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;text-align:center;transition:all .3s;}
+.elec-card:hover{transform:translateY(-4px);}
+.elec-sym{font-size:44px;margin-bottom:12px;display:block;}
+.elec-name{font-size:16px;font-weight:700;margin-bottom:5px;}
+.elec-formula{font-family:'Space Mono',monospace;font-size:11px;text-align:center;background:var(--surface2);padding:5px 12px;border-radius:6px;color:var(--accent4);margin-bottom:12px;}
+.elec-desc{font-size:12px;color:var(--muted);line-height:1.5;}
+
+/* STEP BY STEP */
+.steps{list-style:none;margin:20px 0;}
+.step{display:flex;gap:16px;margin-bottom:20px;}
+.step-num{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--bg);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.step-content{flex:1;}
+.step-title{font-weight:700;font-size:14px;margin-bottom:4px;}
+.step-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+
+/* QUIZ */
+.quiz-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;margin:14px 0;}
+.quiz-q{font-size:14px;font-weight:600;margin-bottom:14px;}
+.quiz-opts{list-style:none;}
+.quiz-opts li{padding:10px 16px;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;cursor:pointer;font-size:13px;transition:all .2s;}
+.quiz-opts li:hover{border-color:var(--accent);background:rgba(0,229,255,0.05);}
+.quiz-opts li.correct{border-color:var(--accent3);background:rgba(16,185,129,0.1);color:var(--accent3);}
+.quiz-opts li.wrong{border-color:var(--danger);background:rgba(239,68,68,0.1);color:var(--danger);}
+
+/* WIRING DIAGRAM */
+.wiring{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin:20px 0;font-family:'Space Mono',monospace;font-size:12px;}
+.wiring-title{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:14px;font-family:'Plus Jakarta Sans',sans-serif;}
+.wire-row{display:flex;gap:12px;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);}
+.wire-row:last-child{border-bottom:none;}
+.wire-from{color:var(--accent4);min-width:180px;}
+.wire-arrow{color:var(--muted);}
+.wire-to{color:var(--accent3);}
+.wire-color{width:12px;height:12px;border-radius:3px;flex-shrink:0;}
+.wc-red{background:#ef4444;} .wc-black{background:#374151;border:1px solid #4b5563;} .wc-yellow{background:#f59e0b;} .wc-blue{background:#3b82f6;} .wc-green{background:#10b981;} .wc-white{background:#f9fafb;border:1px solid #4b5563;} .wc-orange{background:#f97316;}
+</style>
+</head>
+<body>
+
+<div class="reading-progress"><div class="progress-fill" id="progressFill"></div></div>
+<div class="hamburger" id="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-logo">
+    <div class="sb-logo-badge"><span class="atom-spin">⚛️</span><div><div class="sb-title">Spesial Project</div><div class="sb-sub">Poltek Nuklir × Nayif Sobat AI</div></div></div>
+    <span class="sb-version">v2.0 · 2025 · Komprehensif</span>
+  </div>
+
+  <div class="sb-section">🏠 Navigasi Utama</div>
+  <a href="#hero" class="nav-item active"><span class="nav-num">00</span>Beranda & Peta Modul</a>
+
+  <div class="sb-section">📚 Fondasi</div>
+  <a href="#bab1" class="nav-item"><span class="nav-num">01</span>Pendahuluan & Capstone</a>
+  <a href="#bab2" class="nav-item"><span class="nav-num">02</span>Framework IPO</a>
+  <a href="#bab3" class="nav-item"><span class="nav-num">03</span>Sensor & Input</a>
+  <a href="#bab4" class="nav-item"><span class="nav-num">04</span>Mikrokontroler</a>
+  <a href="#bab5" class="nav-item"><span class="nav-num">05</span>Output & Aktuator</a>
+  <a href="#bab6" class="nav-item"><span class="nav-num">06</span>Dasar Elektronika</a>
+  <a href="#bab7" class="nav-item"><span class="nav-num">07</span>Pemrograman Arduino</a>
+
+  <div class="sb-section">⚗️ Topik Proyek Khusus</div>
+  <a href="#topik1" class="nav-item"><span class="nav-num">T1</span>Peraga PLTN</a>
+  <a href="#topik2" class="nav-item"><span class="nav-num">T2</span>Peraga Iradiator</a>
+  <a href="#topik3" class="nav-item"><span class="nav-num">T3</span>Peraga Akselerator</a>
+  <a href="#topik4" class="nav-item"><span class="nav-num">T4</span>Simulator Reaktor Web</a>
+  <a href="#topik5" class="nav-item"><span class="nav-num">T5</span>Portal Monitor Radiasi</a>
+  <a href="#topik6" class="nav-item"><span class="nav-num">T6</span>Robot Mapping Radiasi</a>
+  <a href="#topik7" class="nav-item"><span class="nav-num">T7</span>Praktikum Elektronika Nuklir</a>
+  <a href="#topik8" class="nav-item"><span class="nav-num">T8</span>Praktikum Termodinamika</a>
+
+  <div class="sb-section">🧪 Evaluasi & Referensi</div>
+  <a href="#evaluasi" class="nav-item"><span class="nav-num">EV</span>Bank Soal & Evaluasi</a>
+  <a href="#ringkasan" class="nav-item"><span class="nav-num">RK</span>Ringkasan & Peta Belajar</a>
+  <a href="#referensi" class="nav-item"><span class="nav-num">RF</span>Daftar Referensi</a>
+
+  <div style="padding:18px 20px;margin-top:16px;border-top:1px solid var(--border);">
+    <div style="font-size:11px;color:var(--muted);line-height:1.6;">
+      <div style="color:var(--text);font-weight:600;margin-bottom:4px;">🤖 Nayif Sobat AI</div>
+      Politeknik Teknologi Nuklir Indonesia<br>Himpunan Elektronika Instrumentasi – BRIN
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero-badge">⚛ E-Modul Interaktif Komprehensif · 2025</div>
+  <h1>Spesial Project<br><span class="grad">Panduan Lengkap</span></h1>
+  <p class="hero-sub">Modul pembelajaran komprehensif berbasis referensi akademik untuk mahasiswa Politeknik Teknologi Nuklir Indonesia — dari pemula hingga expert level.</p>
+  <div class="hero-stats">
+    <div><span class="stat-num">8</span><span class="stat-label">Topik Proyek</span></div>
+    <div><span class="stat-num">15</span><span class="stat-label">Bab Materi</span></div>
+    <div><span class="stat-num">40+</span><span class="stat-label">Latihan Soal</span></div>
+    <div><span class="stat-num">55+</span><span class="stat-label">Referensi</span></div>
+  </div>
+  <div class="hero-pills">
+    <div class="pill"><span class="dot" style="background:#00e5ff"></span>Peraga PLTN</div>
+    <div class="pill"><span class="dot" style="background:#7c3aed"></span>Peraga Iradiator</div>
+    <div class="pill"><span class="dot" style="background:#10b981"></span>Peraga Akselerator</div>
+    <div class="pill"><span class="dot" style="background:#f59e0b"></span>Simulator Reaktor</div>
+    <div class="pill"><span class="dot" style="background:#ef4444"></span>Portal Monitor Radiasi</div>
+    <div class="pill"><span class="dot" style="background:#a78bfa"></span>Robot Mapping Radiasi</div>
+    <div class="pill"><span class="dot" style="background:#34d399"></span>Elektronika Nuklir</div>
+    <div class="pill"><span class="dot" style="background:#fb923c"></span>Termodinamika</div>
+  </div>
+</section>
+
+<!-- ===== BAB 1 ===== -->
+<section class="section fade-in" id="bab1">
+  <div class="section-tag">// BAB 01</div>
+  <h2 class="section-title">Pendahuluan & Filosofi Capstone Design</h2>
+  <p class="section-desc">Memahami konteks akademik dan profesional dari Mata Kuliah Proyek Spesial I & II di Politeknik Teknologi Nuklir Indonesia.</p>
+
+  <div class="cards-grid fade-in">
+    <div class="card c1"><div class="card-icon">🎓</div><div class="card-title">Apa itu Capstone Design?</div><div class="card-desc">Puncak pengalaman mahasiswa sarjana terapan untuk menciptakan cetak biru inovasi desain teknik (ABET). Bukan penelitian murni — melainkan penciptaan alat, simulator, dan sistem nyata yang bisa dimanfaatkan institusi atau masyarakat.</div></div>
+    <div class="card c2"><div class="card-icon">🔬</div><div class="card-title">Filosofi Rekayasa Nuklir</div><div class="card-desc">Dunia rekayasa nuklir menuntut ketelitian ekstrim, keandalan tanpa kompromi, dan pemahaman lintas disiplin. Sistem instrumentasi nuklir harus bekerja dengan logika yang aman dan data yang akurat — kesalahan tidak boleh terjadi.</div></div>
+    <div class="card c3"><div class="card-icon">🤝</div><div class="card-title">Kolaborasi Multi-Disiplin</div><div class="card-desc">Mahasiswa Elins, Elmek, dan TKN berkolaborasi. Setiap kelompok minimal: 1 mhs Elins + 1 mhs Elmek semester 4, dan minimal 2 mhs semester 6 sebagai pemimpin teknis. Total 132 peserta dalam 16 kelompok.</div></div>
+  </div>
+
+  <div class="chapter-div"><span>Ketentuan Peserta & Anggaran</span></div>
+  <div class="two-col fade-in">
+    <div>
+      <div class="info-box ib-info"><div class="ib-icon">👥</div><div class="ib-text"><strong>Distribusi Peserta</strong>Prodi Elins Smt 4: 50 mhs (1 sks) · Elins Smt 6: 35 mhs (2 sks) · Elmek Smt 4: 47 mhs (1 sks). TKN terpisah: 45 mhs Smt 4 + 33 mhs Smt 6. Jadwal: Jumat 07.30–09.30 WIB.</div></div>
+      <div class="info-box ib-tip"><div class="ib-icon">💰</div><div class="ib-text"><strong>Anggaran Proyek</strong>Total pagu Rp 100.000.000. Rata-rata per kelompok Rp 6.250.000. Sisa anggaran kelompok hemat dapat dialihkan ke kelompok yang membutuhkan lebih.</div></div>
+    </div>
+    <div>
+      <div class="info-box ib-warn"><div class="ib-icon">📋</div><div class="ib-text"><strong>Sistematika Proposal Wajib</strong>Cover → Halaman Persetujuan → Daftar Isi → Abstrak → Bab I Pendahuluan (Latar Belakang, Tujuan, Manfaat) → Bab II Dasar Teori → Bab III Metodologi → Bab IV Daftar Pustaka → Lampiran kebutuhan bahan & biaya.</div></div>
+      <div class="info-box ib-danger"><div class="ib-icon">⚠️</div><div class="ib-text"><strong>Sistematika Laporan Hasil</strong>Ditambah Bab IV Hasil & Pembahasan + Bab V Kesimpulan & Saran + Halaman persetujuan dosen pembimbing dan reviewer.</div></div>
+    </div>
+  </div>
+
+  <div class="chapter-div"><span>Jadwal Pelaksanaan</span></div>
+  <div class="timeline fade-in">
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">20 Februari</div><div class="tl-title">Koordinasi Umum</div><div class="tl-desc">Pembagian 16 topik ke 16 kelompok. Penunjukan 1 Project Manager per topik besar. Mahasiswa menentukan kelompok sendiri sesuai ketentuan.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">20 Feb – 6 Maret</div><div class="tl-title">Penyusunan Proposal</div><div class="tl-desc">Menyusun proposal sesuai sistematika. Setiap kelompok menyertakan daftar kebutuhan alat, bahan, dan estimasi biaya detail.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">6 Maret (Batas)</div><div class="tl-title">Pengajuan Bahan</div><div class="tl-desc">Deadline pengajuan kebutuhan bahan ke bagian pengadaan. Lewat batas → anggaran dapat hangus atau dipotong.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">13–20 Maret</div><div class="tl-title">Presentasi Proposal (Dinilai)</div><div class="tl-desc">Presentasi di hadapan dosen pembimbing. Dinilai kelayakan teknis, estimasi biaya, dan rencana kerja. Revisi wajib dilakukan sebelum eksekusi.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">20 Mar – 29 Mei</div><div class="tl-title">Pengerjaan Proyek</div><div class="tl-desc">Fase implementasi utama. Hardware assembly, coding, testing, debugging, dan iterasi. Dokumentasi progress tiap pertemuan.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">29 Mei – 12 Juni</div><div class="tl-title">Presentasi Hasil & Penilaian Final</div><div class="tl-desc">Demo sistem berjalan + presentasi laporan final kepada dosen pembimbing dan reviewer. Penilaian mencakup kualitas teknis, dokumentasi, dan kemampuan presentasi.</div></div>
+  </div>
+</section>
+
+<!-- ===== BAB 2 ===== -->
+<section class="section fade-in" id="bab2">
+  <div class="section-tag">// BAB 02</div>
+  <h2 class="section-title">Framework IPO: Input – Proses – Output</h2>
+  <p class="section-desc">Fondasi arsitektur setiap sistem cerdas — dari timbangan digital hingga sistem kendali batang kendali reaktor nuklir.</p>
+
+  <div class="analogy fade-in">
+    <div class="analogy-lbl">🧠 Analogi untuk Pemula</div>
+    <div class="analogy-text">Bayangkan tubuh manusia: <strong>Indera</strong> (mata/kulit) = Sensor yang mengambil data dari dunia. <strong>Otak</strong> = Mikrokontroler yang memproses dan memutuskan. <strong>Tangan/mulut</strong> = Aktuator/display yang melakukan aksi nyata. Setiap sistem elektronika — sesederhana apapun — selalu mengikuti pola IPO ini.</div>
+  </div>
+
+  <div class="ipo-flow fade-in">
+    <div class="ipo-block ib1">
+      <div class="ipo-label">Input</div><span class="ipo-icon">📡</span>
+      <div class="ipo-title">Sensor & Transducer</div>
+      <ul class="ipo-items"><li>Sensor Suhu DHT11/22</li><li>Sensor Jarak HC-SR04</li><li>Geiger-Müller Tube</li><li>Scintillator + SiPM</li><li>Limit Switch / PIR</li><li>Potensiometer</li></ul>
+    </div>
+    <div class="ipo-arrow">→</div>
+    <div class="ipo-block ib2">
+      <div class="ipo-label">Proses</div><span class="ipo-icon">🧠</span>
+      <div class="ipo-title">Unit Pemroses</div>
+      <ul class="ipo-items"><li>Arduino Uno / Mega</li><li>NodeMCU / ESP32</li><li>Raspberry Pi 4</li><li>NVIDIA Jetson Nano</li><li>PLC (industri nyata)</li><li>Logika if-else / PID</li></ul>
+    </div>
+    <div class="ipo-arrow">→</div>
+    <div class="ipo-block ib3">
+      <div class="ipo-label">Output</div><span class="ipo-icon">💡</span>
+      <div class="ipo-title">Aktuator & Display</div>
+      <ul class="ipo-items"><li>LED & LED Array</li><li>LCD / OLED / TFT</li><li>Motor DC / Servo</li><li>Buzzer / Alarm</li><li>Web Dashboard</li><li>Database / IoT Cloud</li></ul>
+    </div>
+  </div>
+
+  <div class="expert-box fade-in">
+    <p>Dalam industri nuklir nyata, sistem IPO tidak sesederhana prototype Arduino. Sistem kendali PLTN menggunakan <strong>Safety PLC dengan sertifikasi SIL 3 (Safety Integrity Level 3)</strong> yang memiliki waktu pemrosesan logika deterministik (pasti dan terulang). Konfigurasi redundan <strong>2oo3 (2-out-of-3 voting)</strong> memastikan sistem tetap aman meski satu CPU gagal. Arduino/Raspberry Pi adalah langkah awal yang sangat baik untuk memahami logikanya, sebelum naik ke level sistem industri.</p>
+  </div>
+</section>
+
+<!-- ===== BAB 3 ===== -->
+<section class="section fade-in" id="bab3">
+  <div class="section-tag">// BAB 03</div>
+  <h2 class="section-title">Sensor & Perangkat Input</h2>
+  <p class="section-desc">Mengenal berbagai sensor — dari sensor fisika umum hingga detektor radiasi khusus yang membedakan instrumentasi nuklir.</p>
+
+  <div class="sensor-grid fade-in">
+    <div class="sc s1"><span class="sc-em">🌡️</span><div class="sc-name">Sensor Suhu & Kelembaban</div><div class="sc-model">DHT11 / DHT22</div><div class="sc-desc">DHT22: ±0.5°C, ±2% RH. Komunikasi 1-Wire digital. 3.3–5V. Digunakan monitoring suhu ruang kontrol reaktor.</div></div>
+    <div class="sc s2"><span class="sc-em">📏</span><div class="sc-name">Sensor Jarak Ultrasonik</div><div class="sc-model">HC-SR04</div><div class="sc-desc">Range 2–400cm, akurasi ±3mm. Memancarkan pulsa 40kHz, mengukur waktu echo. 5V DC. Digunakan obstacle detection robot.</div></div>
+    <div class="sc s3"><span class="sc-em">☢️</span><div class="sc-name">Detektor Radiasi GM</div><div class="sc-model">Geiger-Müller Tube</div><div class="sc-desc">Butuh 400–900V HV. Setiap partikel ionisasi → pulsa listrik. Cocok untuk α, β, γ. Akurasi ±15% (CPS).</div></div>
+    <div class="sc s4"><span class="sc-em">💎</span><div class="sc-name">Scintillator + SiPM</div><div class="sc-model">NaI(Tl) + SiPM</div><div class="sc-desc">Untuk spektroskopi gamma: mengidentifikasi radioisotop dari energi foton. Dikombinasikan dengan Raspberry Pi Pico untuk analisis spektrum.</div></div>
+    <div class="sc s1"><span class="sc-em">🔘</span><div class="sc-name">Limit Switch</div><div class="sc-model">Mechanical Switch</div><div class="sc-desc">Deteksi posisi fisik buka/tutup. Output digital HIGH/LOW. Esensial untuk sistem safety interlock iradiator sesuai regulasi BAPETEN.</div></div>
+    <div class="sc s2"><span class="sc-em">👁️</span><div class="sc-name">Sensor Gerak PIR</div><div class="sc-model">HC-SR501</div><div class="sc-desc">Mendeteksi gerakan manusia via inframerah pasif. Digunakan portal monitor untuk aktivasi penghitungan saat ada orang lewat.</div></div>
+    <div class="sc s3"><span class="sc-em">🎛️</span><div class="sc-name">Potensiometer</div><div class="sc-model">Resistor Variabel</div><div class="sc-desc">Input analog 0–5V, ADC 10-bit → nilai 0–1023. Mengatur kecepatan simulasi partikel akselerator secara real-time.</div></div>
+    <div class="sc s4"><span class="sc-em">📷</span><div class="sc-name">Kamera + AI Vision</div><div class="sc-model">CSI Camera + Jetson Nano</div><div class="sc-desc">Input untuk object detection (YOLO). Memantau APD pekerja nuklir, deteksi objek berbahaya. 5.7 FPS rata-rata dengan GPU CUDA.</div></div>
+  </div>
+
+  <div class="chapter-div"><span>Fisika Mendalam: Tabung Geiger-Müller</span></div>
+  <div class="two-col fade-in">
+    <div>
+      <div class="info-box ib-info"><div class="ib-icon">⚛️</div><div class="ib-text"><strong>Mekanisme Longsoran Townsend</strong>Partikel radiasi pengion → menumbuk atom gas mulia dalam tabung → melepaskan elektron bebas. Medan listrik tinggi (400–900V) mempercepat elektron menuju anoda. Elektron menumbuk atom lain → menghasilkan lebih banyak elektron dalam proses <em>Townsend Avalanche</em> (reaksi berantai ionisasi).</div></div>
+      <div class="info-box ib-warn"><div class="ib-icon">⏱️</div><div class="ib-text"><strong>Dead Time (Waktu Mati)</strong>Setelah satu pulsa, tabung GM tidak bisa deteksi partikel baru selama ~50–200 μs. Penyebab: awan ion positif lambat bergerak ke katoda, menurunkan medan listrik sementara. Gas <em>quenching</em> (halogen/uap organik) menyerap energi ion agar ionisasi berhenti terkendali.</div></div>
+    </div>
+    <div>
+      <div class="formula fade-in">
+        <div class="f-label">Koreksi Dead Time (Non-paralyzable Model)</div>
+        <div class="f-eq">n = m / (1 − mτ)</div>
+        <div class="f-label" style="margin-top:10px">n = laju cacah sebenarnya (cps)<br>m = laju cacah terukur (cps)<br>τ = dead time detektor (detik)</div>
+      </div>
+      <div class="info-box ib-danger"><div class="ib-icon">🚨</div><div class="ib-text"><strong>Saturasi Detektor!</strong>Jika mτ mendekati 1 (atau ≥1), detektor mengalami "paralisis" — lumpuh total. Contoh: τ=200μs, m=5000 cps → mτ = 5000×0.0002 = 1.0 → ERROR! Tanpa koreksi ini, alat meremehkan radiasi sebenarnya → fatal bagi keselamatan pekerja.</div></div>
+    </div>
+  </div>
+
+  <div class="chapter-div"><span>Tabel Spesifikasi Sensor Lengkap</span></div>
+  <table class="tbl fade-in">
+    <thead><tr><th>Sensor</th><th>Tipe</th><th>Tegangan</th><th>Output</th><th>Akurasi</th><th>Relevan Topik</th></tr></thead>
+    <tbody>
+      <tr><td><strong>DHT22</strong></td><td><span class="badge b-sensor">Sensor</span></td><td>3.3–5V</td><td>Digital 1-Wire</td><td>±0.5°C</td><td>Termodinamika, PLTN</td></tr>
+      <tr><td><strong>HC-SR04</strong></td><td><span class="badge b-sensor">Sensor</span></td><td>5V DC</td><td>PWM Echo</td><td>±3mm</td><td>Akselerator, Robot</td></tr>
+      <tr><td><strong>GM Tube</strong></td><td><span class="badge b-sensor">Sensor</span></td><td>400–900V HV</td><td>Pulsa digital</td><td>±15% CPS</td><td>Portal, PLTN, Nuklir</td></tr>
+      <tr><td><strong>NaI(Tl)+SiPM</strong></td><td><span class="badge b-sensor">Sensor</span></td><td>3.3V + HV</td><td>Pulsa analog</td><td>Spektroskopi γ</td><td>Elektronika Nuklir</td></tr>
+      <tr><td><strong>HC-SR501</strong></td><td><span class="badge b-sensor">Sensor</span></td><td>4.5–20V</td><td>Digital HIGH/LOW</td><td>Deteksi gerak</td><td>Portal Monitor</td></tr>
+      <tr><td><strong>Limit Switch</strong></td><td><span class="badge b-sensor">Sensor</span></td><td>5–30V</td><td>Digital NO/NC</td><td>Mekanik</td><td>Iradiator Safety</td></tr>
+      <tr><td><strong>Potensiometer</strong></td><td><span class="badge b-sensor">Sensor</span></td><td>5V DC</td><td>Analog 0–5V</td><td>0.1% (ADC)</td><td>Akselerator, Nuklir</td></tr>
+      <tr><td><strong>Kamera CSI</strong></td><td><span class="badge b-ai">AI Input</span></td><td>—</td><td>Frame Video</td><td>YOLO 97%</td><td>Robot Mapping</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===== BAB 4 ===== -->
+<section class="section fade-in" id="bab4">
+  <div class="section-tag">// BAB 04</div>
+  <h2 class="section-title">Mikrokontroler & Mikroprosesor</h2>
+  <p class="section-desc">Memilih "otak" yang tepat untuk proyek — dari Arduino sederhana hingga Jetson Nano bertenaga AI.</p>
+
+  <div class="analogy fade-in">
+    <div class="analogy-lbl">🧠 Analogi Pemilihan MCU</div>
+    <div class="analogy-text">Arduino Uno = kalkulator: cepat, simpel, hemat energi. NodeMCU = kalkulator WiFi: bisa kirim data ke internet. Raspberry Pi = laptop mini: menjalankan Linux lengkap. Jetson Nano = workstation AI: dirancang untuk deep learning real-time. Pilih yang sesuai kebutuhan — jangan pakai excavator untuk menggali lubang bunga!</div>
+  </div>
+
+  <div class="mcu-grid fade-in">
+    <div class="mcu-card rec"><div style="font-size:32px">🟦</div><div class="mcu-name">Arduino Uno</div><div class="mcu-chip">ATmega328P @ 16MHz</div><ul class="mcu-specs"><li>14 pin digital I/O</li><li>6 pin analog (ADC 10-bit)</li><li>Flash: 32KB / RAM: 2KB</li><li>Tegangan: 5V (3.3V tersedia)</li><li>USB-B, UART, SPI, I2C</li></ul><div class="mcu-rec-tag">✓ Ideal untuk proyek dasar</div></div>
+    <div class="mcu-card"><div style="font-size:32px">🟩</div><div class="mcu-name">Arduino Mega</div><div class="mcu-chip">ATmega2560 @ 16MHz</div><ul class="mcu-specs"><li>54 pin digital I/O</li><li>16 pin analog input</li><li>Flash: 256KB / RAM: 8KB</li><li>4 port UART serial</li><li>Kompatibel shield Uno</li></ul><div class="mcu-rec-tag" style="background:rgba(16,185,129,0.08);color:var(--accent3);border-color:rgba(16,185,129,0.3)">✓ Banyak sensor & aktuator</div></div>
+    <div class="mcu-card"><div style="font-size:32px">📶</div><div class="mcu-name">NodeMCU ESP8266</div><div class="mcu-chip">ESP8266 @ 80/160MHz</div><ul class="mcu-specs"><li>11 pin GPIO</li><li>1 analog input (max 1V)</li><li>Built-in WiFi 802.11 b/g/n</li><li>Flash: 4MB</li><li>Tegangan: 3.3V</li></ul><div class="mcu-rec-tag" style="background:rgba(245,158,11,0.08);color:var(--accent4);border-color:rgba(245,158,11,0.3)">✓ IoT, transmisi data via WiFi</div></div>
+    <div class="mcu-card"><div style="font-size:32px">🔵</div><div class="mcu-name">ESP32</div><div class="mcu-chip">Xtensa LX6 Dual Core @ 240MHz</div><ul class="mcu-specs"><li>34 pin GPIO</li><li>18 analog channels (12-bit ADC)</li><li>WiFi + Bluetooth 4.2</li><li>Flash: 4MB+ / RAM: 512KB</li><li>CAN bus, Touch sensor</li></ul><div class="mcu-rec-tag" style="background:rgba(245,158,11,0.08);color:var(--accent4);border-color:rgba(245,158,11,0.3)">✓ IoT lanjutan, dual core</div></div>
+    <div class="mcu-card"><div style="font-size:32px">🍓</div><div class="mcu-name">Raspberry Pi 4</div><div class="mcu-chip">Cortex-A72 @ 1.8GHz</div><ul class="mcu-specs"><li>40 pin GPIO</li><li>4K HDMI × 2</li><li>RAM: 2/4/8GB LPDDR4</li><li>OS Linux (Raspbian)</li><li>USB 3.0, Gigabit Ethernet</li></ul><div class="mcu-rec-tag" style="background:rgba(124,58,237,0.1);color:#a78bfa;border-color:rgba(124,58,237,0.3)">✓ Web server, database lokal</div></div>
+    <div class="mcu-card"><div style="font-size:32px">🤖</div><div class="mcu-name">Jetson Nano</div><div class="mcu-chip">NVIDIA Maxwell 128-core GPU</div><ul class="mcu-specs"><li>128 CUDA Cores GPU</li><li>RAM: 4GB LPDDR4</li><li>Camera CSI 2-lane</li><li>OpenCV / YOLO ready</li><li>Machine Learning inference</li></ul><div class="mcu-rec-tag" style="background:rgba(239,68,68,0.08);color:var(--danger);border-color:rgba(239,68,68,0.3)">✓ AI, object detection (5.7 FPS)</div></div>
+  </div>
+
+  <div class="compare-grid fade-in">
+    <div class="compare-card">
+      <div class="compare-title">⚙️ Mikrokontroler (Arduino)</div>
+      <ul class="mcu-specs" style="list-style:none;">
+        <li>Cocok untuk prototype pendidikan</li><li>Real-time response cepat</li><li>Mudah dipelajari pemula</li><li>Hemat daya</li><li>Harga terjangkau</li><li>Tidak ada OS — langsung ke hardware</li>
+      </ul>
+    </div>
+    <div class="compare-card" style="border-color:rgba(245,158,11,0.3);">
+      <div class="compare-title">🏭 PLC (Industri Nuklir)</div>
+      <ul class="mcu-specs" style="list-style:none;">
+        <li><span style="color:var(--accent4)">★</span> Deterministik scan cycle</li><li><span style="color:var(--accent4)">★</span> Hardware redundancy 2oo3</li><li><span style="color:var(--accent4)">★</span> Sertifikasi SIL 3 wajib</li><li><span style="color:var(--accent4)">★</span> Tahan EMI/gangguan industri</li><li>Jauh lebih mahal</li><li>Digunakan di PLTN sesungguhnya</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BAB 5 ===== -->
+<section class="section fade-in" id="bab5">
+  <div class="section-tag">// BAB 05</div>
+  <h2 class="section-title">Output & Perangkat Aktuator</h2>
+  <p class="section-desc">Mengubah keputusan mikrokontroler menjadi aksi nyata — dari LED sederhana hingga web dashboard real-time.</p>
+  <div class="cards-grid fade-in">
+    <div class="card c3"><div class="card-icon">💡</div><div class="card-title">LED & LED Array</div><div class="card-desc">Indikator status dan simulasi visual. Dikontrol via digital output atau PWM (analogWrite) untuk brightness variabel. Butuh resistor pembatas 150–220Ω. Running LED = simulasi partikel akselerator.</div></div>
+    <div class="card c1"><div class="card-icon">📺</div><div class="card-title">LCD 16×2 / 20×4 (I2C)</div><div class="card-desc">Tampilan teks dan angka. I2C (4 kabel: VCC, GND, SDA, SCL) jauh lebih praktis dari koneksi paralel (8 kabel). Library LiquidCrystal_I2C. Alamat I2C biasanya 0x27 atau 0x3F.</div></div>
+    <div class="card c2"><div class="card-icon">⚙️</div><div class="card-title">Motor DC + Driver L298N</div><div class="card-desc">Penggerak rotasi. Wajib pakai driver motor karena Arduino hanya supply 40mA, motor butuh 200mA–2A. L298N bisa kontrol 2 motor sekaligus, kontrol arah + kecepatan via PWM.</div></div>
+    <div class="card c4"><div class="card-icon">🔄</div><div class="card-title">Motor Servo</div><div class="card-desc">Kontrol posisi sudut 0°–180° (servo standar) atau 360° (servo continuous). Dikontrol via PWM 50Hz. Library Servo.h built-in Arduino. Cocok untuk lengan robot, pembuka katup.</div></div>
+    <div class="card c5"><div class="card-icon">🔔</div><div class="card-title">Buzzer & Alarm</div><div class="card-desc">Output audio untuk peringatan safety interlock. Buzzer aktif: langsung bunyi saat diberi 5V. Buzzer pasif: butuh sinyal frekuensi dari tone(). Wajib dalam sistem iradiator BAPETEN.</div></div>
+    <div class="card c6"><div class="card-icon">🌐</div><div class="card-title">Web Dashboard (IoT)</div><div class="card-desc">Visualisasi data real-time via browser. NodeMCU/ESP32 sebagai web server atau MQTT broker. Raspberry Pi untuk server lokal. Kirim data ke cloud: AWS IoT, Google Firebase, MQTT cloud.</div></div>
+  </div>
+  <div class="info-box ib-warn fade-in"><div class="ib-icon">🔌</div><div class="ib-text"><strong>Kenapa Motor Harus Pakai Driver?</strong>Pin output Arduino maksimal 40mA. Motor DC standar butuh 200mA–2A. Back-EMF dari motor bisa merusak chip. Driver L298N mengambil daya dari supply eksternal (7–35V, maks 2A per channel), dikontrol sinyal kecil dari Arduino. Tanpa driver = Arduino rusak permanen.</div></div>
+</section>
+
+<!-- ===== BAB 6 ===== -->
+<section class="section fade-in" id="bab6">
+  <div class="section-tag">// BAB 06</div>
+  <h2 class="section-title">Dasar Elektronika: Komponen & Rangkaian</h2>
+  <p class="section-desc">RCL, IC Regulator, breadboard, dan pengkondisian sinyal — fondasi yang wajib dikuasai sebelum merakit sistem nyata.</p>
+
+  <div class="elec-grid fade-in">
+    <div class="elec-card"><span class="elec-sym">🔋</span><div class="elec-name">Resistor (R)</div><div class="elec-formula">V = I × R (Hukum Ohm)</div><div class="elec-desc">Menghambat arus. Melindungi LED (150–220Ω). Membuat voltage divider. Nilai dalam Ω, kΩ, MΩ. Kode warna gelang untuk identifikasi nilai.</div></div>
+    <div class="elec-card"><span class="elec-sym">⚡</span><div class="elec-name">Kapasitor (C)</div><div class="elec-formula">Q = C × V (Coulomb)</div><div class="elec-desc">Menyimpan muatan sementara. Seperti tandon air yang menstabilkan tekanan. Menyaring noise power supply. Nilai dalam μF, nF, pF.</div></div>
+    <div class="elec-card"><span class="elec-sym">🌀</span><div class="elec-name">Induktor (L)</div><div class="elec-formula">V = L × (dI/dt)</div><div class="elec-desc">Menyimpan energi dalam medan magnet. Digunakan dalam SMPS (Switching Mode Power Supply) untuk konversi tegangan efisien. Nilai dalam mH, μH.</div></div>
+    <div class="elec-card"><span class="elec-sym">🔧</span><div class="elec-name">IC Regulator</div><div class="elec-formula">LM7805: Vout = 5V tetap</div><div class="elec-desc">LM7805: 12V → 5V stabil. LM317: adjustable Vout. AMS1117-3.3: 5V → 3.3V untuk sensor modern. Butuh heatsink jika dissipasi daya &gt; 1W.</div></div>
+  </div>
+
+  <div class="chapter-div"><span>Panduan Perakitan Hardware Step-by-Step</span></div>
+  <ul class="steps fade-in">
+    <li class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Gunakan Breadboard</div><div class="step-desc">Lubang horizontal tepi = jalur power (+ dan −, terhubung sepanjang baris). Lubang vertikal tengah = jalur data (terhubung per kolom 5 lubang). Tidak perlu solder untuk prototyping.</div></div></li>
+    <li class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Konvensi Warna Kabel Jumper</div><div class="step-desc"><span style="color:#ef4444">■ Merah</span> = VCC/5V (selalu). <span style="color:#94a3b8">■ Hitam/Gelap</span> = GND (selalu). <span style="color:#f59e0b">■ Kuning/Orange</span> = Sinyal data. <span style="color:#3b82f6">■ Biru</span> = Sinyal kontrol. <span style="color:#10b981">■ Hijau</span> = Sinyal sekunder. Konsistensi warna sangat membantu saat debugging.</div></div></li>
+    <li class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Kalkulasi Resistor LED</div><div class="step-desc">R = (Vsupply − Vled) / Iled. Untuk LED merah dari 5V: R = (5V − 2V) / 0.02A = 150Ω. Gunakan 220Ω (nilai standar terdekat yang lebih aman). Jangan pernah menghubungkan LED tanpa resistor!</div></div></li>
+    <li class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Cek Koneksi Sebelum Power On</div><div class="step-desc">Periksa tidak ada short circuit (VCC langsung ke GND). Cek orientasi LED (anoda/katoda). Cek tegangan sensor sesuai spek. Gunakan multimeter untuk verifikasi sebelum menghidupkan sistem.</div></div></li>
+    <li class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">Troubleshooting Driver Arduino</div><div class="step-desc">Jika COM port tidak terbaca: buka Device Manager → cari CH340G (atau CP2102) → install driver dari Google. Jika upload gagal: tekan tombol Reset Arduino saat pesan "uploading" muncul di IDE. Pastikan Tools → Board dan Port sudah benar.</div></div></li>
+  </ul>
+
+  <div class="chapter-div"><span>Pengkondisian Sinyal Detektor Radiasi (Level Expert)</span></div>
+  <div class="cards-grid fade-in">
+    <div class="card c1"><div class="card-icon">🔍</div><div class="card-title">1. Preamplifier</div><div class="card-desc">Berfungsi mengintegrasikan muatan listrik dari detektor menjadi pulsa tegangan. Dipasang dekat detektor untuk meminimalkan noise kabel. Penguatan awal ~10–100×.</div></div>
+    <div class="card c2"><div class="card-icon">🔧</div><div class="card-title">2. Shaping Amplifier (CR-RC)</div><div class="card-desc">Mengubah bentuk pulsa menjadi lebih lebar (Gaussian shape) agar mudah dibaca ADC mikrokontroler. Filter CR-RC menentukan shaping time constant (τ).</div></div>
+    <div class="card c4"><div class="card-icon">⚡</div><div class="card-title">3. Pole-Zero Cancellation</div><div class="card-desc">Menghilangkan efek undershoot pada ekor pulsa. Penting pada laju cacah tinggi untuk mencegah pile-up (penumpukan pulsa). Digunakan di sistem nuklir profesional.</div></div>
+  </div>
+</section>
+
+<!-- ===== BAB 7 ===== -->
+<section class="section fade-in" id="bab7">
+  <div class="section-tag">// BAB 07</div>
+  <h2 class="section-title">Dasar Pemrograman Arduino C++</h2>
+  <p class="section-desc">Dari sintaks dasar hingga interrupt dan non-blocking timer — teknik esensial untuk membangun sistem instrumentasi yang andal.</p>
+
+  <div class="chapter-div"><span>Konsep 1: Struktur Program Dasar</span></div>
+  <div class="code-block fade-in">
+    <div class="code-hdr"><div class="code-dots"><div class="cdot r"></div><div class="cdot y"></div><div class="cdot g"></div></div><div class="code-lang">Arduino C++ — Struktur Wajib</div></div>
+    <div class="code-body"><pre><span class="cmt">// ─────────────────────────────────────────────
+// ZONA 1: DEKLARASI GLOBAL
+// Variabel & objek yang diakses semua fungsi
+// ─────────────────────────────────────────────</span>
+<span class="kw">#include</span> <span class="str">&lt;DHT.h&gt;</span>           <span class="cmt">// Import library sensor DHT</span>
+<span class="kw">#include</span> <span class="str">&lt;LiquidCrystal_I2C.h&gt;</span>
+
+<span class="tp">const int</span> <span class="vr">PIN_SENSOR</span> = <span class="num">7</span>;   <span class="cmt">// const = tidak bisa diubah</span>
+<span class="tp">const int</span> <span class="vr">PIN_KIPAS</span>  = <span class="num">8</span>;   <span class="cmt">// Gunakan nama deskriptif!</span>
+<span class="tp">float</span> <span class="vr">suhu</span> = <span class="num">0.0</span>;           <span class="cmt">// Variabel global</span>
+
+<span class="tp">DHT</span> <span class="vr">dht</span>(<span class="vr">PIN_SENSOR</span>, DHT22);  <span class="cmt">// Buat objek sensor</span>
+<span class="tp">LiquidCrystal_I2C</span> <span class="vr">lcd</span>(<span class="num">0x27</span>, <span class="num">16</span>, <span class="num">2</span>);
+
+<span class="cmt">// ─────────────────────────────────────────────
+// ZONA 2: void setup()
+// Berjalan SEKALI saat Arduino nyala/reset
+// ─────────────────────────────────────────────</span>
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  Serial.<span class="fn">begin</span>(<span class="num">9600</span>);        <span class="cmt">// Aktifkan Serial Monitor</span>
+  <span class="fn">pinMode</span>(<span class="vr">PIN_KIPAS</span>, OUTPUT);
+  <span class="vr">dht</span>.<span class="fn">begin</span>();
+  <span class="vr">lcd</span>.<span class="fn">init</span>(); <span class="vr">lcd</span>.<span class="fn">backlight</span>();
+}
+
+<span class="cmt">// ─────────────────────────────────────────────
+// ZONA 3: void loop()
+// Berjalan TERUS-MENERUS (seperti while(true))
+// ─────────────────────────────────────────────</span>
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="vr">suhu</span> = <span class="vr">dht</span>.<span class="fn">readTemperature</span>();  <span class="cmt">// Baca suhu</span>
+  
+  <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>, <span class="num">0</span>);
+  <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"Suhu: "</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">suhu</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"C"</span>);
+  
+  <span class="kw">if</span> (<span class="vr">suhu</span> &gt; <span class="num">30.0</span>) {
+    <span class="fn">digitalWrite</span>(<span class="vr">PIN_KIPAS</span>, HIGH);
+  } <span class="kw">else</span> {
+    <span class="fn">digitalWrite</span>(<span class="vr">PIN_KIPAS</span>, LOW);
+  }
+  <span class="fn">delay</span>(<span class="num">2000</span>); <span class="cmt">// Tunggu 2 detik</span>
+}</pre></div>
+  </div>
+
+  <div class="chapter-div"><span>Konsep 2: Interrupt vs Polling</span></div>
+  <div class="two-col fade-in">
+    <div>
+      <div class="info-box ib-warn"><div class="ib-icon">🔄</div><div class="ib-text"><strong>Polling (Cara Biasa — TIDAK Ideal untuk Pulsa Cepat)</strong>Program terus-menerus memeriksa status pin dalam loop(). Jika pulsa GM Tube berlangsung hanya 5μs dan loop() membutuhkan 1ms untuk satu putaran, pulsa akan TERLEWAT. Gunakan polling hanya untuk event yang lambat (&gt;50ms).</div></div>
+    </div>
+    <div>
+      <div class="info-box ib-tip"><div class="ib-icon">⚡</div><div class="ib-text"><strong>Interrupt (Cara Benar — Wajib untuk Detektor Radiasi)</strong>attachInterrupt() membuat Arduino langsung "terbangun" saat ada pulsa, menghentikan loop() sebentar, menjalankan ISR (Interrupt Service Routine), lalu kembali. Tidak ada pulsa yang terlewat — bahkan 1000 pulsa/detik sekalipun.</div></div>
+    </div>
+  </div>
+
+  <div class="code-block fade-in">
+    <div class="code-hdr"><div class="code-dots"><div class="cdot r"></div><div class="cdot y"></div><div class="cdot g"></div></div><div class="code-lang">Arduino C++ — Non-Blocking Timer dengan millis()</div></div>
+    <div class="code-body"><pre><span class="cmt">// ❌ JANGAN: delay() memblokir semua eksekusi!</span>
+<span class="cmt">// ✅ GUNAKAN: millis() untuk multitasking</span>
+
+<span class="tp">unsigned long</span> <span class="vr">prevMillis1</span> = <span class="num">0</span>; <span class="cmt">// Timer untuk baca sensor</span>
+<span class="tp">unsigned long</span> <span class="vr">prevMillis2</span> = <span class="num">0</span>; <span class="cmt">// Timer untuk update LCD</span>
+<span class="tp">const long</span> <span class="vr">INTERVAL_SENSOR</span> = <span class="num">2000</span>;  <span class="cmt">// 2 detik</span>
+<span class="tp">const long</span> <span class="vr">INTERVAL_LCD</span>    = <span class="num">500</span>;   <span class="cmt">// 0.5 detik</span>
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="tp">unsigned long</span> <span class="vr">now</span> = <span class="fn">millis</span>();  <span class="cmt">// Waktu sekarang (ms)</span>
+  
+  <span class="cmt">// Task 1: Baca sensor setiap 2 detik</span>
+  <span class="kw">if</span> (<span class="vr">now</span> - <span class="vr">prevMillis1</span> &gt;= <span class="vr">INTERVAL_SENSOR</span>) {
+    <span class="vr">prevMillis1</span> = <span class="vr">now</span>;
+    <span class="vr">suhu</span> = <span class="vr">dht</span>.<span class="fn">readTemperature</span>();
+  }
+  
+  <span class="cmt">// Task 2: Update LCD setiap 0.5 detik (BERSAMAAN!)</span>
+  <span class="kw">if</span> (<span class="vr">now</span> - <span class="vr">prevMillis2</span> &gt;= <span class="vr">INTERVAL_LCD</span>) {
+    <span class="vr">prevMillis2</span> = <span class="vr">now</span>;
+    <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">0</span>);
+    <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"T:"</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">suhu</span>);
+  }
+  <span class="cmt">// Tidak ada delay()! Loop berjalan sangat cepat</span>
+  <span class="cmt">// Kedua task berjalan "bersamaan" (multitasking)</span>
+}</pre></div>
+  </div>
+</section>
+
+<!-- ===== TOPIK 1 ===== -->
+<section class="section fade-in" id="topik1">
+  <div class="section-tag">// TOPIK 1 — KHUSUS</div>
+  <h2 class="section-title">Peraga PLTN Taman Pintar</h2>
+
+  <div class="topic-hdr fade-in">
+    <div class="topic-hdr-icon">⚛️</div>
+    <div>
+      <div class="topic-hdr-title">Peraga Pembangkit Listrik Tenaga Nuklir</div>
+      <div class="topic-hdr-desc">Membuat peraga edukasi interaktif yang mensimulasikan cara kerja PLTN untuk pengunjung Taman Pintar Yogyakarta. Menampilkan konsep fisi nuklir, batang kendali, pendinginan, dan siklus termodinamika secara visual.</div>
+      <div class="topic-tags"><span class="badge b-mcu">Arduino Mega</span><span class="badge b-sensor">DHT22</span><span class="badge b-sensor">HC-SR04</span><span class="badge b-output">LCD / LED</span><span class="badge b-output">Motor Servo</span></div>
+    </div>
+  </div>
+
+  <div class="chapter-div"><span>Konsep Dasar PLTN</span></div>
+  <div class="cards-grid fade-in">
+    <div class="card c1"><div class="card-icon">💥</div><div class="card-title">Fisi Nuklir</div><div class="card-desc">Neutron menabrak inti U-235 → inti pecah menjadi 2 inti lebih kecil + 2–3 neutron + energi panas besar. Neutron baru menabrak U-235 lain → reaksi berantai (chain reaction) terkontrol.</div></div>
+    <div class="card c2"><div class="card-icon">🎛️</div><div class="card-title">Batang Kendali</div><div class="card-desc">Material penyerap neutron (Boron Karbida B₄C atau Hafnium). Memasukkan batang → daya turun (sub-kritis). Menarik batang → daya naik (super-kritis). Posisi tepat = kritis (daya konstan).</div></div>
+    <div class="card c3"><div class="card-icon">💧</div><div class="card-title">Sistem Pendingin</div><div class="card-desc">Air sebagai moderator neutron dan pendingin. BWR: uap langsung dari teras. PWR: dua siklus terpisah via steam generator. Suhu teras dimonitor ketat, harus stabil 280–320°C (PWR).</div></div>
+    <div class="card c4"><div class="card-icon">⚡</div><div class="card-title">Siklus Termodinamika</div><div class="card-desc">Panas fisi → air mendidih → uap → memutar turbin → generator → listrik. Efisiensi termal 30–35% (siklus Rankine). PLTN pada dasarnya adalah "teko raksasa" super canggih.</div></div>
+  </div>
+
+  <div class="chapter-div"><span>Rancangan Peraga: IPO Sistem Simulator PLTN</span></div>
+  <div class="ipo-flow fade-in">
+    <div class="ipo-block ib1">
+      <div class="ipo-label">Input Peraga</div><span class="ipo-icon">🎮</span>
+      <div class="ipo-title">Kontrol Pengunjung</div>
+      <ul class="ipo-items"><li>Push button "Masukkan Batang"</li><li>Push button "Tarik Batang"</li><li>Sensor jarak (deteksi orang)</li><li>Potensiometer = level daya</li></ul>
+    </div>
+    <div class="ipo-arrow">→</div>
+    <div class="ipo-block ib2">
+      <div class="ipo-label">Proses</div><span class="ipo-icon">🧠</span>
+      <div class="ipo-title">Arduino Mega</div>
+      <ul class="ipo-items"><li>Hitung reaktivitas virtual</li><li>Simulasi kenaikan/penurunan daya</li><li>Logika safety trip (SCRAM)</li><li>Update semua display</li></ul>
+    </div>
+    <div class="ipo-arrow">→</div>
+    <div class="ipo-block ib3">
+      <div class="ipo-label">Output Peraga</div><span class="ipo-icon">🎨</span>
+      <div class="ipo-title">Visualisasi</div>
+      <ul class="ipo-items"><li>LED bar graph = level daya</li><li>LCD = parameter operasi</li><li>Servo = posisi batang kendali</li><li>Buzzer = alarm SCRAM</li></ul>
+    </div>
+  </div>
+
+  <div class="chapter-div"><span>Kode: Simulator Reaktor Sederhana</span></div>
+  <div class="code-block fade-in">
+    <div class="code-hdr"><div class="code-dots"><div class="cdot r"></div><div class="cdot y"></div><div class="cdot g"></div></div><div class="code-lang">Arduino C++ — Simulator Daya Reaktor</div></div>
+    <div class="code-body"><pre><span class="kw">#include</span> <span class="str">&lt;LiquidCrystal_I2C.h&gt;</span>
+<span class="kw">#include</span> <span class="str">&lt;Servo.h&gt;</span>
+
+<span class="tp">LiquidCrystal_I2C</span> <span class="vr">lcd</span>(<span class="num">0x27</span>, <span class="num">16</span>, <span class="num">2</span>);
+<span class="tp">Servo</span> <span class="vr">servoBatang</span>;
+
+<span class="cmt">// Pin Definitions</span>
+<span class="tp">const int</span> <span class="vr">BTN_MASUK</span> = <span class="num">2</span>;  <span class="cmt">// Masukkan batang → kurangi daya</span>
+<span class="tp">const int</span> <span class="vr">BTN_TARIK</span> = <span class="num">3</span>;  <span class="cmt">// Tarik batang → tambah daya</span>
+<span class="tp">const int</span> <span class="vr">PIN_SERVO</span> = <span class="num">9</span>;
+<span class="tp">const int</span> <span class="vr">LED_PINS</span>[] = {<span class="num">4</span>,<span class="num">5</span>,<span class="num">6</span>,<span class="num">7</span>,<span class="num">8</span>};  <span class="cmt">// LED bar = level daya</span>
+<span class="tp">const int</span> <span class="vr">BUZZER</span> = <span class="num">10</span>;
+
+<span class="tp">int</span> <span class="vr">dayaPersen</span> = <span class="num">50</span>;   <span class="cmt">// Mulai 50%</span>
+<span class="tp">int</span> <span class="vr">sudutBatang</span> = <span class="num">90</span>; <span class="cmt">// 0=masuk penuh, 180=tarik penuh</span>
+
+<span class="kw">void</span> <span class="fn">updateDisplay</span>() {
+  <span class="vr">lcd</span>.<span class="fn">clear</span>();
+  <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"Daya Reaktor: "</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">dayaPersen</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"%"</span>);
+  <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">1</span>);
+  <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">dayaPersen</span> &gt; <span class="num">90</span> ? <span class="str">"STATUS: KRITIS!"</span> : <span class="str">"STATUS: NORMAL"</span>);
+  
+  <span class="cmt">// Update LED bar graph</span>
+  <span class="tp">int</span> <span class="vr">ledOn</span> = <span class="vr">dayaPersen</span> / <span class="num">20</span>;  <span class="cmt">// 0-5 LED menyala</span>
+  <span class="kw">for</span> (<span class="tp">int</span> <span class="vr">i</span> = <span class="num">0</span>; <span class="vr">i</span> &lt; <span class="num">5</span>; <span class="vr">i</span>++) {
+    <span class="fn">digitalWrite</span>(<span class="vr">LED_PINS</span>[<span class="vr">i</span>], <span class="vr">i</span> &lt; <span class="vr">ledOn</span> ? HIGH : LOW);
+  }
+  <span class="vr">servoBatang</span>.<span class="fn">write</span>(<span class="vr">sudutBatang</span>);
+}
+
+<span class="kw">void</span> <span class="fn">scramReactor</span>() {  <span class="cmt">// Emergency shutdown!</span>
+  <span class="vr">dayaPersen</span> = <span class="num">0</span>; <span class="vr">sudutBatang</span> = <span class="num">0</span>;
+  <span class="fn">tone</span>(<span class="vr">BUZZER</span>, <span class="num">1000</span>); <span class="fn">delay</span>(<span class="num">3000</span>); <span class="fn">noTone</span>(<span class="vr">BUZZER</span>);
+  <span class="vr">lcd</span>.<span class="fn">clear</span>(); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"!! SCRAM !!"</span>);
+  <span class="fn">updateDisplay</span>();
+}
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  <span class="kw">for</span> (<span class="tp">int</span> <span class="vr">i</span> = <span class="num">0</span>; <span class="vr">i</span> &lt; <span class="num">5</span>; <span class="vr">i</span>++) <span class="fn">pinMode</span>(<span class="vr">LED_PINS</span>[<span class="vr">i</span>], OUTPUT);
+  <span class="fn">pinMode</span>(<span class="vr">BTN_MASUK</span>, INPUT_PULLUP);
+  <span class="fn">pinMode</span>(<span class="vr">BTN_TARIK</span>, INPUT_PULLUP);
+  <span class="fn">pinMode</span>(<span class="vr">BUZZER</span>, OUTPUT);
+  <span class="vr">servoBatang</span>.<span class="fn">attach</span>(<span class="vr">PIN_SERVO</span>);
+  <span class="vr">lcd</span>.<span class="fn">init</span>(); <span class="vr">lcd</span>.<span class="fn">backlight</span>();
+  <span class="fn">updateDisplay</span>();
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="kw">if</span> (<span class="fn">digitalRead</span>(<span class="vr">BTN_MASUK</span>) == LOW) {
+    <span class="vr">dayaPersen</span> = <span class="fn">max</span>(<span class="num">0</span>, <span class="vr">dayaPersen</span> - <span class="num">10</span>);
+    <span class="vr">sudutBatang</span> = <span class="fn">max</span>(<span class="num">0</span>, <span class="vr">sudutBatang</span> - <span class="num">18</span>);
+    <span class="fn">delay</span>(<span class="num">300</span>); <span class="fn">updateDisplay</span>();
+  }
+  <span class="kw">if</span> (<span class="fn">digitalRead</span>(<span class="vr">BTN_TARIK</span>) == LOW) {
+    <span class="vr">dayaPersen</span> = <span class="fn">min</span>(<span class="num">100</span>, <span class="vr">dayaPersen</span> + <span class="num">10</span>);
+    <span class="vr">sudutBatang</span> = <span class="fn">min</span>(<span class="num">180</span>, <span class="vr">sudutBatang</span> + <span class="num">18</span>);
+    <span class="fn">delay</span>(<span class="num">300</span>); <span class="fn">updateDisplay</span>();
+  }
+  <span class="kw">if</span> (<span class="vr">dayaPersen</span> &gt;= <span class="num">100</span>) <span class="fn">scramReactor</span>(); <span class="cmt">// Auto SCRAM!</span>
+}</pre></div>
+  </div>
+
+  <div class="ex-grid fade-in">
+    <div class="ex-card"><div class="ex-hdr"><span class="ex-level lv-basic">Dasar</span><div class="ex-title">Simulator Daya 3 Level</div></div><div class="ex-body"><div class="ex-q">Buat sistem yang menampilkan 3 status: "LOW" (daya &lt;30%), "NORMAL" (30–70%), "TINGGI" (&gt;70%) pada LCD dan LED berbeda warna.</div><div class="ex-clue"><strong>Clue:</strong> Gunakan 3 LED warna berbeda (hijau, kuning, merah) + logika if-else if-else bertingkat.</div><div class="accordion" onclick="toggleAccordion(this)"><div class="acc-hdr"><span>Lihat Jawaban</span><div class="acc-icon">+</div></div><div class="acc-body"><div class="acc-content"><div class="code-block" style="margin:0"><div class="code-hdr"><div class="code-dots"><div class="cdot r"></div><div class="cdot y"></div><div class="cdot g"></div></div><div class="code-lang">Jawaban</div></div><div class="code-body"><pre style="font-size:11px"><span class="kw">void</span> <span class="fn">updateStatus</span>(<span class="tp">int</span> <span class="vr">daya</span>) {
+  <span class="fn">digitalWrite</span>(LED_HIJAU, LOW);
+  <span class="fn">digitalWrite</span>(LED_KUNING, LOW);
+  <span class="fn">digitalWrite</span>(LED_MERAH, LOW);
+  <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">1</span>);
+  <span class="kw">if</span> (<span class="vr">daya</span> &lt; <span class="num">30</span>) {
+    <span class="fn">digitalWrite</span>(LED_HIJAU, HIGH);
+    <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"STATUS: LOW    "</span>);
+  } <span class="kw">else if</span> (<span class="vr">daya</span> &lt;= <span class="num">70</span>) {
+    <span class="fn">digitalWrite</span>(LED_KUNING, HIGH);
+    <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"STATUS: NORMAL "</span>);
+  } <span class="kw">else</span> {
+    <span class="fn">digitalWrite</span>(LED_MERAH, HIGH);
+    <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"STATUS: TINGGI!"</span>);
+  }
+}</pre></div></div></div></div></div></div></div></div>
+    <div class="ex-card"><div class="ex-hdr"><span class="ex-level lv-mid">Menengah</span><div class="ex-title">Reaktivitas dengan Efek Doppler</div></div><div class="ex-body"><div class="ex-q">Tambahkan simulasi "efek Doppler": saat daya meningkat, suhu bahan bakar naik → reaktivitas menurun otomatis (feedback negatif). Implementasikan dengan sensor DHT22.</div><div class="ex-clue"><strong>Clue:</strong> Baca suhu DHT22. Jika suhu &gt; 35°C, secara otomatis kurangi dayaPersen sebesar 5% setiap 3 detik (simulasi feedback negatif). Ini meniru safety feature PLTN sesungguhnya!</div></div></div>
+    <div class="ex-card"><div class="ex-hdr"><span class="ex-level lv-adv">Lanjutan</span><div class="ex-title">Web Simulator Berbasis Node.js</div></div><div class="ex-body"><div class="ex-q">Kembangkan simulator reaktor kartini berbasis web menggunakan Node.js + Socket.io. Tampilkan parameter reaktor (daya, suhu, posisi batang kendali) secara real-time di browser dengan grafik Chart.js.</div><div class="ex-clue"><strong>Clue:</strong> Arduino mengirim data serial → Python/Node.js membaca serial → kirim ke browser via WebSocket. Frontend: Chart.js untuk grafik realtime + slider untuk kontrol batang kendali.</div></div></div>
+  </div>
+</section>
+
+<!-- ===== TOPIK 2 ===== -->
+<section class="section fade-in" id="topik2">
+  <div class="section-tag">// TOPIK 2 — KHUSUS</div>
+  <h2 class="section-title">Peraga Iradiator Taman Pintar</h2>
+
+  <div class="topic-hdr fade-in">
+    <div class="topic-hdr-icon">🔒</div>
+    <div>
+      <div class="topic-hdr-title">Sistem Safety Interlock Iradiator</div>
+      <div class="topic-hdr-desc">Membuat peraga edukasi cara kerja iradiator komersial dengan sistem safety interlock sesuai regulasi BAPETEN. Sumber radiasi (LED) hanya boleh aktif saat pintu tertutup dan semua kondisi aman terpenuhi.</div>
+      <div class="topic-tags"><span class="badge b-mcu">Arduino Uno</span><span class="badge b-sensor">Limit Switch</span><span class="badge b-safety">Safety Interlock</span><span class="badge b-output">Buzzer</span><span class="badge b-safety">BAPETEN Compliant</span></div>
+    </div>
+  </div>
+
+  <div class="info-box ib-danger fade-in"><div class="ib-icon">⚠️</div><div class="ib-text"><strong>Regulasi BAPETEN — Wajib Dipahami</strong>Berdasarkan Peraturan Kepala BAPETEN No.3 Tahun 2020 tentang Keselamatan Radiasi dalam Penggunaan Iradiator: Setiap fasilitas iradiator wajib memiliki: (1) Sistem interlock pintu — sumber tidak keluar jika pintu terbuka, (2) Tombol Emergency Stop (SCRAM), (3) Indikator status sumber (terperisai/aktif) yang jelas terlihat, (4) Sistem pemantauan dosis secara kontinyu.</div></div>
+
+  <div class="chapter-div"><span>Koneksi Hardware (Wiring Diagram)</span></div>
+  <div class="wiring fade-in">
+    <div class="wiring-title">📋 Tabel Wiring: Safety Interlock Iradiator</div>
+    <div class="wire-row"><span class="wire-color wc-red"></span><div class="wire-from">Arduino 5V</div><div class="wire-arrow">──────→</div><div class="wire-to">VCC Buzzer, VCC LED Merah</div></div>
+    <div class="wire-row"><span class="wire-color wc-black"></span><div class="wire-from">Arduino GND</div><div class="wire-arrow">──────→</div><div class="wire-to">GND semua komponen</div></div>
+    <div class="wire-row"><span class="wire-color wc-yellow"></span><div class="wire-from">Limit Switch Pin 1</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino Pin 3 (INPUT_PULLUP)</div></div>
+    <div class="wire-row"><span class="wire-color wc-black"></span><div class="wire-from">Limit Switch Pin 2</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino GND</div></div>
+    <div class="wire-row"><span class="wire-color wc-orange"></span><div class="wire-from">LED Merah Anoda (+)</div><div class="wire-arrow">──────→</div><div class="wire-to">Resistor 220Ω → Arduino Pin 2</div></div>
+    <div class="wire-row"><span class="wire-color wc-blue"></span><div class="wire-from">Buzzer (+)</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino Pin 4</div></div>
+    <div class="wire-row"><span class="wire-color wc-green"></span><div class="wire-from">LED Hijau Anoda (+)</div><div class="wire-arrow">──────→</div><div class="wire-to">Resistor 220Ω → Arduino Pin 5 (status aman)</div></div>
+  </div>
+
+  <div class="code-block fade-in">
+    <div class="code-hdr"><div class="code-dots"><div class="cdot r"></div><div class="cdot y"></div><div class="cdot g"></div></div><div class="code-lang">Arduino C++ — Safety Interlock Lengkap (Sesuai Standar BAPETEN)</div></div>
+    <div class="code-body"><pre><span class="cmt">/* ============================================
+ * Project: Safety Interlock Iradiator
+ * Standard: BAPETEN Perka No.3/2020
+ * Fail-Safe Design: Default = SAFE (sumber terperisai)
+ * ============================================ */</span>
+<span class="tp">const int</span> <span class="vr">PIN_PINTU</span>  = <span class="num">3</span>;   <span class="cmt">// Limit switch pintu</span>
+<span class="tp">const int</span> <span class="vr">PIN_SUMBER</span> = <span class="num">2</span>;   <span class="cmt">// LED merah = sumber radiasi</span>
+<span class="tp">const int</span> <span class="vr">PIN_ALARM</span>  = <span class="num">4</span>;   <span class="cmt">// Buzzer alarm</span>
+<span class="tp">const int</span> <span class="vr">PIN_AMAN</span>   = <span class="num">5</span>;   <span class="cmt">// LED hijau = status aman</span>
+<span class="tp">const int</span> <span class="vr">PIN_SCRAM</span>  = <span class="num">6</span>;   <span class="cmt">// Emergency stop button</span>
+
+<span class="tp">bool</span> <span class="vr">scramActive</span> = <span class="num">false</span>;
+<span class="tp">unsigned long</span> <span class="vr">alarmTimer</span> = <span class="num">0</span>;
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  <span class="fn">pinMode</span>(<span class="vr">PIN_PINTU</span>, INPUT_PULLUP);  <span class="cmt">// LOW = tertutup (terhubung GND)</span>
+  <span class="fn">pinMode</span>(<span class="vr">PIN_SCRAM</span>, INPUT_PULLUP);
+  <span class="fn">pinMode</span>(<span class="vr">PIN_SUMBER</span>, OUTPUT);
+  <span class="fn">pinMode</span>(<span class="vr">PIN_ALARM</span>, OUTPUT);
+  <span class="fn">pinMode</span>(<span class="vr">PIN_AMAN</span>, OUTPUT);
+  Serial.<span class="fn">begin</span>(<span class="num">9600</span>);
+  
+  <span class="cmt">// FAIL-SAFE: Saat startup, semua output mati (aman)</span>
+  <span class="fn">digitalWrite</span>(<span class="vr">PIN_SUMBER</span>, LOW);
+  Serial.<span class="fn">println</span>(<span class="str">"SISTEM INTERLOCK AKTIF"</span>);
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="cmt">// Cek Emergency SCRAM (prioritas tertinggi!)</span>
+  <span class="kw">if</span> (<span class="fn">digitalRead</span>(<span class="vr">PIN_SCRAM</span>) == LOW) {
+    <span class="vr">scramActive</span> = <span class="num">true</span>;
+    Serial.<span class="fn">println</span>(<span class="str">"!! EMERGENCY SCRAM DIAKTIFKAN !!"</span>);
+  }
+  
+  <span class="kw">if</span> (<span class="vr">scramActive</span>) {
+    <span class="fn">digitalWrite</span>(<span class="vr">PIN_SUMBER</span>, LOW);
+    <span class="fn">tone</span>(<span class="vr">PIN_ALARM</span>, <span class="num">2000</span>); <span class="cmt">// Alarm terus berbunyi</span>
+    <span class="fn">digitalWrite</span>(<span class="vr">PIN_AMAN</span>, LOW);
+    <span class="kw">return</span>; <span class="cmt">// Hentikan semua proses</span>
+  }
+  
+  <span class="tp">bool</span> <span class="vr">pintuTertutup</span> = (<span class="fn">digitalRead</span>(<span class="vr">PIN_PINTU</span>) == LOW);
+  
+  <span class="kw">if</span> (<span class="vr">pintuTertutup</span>) {
+    <span class="cmt">// Kondisi AMAN: sumber boleh aktif</span>
+    <span class="fn">digitalWrite</span>(<span class="vr">PIN_SUMBER</span>, HIGH);
+    <span class="fn">noTone</span>(<span class="vr">PIN_ALARM</span>);
+    <span class="fn">digitalWrite</span>(<span class="vr">PIN_ALARM</span>, LOW);
+    <span class="fn">digitalWrite</span>(<span class="vr">PIN_AMAN</span>, HIGH);
+    Serial.<span class="fn">println</span>(<span class="str">"[AMAN] Iradiasi berlangsung"</span>);
+  } <span class="kw">else</span> {
+    <span class="cmt">// Kondisi BAHAYA: paksa sumber masuk (FAIL-SAFE)</span>
+    <span class="fn">digitalWrite</span>(<span class="vr">PIN_SUMBER</span>, LOW);  <span class="cmt">// ← Ini yang terpenting!</span>
+    <span class="fn">tone</span>(<span class="vr">PIN_ALARM</span>, <span class="num">1500</span>);           <span class="cmt">// Alarm berbunyi</span>
+    <span class="fn">digitalWrite</span>(<span class="vr">PIN_AMAN</span>, LOW);
+    Serial.<span class="fn">println</span>(<span class="str">"[BAHAYA] PINTU TERBUKA - Sumber terperisai"</span>);
+  }
+  <span class="fn">delay</span>(<span class="num">200</span>);
+}</pre></div>
+  </div>
+
+  <div class="ex-grid fade-in">
+    <div class="ex-card"><div class="ex-hdr"><span class="ex-level lv-basic">Dasar</span><div class="ex-title">Interlock Dasar</div></div><div class="ex-body"><div class="ex-q">Buat sistem dasar: pintu tertutup (limit switch) → LED hijau nyala. Pintu terbuka → LED merah + buzzer. Tampilkan status di Serial Monitor.</div><div class="ex-clue"><strong>Clue:</strong> INPUT_PULLUP + logika if-else sederhana. LED hijau = aman, LED merah = bahaya.</div></div></div>
+    <div class="ex-card"><div class="ex-hdr"><span class="ex-level lv-mid">Menengah</span><div class="ex-title">Dual Interlock + Log</div></div><div class="ex-body"><div class="ex-q">Tambahkan 2 kondisi wajib: pintu harus tertutup DAN tombol start ditekan secara bersamaan. Catat waktu setiap peristiwa di Serial Monitor (gunakan millis() untuk timestamp).</div><div class="ex-clue"><strong>Clue:</strong> Gunakan AND logic: if(pintuOke && startDitekan). millis() untuk timestamp sederhana. Logika ini sama persis dengan interlock PLTN nyata.</div></div></div>
+    <div class="ex-card"><div class="ex-hdr"><span class="ex-level lv-adv">Lanjutan</span><div class="ex-title">SIL 2: Redundan + Watchdog</div></div><div class="ex-body"><div class="ex-q">Implementasikan sistem interlock redundan: 2 sensor pintu (limit switch berbeda) harus KEDUANYA mendeteksi tertutup. Jika satu sensor gagal (selalu HIGH), sistem otomatis masuk fail-safe.</div><div class="ex-clue"><strong>Clue:</strong> if(sensor1 == CLOSED && sensor2 == CLOSED) = aman. Jika keduanya tidak sinkron dalam 100ms = error sensor → SCRAM. Ini adalah prinsip dasar SIL (Safety Integrity Level).</div></div></div>
+  </div>
+</section>
+
+<!-- ===== TOPIK 3 ===== -->
+<section class="section fade-in" id="topik3">
+  <div class="section-tag">// TOPIK 3 — KHUSUS</div>
+  <h2 class="section-title">Peraga Akselerator Taman Pintar</h2>
+
+  <div class="topic-hdr fade-in">
+    <div class="topic-hdr-icon">⚡</div>
+    <div>
+      <div class="topic-hdr-title">Simulasi Akselerator Partikel</div>
+      <div class="topic-hdr-desc">Memvisualisasikan konsep akselerasi partikel bermuatan menggunakan deretan LED yang menyala bergiliran. Kecepatan diatur dengan potensiometer — mendemonstrasikan bahwa partikel bisa dipercepat hingga mendekati kecepatan cahaya dalam akselerator nyata.</div>
+      <div class="topic-tags"><span class="badge b-mcu">Arduino Uno</span><span class="badge b-sensor">Potensiometer</span><span class="badge b-output">LED Array (5)</span><span class="badge b-output">LCD Display</span></div>
+    </div>
+  </div>
+
+  <div class="chapter-div"><span>Kode: Simulator Partikel Lengkap + Display</span></div>
+  <div class="code-block fade-in">
+    <div class="code-hdr"><div class="code-dots"><div class="cdot r"></div><div class="cdot y"></div><div class="cdot g"></div></div><div class="code-lang">Arduino C++ — Akselerator Partikel dengan Speed Display</div></div>
+    <div class="code-body"><pre><span class="kw">#include</span> <span class="str">&lt;LiquidCrystal_I2C.h&gt;</span>
+
+<span class="tp">LiquidCrystal_I2C</span> <span class="vr">lcd</span>(<span class="num">0x27</span>, <span class="num">16</span>, <span class="num">2</span>);
+<span class="tp">const int</span> <span class="vr">LED_PINS</span>[] = {<span class="num">8</span>, <span class="num">9</span>, <span class="num">10</span>, <span class="num">11</span>, <span class="num">12</span>};
+<span class="tp">const int</span> <span class="vr">POT_PIN</span> = A0;
+<span class="tp">const int</span> <span class="vr">NUM_LEDS</span> = <span class="num">5</span>;
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  <span class="kw">for</span> (<span class="tp">int</span> <span class="vr">i</span> = <span class="num">0</span>; <span class="vr">i</span> &lt; <span class="vr">NUM_LEDS</span>; <span class="vr">i</span>++) <span class="fn">pinMode</span>(<span class="vr">LED_PINS</span>[<span class="vr">i</span>], OUTPUT);
+  <span class="vr">lcd</span>.<span class="fn">init</span>(); <span class="vr">lcd</span>.<span class="fn">backlight</span>();
+  <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"Akselerator Sim"</span>);
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="tp">int</span> <span class="vr">potVal</span> = <span class="fn">analogRead</span>(<span class="vr">POT_PIN</span>); <span class="cmt">// 0 - 1023</span>
+  
+  <span class="cmt">// Map pot ke delay: putar kanan = makin cepat</span>
+  <span class="tp">int</span> <span class="vr">speedMs</span> = <span class="fn">map</span>(<span class="vr">potVal</span>, <span class="num">0</span>, <span class="num">1023</span>, <span class="num">500</span>, <span class="num">10</span>);
+  
+  <span class="cmt">// Hitung persentase kecepatan untuk tampilan</span>
+  <span class="tp">int</span> <span class="vr">speedPct</span> = <span class="fn">map</span>(<span class="vr">potVal</span>, <span class="num">0</span>, <span class="num">1023</span>, <span class="num">0</span>, <span class="num">100</span>);
+  
+  <span class="cmt">// Update LCD setiap 5 siklus (tanpa delay terpisah)</span>
+  <span class="tp">static int</span> <span class="vr">cycle</span> = <span class="num">0</span>;
+  <span class="kw">if</span> (++<span class="vr">cycle</span> &gt;= <span class="num">5</span>) {
+    <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>, <span class="num">0</span>);
+    <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"Kecepatan: "</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">speedPct</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"%  "</span>);
+    <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>, <span class="num">1</span>);
+    <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">speedPct</span> &gt; <span class="num">80</span> ? <span class="str">"SANGAT CEPAT!  "</span> : 
+               <span class="vr">speedPct</span> &gt; <span class="num">40</span> ? <span class="str">"Sedang...      "</span> : <span class="str">"Lambat...      "</span>);
+    <span class="vr">cycle</span> = <span class="num">0</span>;
+  }
+  
+  <span class="cmt">// Animasi running LED (partikel bergerak)</span>
+  <span class="kw">for</span> (<span class="tp">int</span> <span class="vr">i</span> = <span class="num">0</span>; <span class="vr">i</span> &lt; <span class="vr">NUM_LEDS</span>; <span class="vr">i</span>++) {
+    <span class="fn">digitalWrite</span>(<span class="vr">LED_PINS</span>[<span class="vr">i</span>], HIGH);
+    <span class="fn">delay</span>(<span class="vr">speedMs</span>);
+    <span class="fn">digitalWrite</span>(<span class="vr">LED_PINS</span>[<span class="vr">i</span>], LOW);
+  }
+}</pre></div>
+  </div>
+</section>
+
+<!-- ===== TOPIK 5 ===== -->
+<section class="section fade-in" id="topik5">
+  <div class="section-tag">// TOPIK 5 — KHUSUS</div>
+  <h2 class="section-title">Portal Monitor Radiasi</h2>
+
+  <div class="topic-hdr fade-in">
+    <div class="topic-hdr-icon">🚪</div>
+    <div>
+      <div class="topic-hdr-title">Sistem Penghitung Pulsa Radiasi Real-Time</div>
+      <div class="topic-hdr-desc">Portal monitor dipasang di pintu keluar fasilitas nuklir untuk mendeteksi kontaminasi pada personel. Menggunakan detektor Geiger-Müller dan sistem interrupt untuk penghitungan pulsa yang akurat tanpa kehilangan data.</div>
+      <div class="topic-tags"><span class="badge b-mcu">Arduino Uno</span><span class="badge b-sensor">GM Tube</span><span class="badge b-sensor">PIR HC-SR501</span><span class="badge b-output">LCD I2C</span><span class="badge b-safety">Alarm Ambang Batas</span></div>
+    </div>
+  </div>
+
+  <div class="chapter-div"><span>Tiga Level Pengembangan Portal Monitor</span></div>
+  <div class="cards-grid fade-in">
+    <div class="card c3"><div class="card-icon">1️⃣</div><div class="card-title">Level Dasar: Push Button Counter</div><div class="card-desc">Push button simulasi pulsa GM Tube. LCD tampilkan CPM. Buzzer bunyi jika melewati threshold. Cocok untuk memahami logika dasar pulse counter.</div></div>
+    <div class="card c4"><div class="card-icon">2️⃣</div><div class="card-title">Level Menengah: Interrupt + PIR</div><div class="card-desc">GM Tube nyata via interrupt Pin 2. Sensor PIR HC-SR501 mengaktifkan sistem hanya saat ada orang. LCD menampilkan CPM dan estimasi μSv/h secara real-time.</div></div>
+    <div class="card c5"><div class="card-icon">3️⃣</div><div class="card-title">Level Expert: Statistik + IoT</div><div class="card-desc">Algoritma statistik alarm otomatis: alarm hanya jika Cacah &gt; Background + 3√Background. Data dikirim ke database via ESP32 WiFi. Dead time correction diterapkan.</div></div>
+  </div>
+
+  <div class="code-block fade-in">
+    <div class="code-hdr"><div class="code-dots"><div class="cdot r"></div><div class="cdot y"></div><div class="cdot g"></div></div><div class="code-lang">Arduino C++ — Portal Monitor Level Lanjutan + Dead Time Correction</div></div>
+    <div class="code-body"><pre><span class="kw">#include</span> <span class="str">&lt;Wire.h&gt;</span>
+<span class="kw">#include</span> <span class="str">&lt;LiquidCrystal_I2C.h&gt;</span>
+
+<span class="tp">LiquidCrystal_I2C</span> <span class="vr">lcd</span>(<span class="num">0x27</span>, <span class="num">16</span>, <span class="num">2</span>);
+
+<span class="cmt">// ── Hardware Pins ──────────────────────────</span>
+<span class="tp">const int</span> <span class="vr">PIN_GM</span>     = <span class="num">2</span>; <span class="cmt">// Interrupt pin untuk GM Tube</span>
+<span class="tp">const int</span> <span class="vr">PIN_PIR</span>    = <span class="num">3</span>; <span class="cmt">// Sensor PIR deteksi orang</span>
+<span class="tp">const int</span> <span class="vr">PIN_BUZZER</span> = <span class="num">9</span>;
+<span class="tp">const int</span> <span class="vr">PIN_LED_OK</span> = <span class="num">10</span>;
+<span class="tp">const int</span> <span class="vr">PIN_LED_AL</span> = <span class="num">11</span>;
+
+<span class="cmt">// ── Variabel Sistem ────────────────────────</span>
+<span class="tp">volatile unsigned long</span> <span class="vr">counts</span> = <span class="num">0</span>; <span class="cmt">// Harus volatile!</span>
+<span class="tp">unsigned long</span> <span class="vr">startMs</span>;
+<span class="tp">const unsigned long</span> <span class="vr">PERIOD</span> = <span class="num">10000</span>; <span class="cmt">// 10 detik</span>
+<span class="tp">const float</span> <span class="vr">DEAD_TIME</span> = <span class="num">0</span>.<span class="num">0002</span>; <span class="cmt">// 200 μs = 2×10⁻⁴ detik</span>
+<span class="tp">const float</span> <span class="vr">CONV_SBM20</span> = <span class="num">0</span>.<span class="num">0057</span>; <span class="cmt">// Faktor konversi CPM→μSv/h (tabung SBM-20)</span>
+<span class="tp">float</span> <span class="vr">background_cpm</span> = <span class="num">15.0</span>; <span class="cmt">// Background radiasi normal ~15-20 CPM</span>
+
+<span class="cmt">// ── ISR: Dipanggil tiap ada pulsa radiasi ──</span>
+<span class="kw">void</span> <span class="fn">IRAM_ATTR</span> <span class="fn">onPulse</span>() { <span class="vr">counts</span>++; }
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  <span class="fn">pinMode</span>(<span class="vr">PIN_GM</span>, INPUT);
+  <span class="fn">attachInterrupt</span>(<span class="fn">digitalPinToInterrupt</span>(<span class="vr">PIN_GM</span>), <span class="fn">onPulse</span>, FALLING);
+  <span class="fn">pinMode</span>(<span class="vr">PIN_PIR</span>, INPUT);
+  <span class="fn">pinMode</span>(<span class="vr">PIN_BUZZER</span>, OUTPUT);
+  <span class="fn">pinMode</span>(<span class="vr">PIN_LED_OK</span>, OUTPUT);
+  <span class="fn">pinMode</span>(<span class="vr">PIN_LED_AL</span>, OUTPUT);
+  <span class="vr">lcd</span>.<span class="fn">init</span>(); <span class="vr">lcd</span>.<span class="fn">backlight</span>();
+  <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"Portal Monitor  "</span>);
+  <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">1</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"Siap...         "</span>);
+  <span class="vr">startMs</span> = <span class="fn">millis</span>();
+  Serial.<span class="fn">begin</span>(<span class="num">9600</span>);
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="tp">bool</span> <span class="vr">adaOrang</span> = <span class="fn">digitalRead</span>(<span class="vr">PIN_PIR</span>) == HIGH;
+  <span class="kw">if</span> (!<span class="vr">adaOrang</span>) {
+    <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">0</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"Menunggu Orang.."</span>);
+    <span class="fn">return</span>;
+  }
+  
+  <span class="tp">unsigned long</span> <span class="vr">now</span> = <span class="fn">millis</span>();
+  <span class="tp">long</span> <span class="vr">elapsed</span> = <span class="vr">now</span> - <span class="vr">startMs</span>;
+  
+  <span class="cmt">// Update LCD setiap detik (non-blocking)</span>
+  <span class="tp">static unsigned long</span> <span class="vr">lcdUpdate</span> = <span class="num">0</span>;
+  <span class="kw">if</span> (<span class="vr">now</span> - <span class="vr">lcdUpdate</span> &gt; <span class="num">1000</span>) {
+    <span class="vr">lcdUpdate</span> = <span class="vr">now</span>;
+    <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">0</span>);
+    <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"Cnt:"</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">counts</span>);
+    <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">" T:"</span>); <span class="vr">lcd</span>.<span class="fn">print</span>((<span class="vr">PERIOD</span>-<span class="vr">elapsed</span>)/<span class="num">1000</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"s  "</span>);
+  }
+  
+  <span class="kw">if</span> (<span class="vr">elapsed</span> &gt;= <span class="vr">PERIOD</span>) {
+    <span class="cmt">// Hitung CPM terukur</span>
+    <span class="tp">float</span> <span class="vr">m</span> = <span class="vr">counts</span> * (<span class="num">60000.0</span> / <span class="vr">PERIOD</span>);
+    
+    <span class="cmt">// Dead Time Correction: n = m / (1 - m*τ)</span>
+    <span class="tp">float</span> <span class="vr">m_per_sec</span> = <span class="vr">m</span> / <span class="num">60.0</span>; <span class="cmt">// Konversi ke CPS</span>
+    <span class="tp">float</span> <span class="vr">denom</span> = <span class="num">1.0</span> - (<span class="vr">m_per_sec</span> * <span class="vr">DEAD_TIME</span>);
+    <span class="tp">float</span> <span class="vr">n_cps</span> = (<span class="vr">denom</span> &gt; <span class="num">0</span>) ? <span class="vr">m_per_sec</span> / <span class="vr">denom</span> : -<span class="num">1</span>; <span class="cmt">// -1 = saturasi</span>
+    <span class="tp">float</span> <span class="vr">cpm_true</span> = <span class="vr">n_cps</span> * <span class="num">60.0</span>;
+    <span class="tp">float</span> <span class="vr">uSv</span> = <span class="vr">cpm_true</span> * <span class="vr">CONV_SBM20</span>;
+    
+    <span class="cmt">// Alarm statistik: Cacah > Background + 3√Background</span>
+    <span class="tp">float</span> <span class="vr">threshold</span> = <span class="vr">background_cpm</span> + <span class="num">3</span> * <span class="fn">sqrt</span>(<span class="vr">background_cpm</span>);
+    <span class="tp">bool</span> <span class="vr">alarm</span> = (<span class="vr">cpm_true</span> &gt; <span class="vr">threshold</span>);
+    
+    <span class="vr">lcd</span>.<span class="fn">clear</span>();
+    <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"CPM:"</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">cpm_true</span>,<span class="num">0</span>);
+    <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">" uSv:"</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">uSv</span>,<span class="num">3</span>);
+    <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">1</span>);
+    <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">alarm</span> ? <span class="str">"!! KONTAMINASI !!"</span> : <span class="str">"Status: BERSIH  "</span>);
+    
+    <span class="fn">digitalWrite</span>(<span class="vr">PIN_LED_AL</span>, <span class="vr">alarm</span>);
+    <span class="fn">digitalWrite</span>(<span class="vr">PIN_LED_OK</span>, !<span class="vr">alarm</span>);
+    <span class="kw">if</span> (<span class="vr">alarm</span>) <span class="fn">tone</span>(<span class="vr">PIN_BUZZER</span>, <span class="num">2000</span>, <span class="num">3000</span>);
+    
+    Serial.<span class="fn">print</span>(<span class="str">"CPM_true:"</span>); Serial.<span class="fn">print</span>(<span class="vr">cpm_true</span>);
+    Serial.<span class="fn">print</span>(<span class="str">",uSv/h:"</span>); Serial.<span class="fn">println</span>(<span class="vr">uSv</span>);
+    
+    <span class="vr">counts</span> = <span class="num">0</span>;
+    <span class="vr">startMs</span> = <span class="fn">millis</span>();
+  }
+}</pre></div>
+  </div>
+
+  <div class="formula fade-in">
+    <div class="f-label">Kriteria Alarm Statistik Portal Monitor</div>
+    <div class="f-eq">Cacah &gt; Background + 3√(Background)</div>
+    <div class="f-label" style="margin-top:10px">Background normal: ~15–20 CPM. Threshold alarm: 15 + 3×√15 ≈ 15 + 11.6 ≈ 27 CPM<br>Jika pembacaan &gt; 27 CPM → kemungkinan kontaminasi (3-sigma confidence level)</div>
+  </div>
+</section>
+
+<!-- ===== TOPIK 6 ===== -->
+<section class="section fade-in" id="topik6">
+  <div class="section-tag">// TOPIK 6 — KHUSUS</div>
+  <h2 class="section-title">Robot untuk Mapping Radiasi</h2>
+
+  <div class="topic-hdr fade-in">
+    <div class="topic-hdr-icon">🤖</div>
+    <div>
+      <div class="topic-hdr-title">Autonomous Radiation Mapping Robot</div>
+      <div class="topic-hdr-desc">Robot otonom yang menggantikan manusia di area radiasi tinggi. Membangun peta radiasi (heat map) sambil melakukan navigasi otonom menggunakan algoritma SLAM. Dilengkapi AI vision untuk deteksi APD pekerja.</div>
+      <div class="topic-tags"><span class="badge b-mcu">Arduino Mega</span><span class="badge b-mcu">Raspberry Pi 4</span><span class="badge b-ai">Jetson Nano</span><span class="badge b-sensor">GM Tube</span><span class="badge b-sensor">LIDAR / HC-SR04</span><span class="badge b-output">Web Heat Map</span></div>
+    </div>
+  </div>
+
+  <div class="chapter-div"><span>Perbandingan Algoritma SLAM</span></div>
+  <table class="tbl fade-in">
+    <thead><tr><th>Algoritma</th><th>Prinsip Kerja</th><th>Kelebihan</th><th>Kekurangan</th><th>Rekomendasi</th></tr></thead>
+    <tbody>
+      <tr><td><strong>GMapping</strong></td><td>Rao-Blackwellized Particle Filter</td><td>Sangat kokoh untuk lingkungan statis, akurasi tinggi</td><td>Butuh RAM besar, bergantung odometri roda</td><td>Lingkungan terstruktur, roda tidak slip</td></tr>
+      <tr><td><strong>Hector SLAM</strong></td><td>Scan Matching LIDAR frekuensi tinggi</td><td>Bisa tanpa odometri, roda slip tidak masalah</td><td>Sensitif gerakan rotasi cepat</td><td>Jika encoder roda tidak tersedia</td></tr>
+      <tr><td><strong>Cartographer</strong></td><td>Optimasi sub-map + Loop Closure</td><td>Sangat akurat area luas, efisien memori</td><td>Konfigurasi parameter kompleks</td><td>Area besar, butuh akurasi tinggi</td></tr>
+    </tbody>
+  </table>
+
+  <div class="expert-box fade-in">
+    <p>Untuk integrasi data radiasi ke peta SLAM: sinkronkan <strong>timestamp</strong> dari pembacaan sensor GM Tube dengan koordinat (x, y) robot dari odometri/SLAM. Hasilnya adalah <strong>peta panas (heat map) radiasi</strong> yang menunjukkan zona berbahaya secara spasial. Data ini dikirim via ROS (Robot Operating System) ke dashboard web menggunakan RViz atau custom Leaflet.js map.</p>
+  </div>
+
+  <div class="chapter-div"><span>AI Object Detection: Monitoring APD Pekerja</span></div>
+  <div class="cards-grid fade-in">
+    <div class="card c6"><div class="card-icon">👁️</div><div class="card-title">YOLO (You Only Look Once)</div><div class="card-desc">Algoritma deteksi objek real-time yang sangat cepat. YOLOv7/v8 dapat mendeteksi apakah pekerja memakai helm keselamatan (hardhat) atau tidak dengan akurasi 97%. Berjalan di Jetson Nano dengan 5.7 FPS rata-rata menggunakan GPU CUDA.</div></div>
+    <div class="card c2"><div class="card-icon">📸</div><div class="card-title">Automated APD Monitoring</div><div class="card-desc">Sistem dilatih mengenali: helmet, safety vest, face shield. Jika pelanggaran APD terdeteksi → Jetson Nano otomatis mengirim foto bukti ke bot Telegram security officer. Tanpa perlu pengawasan manusia 24/7.</div></div>
+    <div class="card c4"><div class="card-icon">🛡️</div><div class="card-title">Radiation Resilience</div><div class="card-desc">Untuk operasi di dalam teras reaktor, gunakan FPGA (Field Programmable Gate Array) — lebih tahan terhadap Single Event Upset (SEU) akibat paparan radiasi tinggi yang menyebabkan bit flip acak dalam memori standar.</div></div>
+  </div>
+</section>
+
+<!-- ===== TOPIK 4, 7, 8 — Ringkas ===== -->
+<section class="section fade-in" id="topik4">
+  <div class="section-tag">// TOPIK 4, 7, 8 — KHUSUS</div>
+  <h2 class="section-title">Simulator Reaktor Web | Elektronika Nuklir | Termodinamika</h2>
+
+  <div class="cards-grid fade-in">
+    <div class="card c1">
+      <div class="card-icon">🌐</div>
+      <div class="card-title">Topik 4: Simulator Reaktor Kartini Berbasis Web</div>
+      <div class="card-desc" style="margin-bottom:14px">Reaktor Kartini beroperasi pada daya 100 kW di BRIN Yogyakarta. Simulator web menampilkan parameter operasi real-time: reaktivitas, flux neutron, suhu pendingin, posisi batang kendali.</div>
+      <div style="font-size:12px;color:var(--muted);border-top:1px solid var(--border);padding-top:12px;margin-top:4px"><strong style="color:var(--accent)">Stack Teknologi:</strong> Node.js + Express (backend) → Socket.io (realtime) → Chart.js (grafik) → HTML/CSS/JS (frontend). Atau Python Flask + Plotly Dash untuk lebih sederhana.<br><br><strong style="color:var(--accent)">Referensi:</strong> <a href="https://irlkartini.brin.go.id" class="ref-link" target="_blank">irlkartini.brin.go.id</a> — Internet Reactor Laboratory BRIN</div>
+    </div>
+    <div class="card c3">
+      <div class="card-icon">⚡</div>
+      <div class="card-title">Topik 7: Alat Praktikum Elektronika Nuklir</div>
+      <div class="card-desc" style="margin-bottom:14px">Membangun alat praktikum detektor radiasi berbasis Arduino yang dapat melakukan spektroskopi gamma sederhana menggunakan scintillator NaI(Tl) + SiPM + Raspberry Pi Pico.</div>
+      <div style="font-size:12px;color:var(--muted);border-top:1px solid var(--border);padding-top:12px;margin-top:4px"><strong style="color:var(--accent3)">Referensi:</strong> Reed College Gamma Ray Spectroscopy with Arduino + Open Gamma Project (GitHub: OpenGammaProject/Open-Gamma-Detector) menggunakan NaI(Tl) scintillator + SiPM + Raspberry Pi Pico.</div>
+    </div>
+    <div class="card c4">
+      <div class="card-icon">🌡️</div>
+      <div class="card-title">Topik 8: Alat Praktikum Termodinamika</div>
+      <div class="card-desc" style="margin-bottom:14px">Membuat kit praktikum yang mendemonstrasikan siklus termodinamika (Rankine/Brayton) yang digunakan dalam PLTN. Monitoring suhu multi-titik, perhitungan efisiensi termal.</div>
+      <div style="font-size:12px;color:var(--muted);border-top:1px solid var(--border);padding-top:12px;margin-top:4px"><strong style="color:var(--accent4)">Referensi:</strong> "Thermodynamic Analysis and Comparison of Power Cycles for Small Modular Reactors" (MDPI Energies, 2024) — perbandingan siklus Rankine vs Brayton untuk SMR.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EVALUASI ===== -->
+<section class="section fade-in" id="evaluasi">
+  <div class="section-tag">// BANK SOAL</div>
+  <h2 class="section-title">Evaluasi Komprehensif</h2>
+  <p class="section-desc">40+ soal bertingkat dari konsep dasar hingga level expert — mencakup semua bab dan topik proyek.</p>
+
+  <div class="chapter-div"><span>Level Dasar — Konsep & Logika IPO</span></div>
+  <div class="ex-grid fade-in">
+    <div class="ex-card"><div class="ex-hdr"><span class="ex-level lv-basic">Dasar</span><div class="ex-title">Identifikasi IPO</div></div><div class="ex-body"><div class="ex-q">Pada sistem pengatur suhu ruang kendali reaktor yang menggunakan DHT22, Arduino Uno, dan kipas DC: Identifikasikan mana yang termasuk Input, Proses, dan Output. Jelaskan fungsi masing-masing!</div><div class="accordion" onclick="toggleAccordion(this)"><div class="acc-hdr"><span>Lihat Jawaban</span><div class="acc-icon">+</div></div><div class="acc-body"><div class="acc-content"><strong>Input:</strong> Sensor DHT22 — mengambil data suhu (°C) dan kelembaban (%RH) dari lingkungan fisik, mengubahnya menjadi sinyal digital.<br><br><strong>Proses:</strong> Arduino Uno (ATmega328P) — membandingkan suhu terukur dengan setpoint 26°C menggunakan logika if-else, memutuskan aksi yang diperlukan.<br><br><strong>Output:</strong> Motor kipas DC (via driver) — berputar jika suhu &gt; 26°C, berhenti jika ≤ 26°C. Heater aktif jika suhu &lt; 26°C.<br><br><em>Catatan:</em> Serial Monitor juga bisa dianggap output sekunder (informasi untuk operator).</div></div></div></div></div></div>
+    <div class="ex-card"><div class="ex-hdr"><span class="ex-level lv-basic">Dasar</span><div class="ex-title">Kalkulasi Resistor</div></div><div class="ex-body"><div class="ex-q">Sebuah LED merah memiliki forward voltage 2.0V dan arus operasi ideal 15mA. Jika disambungkan ke pin output Arduino 5V, berapakah nilai resistor yang dibutuhkan? Pilih nilai resistor standar terdekat yang aman!</div><div class="accordion" onclick="toggleAccordion(this)"><div class="acc-hdr"><span>Lihat Jawaban</span><div class="acc-icon">+</div></div><div class="acc-body"><div class="acc-content"><strong>Perhitungan:</strong><br>R = (Vsupply − Vled) / Iled<br>R = (5V − 2V) / 0.015A = 200Ω<br><br><strong>Nilai standar terdekat:</strong> 220Ω (lebih aman — arus sedikit lebih kecil, komponen lebih awet)<br>Arus actual: I = 3V/220Ω = 13.6mA ✓ (dalam batas aman &lt; 20mA maksimum LED)<br><br><em>Jangan gunakan 180Ω</em> — arus 16.7mA masih aman tapi mendekati batas. 220Ω lebih konservatif dan aman.</div></div></div></div></div></div>
+    <div class="ex-card"><div class="ex-hdr"><span class="ex-level lv-basic">Dasar</span><div class="ex-title">Perbedaan setup() vs loop()</div></div><div class="ex-body"><div class="ex-q">Jelaskan perbedaan mendasar antara fungsi void setup() dan void loop() dalam program Arduino! Berikan contoh kode untuk masing-masing dan kapan harus menggunakannya.</div><div class="accordion" onclick="toggleAccordion(this)"><div class="acc-hdr"><span>Lihat Jawaban</span><div class="acc-icon">+</div></div><div class="acc-body"><div class="acc-content"><strong>void setup():</strong> Berjalan SEKALI saat Arduino pertama nyala atau setelah reset. Digunakan untuk: inisiasi pin (pinMode), inisiasi library (lcd.init(), dht.begin()), konfigurasi serial, attachInterrupt(), nilai awal variabel.<br><br><strong>void loop():</strong> Berjalan TERUS-MENERUS secara berulang seperti while(1){...}. Digunakan untuk: logika utama program, pembacaan sensor, kontrol aktuator, update display.<br><br><em>Analogi:</em> setup() = "siapkan semua peralatan sebelum mulai memasak." loop() = "proses memasak yang terus berulang."</div></div></div></div></div></div>
+  </div>
+
+  <div class="chapter-div"><span>Level Menengah — Pemrograman & Instrumentasi</span></div>
+  <div class="ex-grid fade-in">
+    <div class="ex-card"><div class="ex-hdr"><span class="ex-level lv-mid">Menengah</span><div class="ex-title">Mengapa Interrupt untuk GM Tube?</div></div><div class="ex-body"><div class="ex-q">Jelaskan dengan detail mengapa penggunaan attachInterrupt() jauh lebih disarankan dibanding digitalRead() biasa (polling) untuk menghitung pulsa dari detektor Geiger-Müller!</div><div class="accordion" onclick="toggleAccordion(this)"><div class="acc-hdr"><span>Lihat Jawaban</span><div class="acc-icon">+</div></div><div class="acc-body"><div class="acc-content">Pulsa Geiger-Müller berlangsung sangat singkat (~5–100μs). Satu putaran void loop() Arduino membutuhkan waktu bervariasi tergantung kode, bisa 1–10ms.<br><br><strong>Masalah Polling:</strong> Jika loop() membutuhkan 5ms untuk satu putaran, dan ada pulsa GM yang terjadi selama 2ms di antara dua pengecekan, pulsa tersebut akan TERLEWAT. Pada radiasi tinggi (&gt;100 CPS), banyak data hilang → bacaan CPM jauh di bawah nilai sesungguhnya → berbahaya!<br><br><strong>Keunggulan Interrupt:</strong> attachInterrupt() memastikan Arduino LANGSUNG bereaksi setiap ada sinyal FALLING di pin interrupt (Pin 2 atau 3 pada Uno), menghentikan loop() sementara, menjalankan ISR (counts++), lalu kembali. Tidak ada pulsa yang terlewat bahkan pada 10,000 pulsa/detik sekalipun.<br><br><strong>Catatan penting:</strong> Variabel yang diakses dalam ISR harus dideklarasikan sebagai <code>volatile</code> agar compiler tidak mengoptimasi pembacaannya.</div></div></div></div></div></div>
+    <div class="ex-card"><div class="ex-hdr"><span class="ex-level lv-mid">Menengah</span><div class="ex-title">delay() vs millis() — Mana yang Lebih Baik?</div></div><div class="ex-body"><div class="ex-q">Jelaskan masalah penggunaan delay() dalam sistem multitasking Arduino! Buat contoh kode menggunakan millis() yang menjalankan DUA task secara "bersamaan": (1) baca sensor setiap 2 detik, dan (2) kedipkan LED setiap 500ms.</div><div class="accordion" onclick="toggleAccordion(this)"><div class="acc-hdr"><span>Lihat Jawaban</span><div class="acc-icon">+</div></div><div class="acc-body"><div class="acc-content"><strong>Masalah delay():</strong> Memblokir SELURUH eksekusi selama durasi yang ditentukan. Selama delay, tidak ada sensor dibaca, tidak ada interrupt diproses (kecuali interrupt eksternal), tidak ada display diupdate. Untuk sistem real-time seperti portal radiasi, ini berbahaya.<br><div class="code-block" style="margin:12px 0 0"><div class="code-hdr"><div class="code-dots"><div class="cdot r"></div><div class="cdot y"></div><div class="cdot g"></div></div><div class="code-lang">Solusi millis()</div></div><div class="code-body"><pre style="font-size:11px"><span class="tp">unsigned long</span> <span class="vr">t1</span>=<span class="num">0</span>, <span class="vr">t2</span>=<span class="num">0</span>;
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="tp">unsigned long</span> <span class="vr">now</span>=<span class="fn">millis</span>();
+  <span class="kw">if</span>(<span class="vr">now</span>-<span class="vr">t1</span>&gt;=<span class="num">2000</span>){ <span class="vr">t1</span>=<span class="vr">now</span>;
+    <span class="cmt">// Task 1: baca sensor</span> }
+  <span class="kw">if</span>(<span class="vr">now</span>-<span class="vr">t2</span>&gt;=<span class="num">500</span>){ <span class="vr">t2</span>=<span class="vr">now</span>;
+    <span class="cmt">// Task 2: kedip LED</span> }
+}</pre></div></div></div></div></div></div></div>
+  </div>
+
+  <div class="chapter-div"><span>Level Lanjutan — Fisika Instrumentasi & Expert</span></div>
+  <div class="ex-grid fade-in">
+    <div class="ex-card"><div class="ex-hdr"><span class="ex-level lv-adv">Expert</span><div class="ex-title">Dead Time Correction Geiger-Müller</div></div><div class="ex-body"><div class="ex-q">Sebuah detektor GM memiliki dead time τ = 150 μs. Laju cacah terukur m = 3.000 CPS. Hitunglah laju cacah sebenarnya (n) dan persentase kesalahan pengukuran! Jelaskan apa yang terjadi jika m = 7.000 CPS dengan τ yang sama.</div><div class="accordion" onclick="toggleAccordion(this)"><div class="acc-hdr"><span>Lihat Jawaban</span><div class="acc-icon">+</div></div><div class="acc-body"><div class="acc-content"><strong>Data:</strong> τ = 150 μs = 1.5×10⁻⁴ s, m = 3.000 CPS<br><br><strong>Langkah 1:</strong> Hitung mτ: mτ = 3000 × 0.00015 = 0.45<br><strong>Langkah 2:</strong> n = m / (1 - mτ) = 3000 / (1 - 0.45) = 3000 / 0.55 ≈ <strong>5.455 CPS</strong><br><strong>Langkah 3:</strong> Kesalahan = (n-m)/n × 100% = (5455-3000)/5455 × 100% ≈ <strong>45% kesalahan!</strong><br><br><strong>Jika m = 7.000 CPS:</strong><br>mτ = 7000 × 0.00015 = 1.05 → mτ &gt; 1 → denom = 1-1.05 = -0.05 &lt; 0<br>→ <strong>SATURASI TOTAL!</strong> Detektor lumpuh, tidak bisa digunakan. Harus gunakan detektor dengan dead time lebih kecil atau attenuator radiasi.</div></div></div></div></div></div>
+    <div class="ex-card"><div class="ex-hdr"><span class="ex-level lv-adv">Expert</span><div class="ex-title">Rancang Sistem Robot Mapping Lengkap</div></div><div class="ex-body"><div class="ex-q">Rancang sistem IPO lengkap untuk robot mapping radiasi otonom. Tentukan: sensor yang dibutuhkan (minimal 4 jenis), unit pemroses bertingkat, output data, protokol komunikasi antar board, dan algoritma SLAM yang direkomendasikan. Berikan alasan setiap pilihan!</div><div class="accordion" onclick="toggleAccordion(this)"><div class="acc-hdr"><span>Lihat Jawaban</span><div class="acc-icon">+</div></div><div class="acc-body"><div class="acc-content"><strong>INPUT (4 sensor):</strong><br>1. GM Tube (radiasi) — data utama peta panas<br>2. LIDAR RPLidar A1 (pemetaan 360°) — untuk SLAM Cartographer<br>3. Encoder motor (odometri) — estimasi posisi awal<br>4. MPU6050 IMU (orientasi) — koreksi drift odometri<br><br><strong>PROSES (bertingkat):</strong><br>Arduino Mega → kontrol motor DC (via L298N), baca encoder, baca GM Tube via interrupt<br>Raspberry Pi 4 → menjalankan ROS, algoritma Cartographer SLAM, fusi data radiasi+posisi, web server<br>Jetson Nano (opsional) → deteksi APD pekerja via YOLO v8<br><br><strong>OUTPUT:</strong> Web heat map radiasi (Leaflet.js + custom overlay), peta SLAM (RViz/ROS), alert Telegram jika ada zona berbahaya, logging ke database SQLite lokal<br><br><strong>Komunikasi:</strong> Mega↔Pi via UART Serial (JSON format), Pi↔Jetson via Ethernet/ROS topics, Pi↔Cloud via WiFi MQTT<br><br><strong>SLAM Rekomendasi:</strong> Cartographer — karena akurat untuk area besar dan mendukung loop closure yang penting untuk akurasi peta fasilitas nuklir yang luas.</div></div></div></div></div></div>
+    <div class="ex-card"><div class="ex-hdr"><span class="ex-level lv-adv">Expert</span><div class="ex-title">PLC vs Arduino untuk Sistem Nuklir</div></div><div class="ex-body"><div class="ex-q">Anda diminta merancang sistem kendali untuk fasilitas iradiator komersial skala industri yang harus memenuhi standar SIL 2 (Safety Integrity Level 2). Jelaskan mengapa Arduino tidak memadai dan apa spesifikasi minimum PLC yang dibutuhkan!</div><div class="accordion" onclick="toggleAccordion(this)"><div class="acc-hdr"><span>Lihat Jawaban</span><div class="acc-icon">+</div></div><div class="acc-body"><div class="acc-content"><strong>Mengapa Arduino Tidak Memadai untuk SIL 2:</strong><br>1. Non-deterministik: waktu eksekusi loop() bervariasi tergantung kode → tidak bisa diprediksi<br>2. Tidak ada hardware redundancy bawaan<br>3. Tidak tersertifikasi IEC 61508 (standar functional safety)<br>4. RAM terbatas → tidak ada memory protection<br>5. Tidak ada watchdog timer yang andal<br><br><strong>Spesifikasi Minimum PLC SIL 2:</strong><br>1. Sertifikasi IEC 61508 SIL 2 atau IEC 62061<br>2. CPU redundan (minimal hot-standby, idealnya 2oo2D voting)<br>3. Deterministic scan cycle ≤ 10ms<br>4. Diagnostic Coverage ≥ 90%<br>5. Safe Failure Fraction ≥ 90%<br>6. Contoh produk: Siemens S7-300F, Allen-Bradley GuardLogix, ABB AC500-S<br><br><strong>Kesimpulan:</strong> Arduino EXCELLENT untuk prototype dan peraga pendidikan. Untuk sistem safety kritis di fasilitas radiasi nyata, PLC dengan sertifikasi safety wajib digunakan.</div></div></div></div></div></div>
+  </div>
+
+  <div class="chapter-div"><span>Soal Hitung Cepat (10 Soal)</span></div>
+  <ol class="styled fade-in">
+    <li><div><strong>Kalkulasi Resistor:</strong> LED biru (Vf=3.2V, If=20mA) dari supply 5V Arduino. Berapa R minimum? <span style="color:var(--accent4)">Jawab: R=(5-3.2)/0.02=90Ω → pakai 100Ω</span></div></li>
+    <li><div><strong>Konversi CPM:</strong> Detektor mencatat 1.500 counts dalam 10 menit. Berapa CPM? <span style="color:var(--accent4)">Jawab: CPM = 1500/10 = 150 CPM</span></div></li>
+    <li><div><strong>Dead Time:</strong> τ=100μs, m=4.000 CPS. Hitung n. <span style="color:var(--accent4)">Jawab: mτ=0.4, n=4000/0.6=6.667 CPS</span></div></li>
+    <li><div><strong>Konversi Analog:</strong> analogRead() mengembalikan nilai 512. Berapa tegangan di pin A0 Arduino 5V? <span style="color:var(--accent4)">Jawab: V = (512/1023) × 5V = 2.5V</span></div></li>
+    <li><div><strong>Voltage Divider:</strong> R1=1kΩ, R2=2kΩ, Vin=9V. Berapa Vout di R2? <span style="color:var(--accent4)">Jawab: Vout=9×2k/(1k+2k)=6V</span></div></li>
+    <li><div><strong>Daya Dissipasi:</strong> LM7805 dengan Vin=12V, Vout=5V, I=500mA. Berapa watt yang dibuang sebagai panas? <span style="color:var(--accent4)">Jawab: P=(12-5)×0.5=3.5W → wajib heatsink!</span></div></li>
+    <li><div><strong>Frekuensi:</strong> Gelombang ultrasonik HC-SR04 beroperasi pada berapa kHz dan kecepatan suara 343 m/s. Jika echo kembali dalam 2ms, berapa jarak objek? <span style="color:var(--accent4)">Jawab: d=(343×0.002)/2=0.343m=34.3cm</span></div></li>
+    <li><div><strong>PWM:</strong> analogWrite(pin, 128) pada Arduino 8-bit (0-255). Berapa duty cycle dan tegangan efektif (supply 5V)? <span style="color:var(--accent4)">Jawab: DC=128/255=50.2%, Veff≈2.51V</span></div></li>
+    <li><div><strong>Statistik Alarm:</strong> Background rata-rata 20 CPM. Berapa threshold alarm 3-sigma? <span style="color:var(--accent4)">Jawab: Threshold = 20+3×√20 = 20+13.4 = 33.4 CPM</span></div></li>
+    <li><div><strong>Konversi CPM ke μSv/h:</strong> Tabung SBM-20 membaca 150 CPM. Faktor konversi = 0.0057 μSv/h per CPM. Berapa dosis? <span style="color:var(--accent4)">Jawab: 150 × 0.0057 = 0.855 μSv/h</span></div></li>
+  </ol>
+</section>
+
+<!-- ===== RINGKASAN ===== -->
+<section class="section fade-in" id="ringkasan">
+  <div class="section-tag">// RINGKASAN</div>
+  <h2 class="section-title">Ringkasan & Peta Jalan Belajar</h2>
+  <p class="section-desc">Konsolidasi semua konsep inti dan langkah selanjutnya menuju pendalaman profesional.</p>
+
+  <div class="summary-box fade-in">
+    <div class="summary-title">Poin Kunci yang Wajib Dikuasai</div>
+    <div class="summary-grid">
+      <div class="sum-item"><div class="sum-check">✓</div><div class="sum-text"><strong>Framework IPO</strong>Input(Sensor)→Proses(MCU)→Output(Aktuator). Fondasi setiap sistem instrumentasi.</div></div>
+      <div class="sum-item"><div class="sum-check">✓</div><div class="sum-text"><strong>Pemilihan Komponen</strong>Arduino untuk prototype, PLC untuk industri nuklir nyata (SIL 2/3).</div></div>
+      <div class="sum-item"><div class="sum-check">✓</div><div class="sum-text"><strong>Interrupt vs Polling</strong>Selalu gunakan interrupt untuk menghitung pulsa radiasi. Polling kehilangan data.</div></div>
+      <div class="sum-item"><div class="sum-check">✓</div><div class="sum-text"><strong>millis() vs delay()</strong>millis() untuk multitasking non-blocking. delay() hanya untuk kode sederhana.</div></div>
+      <div class="sum-item"><div class="sum-check">✓</div><div class="sum-text"><strong>Dead Time Correction</strong>n = m/(1-mτ). Tanpa koreksi → meremehkan bahaya radiasi sesungguhnya.</div></div>
+      <div class="sum-item"><div class="sum-check">✓</div><div class="sum-text"><strong>Fail-Safe Design</strong>Default = AMAN. Saat terjadi kegagalan, sistem harus otomatis ke kondisi aman (SCRAM).</div></div>
+      <div class="sum-item"><div class="sum-check">✓</div><div class="sum-text"><strong>Regulasi BAPETEN</strong>Setiap iradiator wajib memiliki interlock pintu, SCRAM, indikator status, monitoring dosis.</div></div>
+      <div class="sum-item"><div class="sum-check">✓</div><div class="sum-text"><strong>AI & Robotika</strong>YOLO untuk APD monitoring (97% akurasi). SLAM Cartographer untuk pemetaan radiasi otonom.</div></div>
+    </div>
+  </div>
+
+  <div class="cards-grid fade-in" style="margin-top:32px">
+    <div class="card c1"><div class="card-icon">🌱</div><div class="card-title">Pemula (Minggu 1–2)</div><div class="card-desc">LED → Push Button → Potensiometer → LCD I2C → if-else sederhana. Tools: Wokwi.com (simulasi gratis, tidak perlu hardware fisik).</div></div>
+    <div class="card c2"><div class="card-icon">🌿</div><div class="card-title">Menengah (Minggu 3–4)</div><div class="card-desc">DHT22 → Servo → Motor DC + L298N → millis() multitasking → attachInterrupt() → sistem thermostat atau pulse counter.</div></div>
+    <div class="card c4"><div class="card-icon">🌳</div><div class="card-title">Lanjutan (Minggu 5–8)</div><div class="card-desc">ESP32 IoT → Web dashboard → MQTT → Raspberry Pi server → OpenCV dasar → integrasi sistem multi-sensor.</div></div>
+    <div class="card c5"><div class="card-icon">🚀</div><div class="card-title">Expert (Minggu 8+)</div><div class="card-desc">ROS + SLAM → YOLO pada Jetson Nano → PLC programming → desain PCB KiCad → dead time correction → SIL standards.</div></div>
+  </div>
+</section>
+
+<!-- ===== REFERENSI ===== -->
+<section class="section fade-in" id="referensi">
+  <div class="section-tag">// DAFTAR REFERENSI</div>
+  <h2 class="section-title">Daftar Referensi Akademik</h2>
+  <p class="section-desc">55+ referensi valid dari jurnal internasional, regulasi BAPETEN, dan sumber teknis terpercaya.</p>
+
+  <div class="chapter-div"><span>Regulasi & Standar</span></div>
+  <ul class="ref-list fade-in">
+    <li><span class="ref-num">R1</span><div>Ketentuan MK Proyek Spesial I & II — Politeknik Teknologi Nuklir Indonesia. <em>Slide ketentuan resmi mata kuliah Capstone Design.</em></div></li>
+    <li><span class="ref-num">R2</span><div>BAPETEN. <em>Peraturan Kepala BAPETEN No.3 Tahun 2020 tentang Keselamatan Radiasi dalam Penggunaan Iradiator.</em> <a href="https://jdih.bapeten.go.id/unggah/dokumen/peraturan/1027-full.pdf" class="ref-link" target="_blank">jdih.bapeten.go.id</a></div></li>
+    <li><span class="ref-num">R3</span><div>BAPETEN. <em>Rancangan Peraturan Kepala BAPETEN No.XXX Tahun 2019 tentang Keselamatan Radiasi dalam Penggunaan Iradiasi.</em> <a href="https://jdih.bapeten.go.id/unggah/dokumen/peraturan/445-1_(PERATURAN)-1574318660.pdf" class="ref-link" target="_blank">Link PDF</a></div></li>
+    <li><span class="ref-num">R4</span><div>Patsnap Eureka. <em>SIL-Rated Interlock Systems: Achieving Safety Integrity Level 3.</em> <a href="https://eureka.patsnap.com/article/sil-rated-interlock-systems-achieving-safety-integrity-level-3" class="ref-link" target="_blank">Link Artikel</a></div></li>
+  </ul>
+
+  <div class="chapter-div"><span>Deteksi & Instrumentasi Radiasi</span></div>
+  <ul class="ref-list fade-in">
+    <li><span class="ref-num">S1</span><div>Wikipedia. <em>Geiger–Müller tube</em> — Mekanisme ionisasi, dead time, dan quenching. <a href="https://en.wikipedia.org/wiki/Geiger%E2%80%93M%C3%BCller_tube" class="ref-link" target="_blank">wikipedia.org</a></div></li>
+    <li><span class="ref-num">S2</span><div>Caltech. <em>The Geiger Counter And Counting Statistics.</em> <a href="http://www.cco.caltech.edu/~derose/labs/exp2.html" class="ref-link" target="_blank">cco.caltech.edu</a></div></li>
+    <li><span class="ref-num">S3</span><div>PMC/NCBI. <em>Simultaneous experimental evaluation of pulse shape and deadtime phenomenon of GM detector.</em> <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7870657/" class="ref-link" target="_blank">pmc.ncbi.nlm.nih.gov</a></div></li>
+    <li><span class="ref-num">S4</span><div>Reed College Physics. <em>Gamma Ray Spectroscopy with Arduino UNO.</em> <a href="https://www.reed.edu/physics/332/pdf/Gamma%20Ray%20Spectroscopy%20-%20Arduino.pdf" class="ref-link" target="_blank">reed.edu</a></div></li>
+    <li><span class="ref-num">S5</span><div>OpenGammaProject. <em>Open-Gamma-Detector: Hardware for a hackable DIY gamma-ray spectrometer using NaI(Tl) scintillator, SiPM, and Raspberry Pi Pico.</em> <a href="https://github.com/OpenGammaProject/Open-Gamma-Detector" class="ref-link" target="_blank">GitHub</a></div></li>
+    <li><span class="ref-num">S6</span><div>Analog Devices. <em>Bias Supply Powers Low-Power Geiger-Mueller Tube.</em> <a href="https://www.analog.com/en/resources/design-notes/bias-supply-powers-lowpower-geigermueller-tube.html" class="ref-link" target="_blank">analog.com</a></div></li>
+    <li><span class="ref-num">S7</span><div>UiO. <em>Lecture: Pulse Signal Processing — Shaping Amplifier Theory.</em> <a href="https://www.uio.no/studier/emner/matnat/fys/FYS4505/h25/forelesningsnotater/lecture_pulse_signal_processing.pdf" class="ref-link" target="_blank">uio.no</a></div></li>
+    <li><span class="ref-num">S8</span><div>PMC/NCBI. <em>Arduino-Based Readout Electronics for Nuclear and Particle Physics.</em> <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11086173" class="ref-link" target="_blank">pmc.ncbi.nlm.nih.gov</a></div></li>
+    <li><span class="ref-num">S9</span><div>Nuclear Power. <em>Geiger Counter - Geiger-Mueller Detector.</em> <a href="https://www.nuclear-power.com/nuclear-engineering/radiation-detection/gaseous-ionization-detector/geiger-counter-geiger-mueller-detector/" class="ref-link" target="_blank">nuclear-power.com</a></div></li>
+  </ul>
+
+  <div class="chapter-div"><span>Mikrokontroler & Pemrograman</span></div>
+  <ul class="ref-list fade-in">
+    <li><span class="ref-num">M1</span><div>UnicMinds. <em>Arduino vs. Raspberry Pi vs. Jetson vs. Microbit — Perbandingan komprehensif.</em> <a href="https://unicminds.com/arduino-vs-raspberry-pi-vs-jetson-vs-microbit/" class="ref-link" target="_blank">unicminds.com</a></div></li>
+    <li><span class="ref-num">M2</span><div>Arduino. <em>Official Programming Documentation.</em> <a href="https://www.arduino.cc/reference/en/" class="ref-link" target="_blank">arduino.cc</a></div></li>
+    <li><span class="ref-num">M3</span><div>Arduino Forum. <em>Simple Pulse Counter — Programming Discussion.</em> <a href="https://forum.arduino.cc/t/simple-pulse-counter/519930" class="ref-link" target="_blank">forum.arduino.cc</a></div></li>
+    <li><span class="ref-num">M4</span><div>Indomaker. <em>Tutorial Cara Mendeteksi Gerakan Menggunakan Sensor PIR (HC-SR501) dan Arduino Uno.</em> <a href="https://indomaker.com/blog/tutorial-cara-mendeteksi-gerakan-menggunakan-sensor-pir-hc-sr501-dan-arduino-uno/" class="ref-link" target="_blank">indomaker.com</a></div></li>
+    <li><span class="ref-num">M5</span><div>c3controls. <em>Microcontrollers Versus PLCs: A Detailed Comparison.</em> <a href="https://www.c3controls.com/white-paper/microcontrollers-versus-plcs-detailedcomparison/" class="ref-link" target="_blank">c3controls.com</a></div></li>
+  </ul>
+
+  <div class="chapter-div"><span>Reaktor & Termodinamika</span></div>
+  <ul class="ref-list fade-in">
+    <li><span class="ref-num">T1</span><div>BRIN. <em>Reaktor Kartini — Internet Reactor Laboratory.</em> <a href="https://irlkartini.brin.go.id/" class="ref-link" target="_blank">irlkartini.brin.go.id</a></div></li>
+    <li><span class="ref-num">T2</span><div>BRIN. <em>Prinsip Pengendalian Reaktor Kartini.</em> <a href="https://irlkartini.brin.go.id/index.php?m=prinsippengendalian" class="ref-link" target="_blank">irlkartini.brin.go.id</a></div></li>
+    <li><span class="ref-num">T3</span><div>U.S. Department of Energy. <em>NUCLEAR 101: How Does a Nuclear Reactor Work?</em> <a href="https://www.energy.gov/ne/articles/nuclear-101-how-does-nuclear-reactor-work" class="ref-link" target="_blank">energy.gov</a></div></li>
+    <li><span class="ref-num">T4</span><div>MDPI Energies. <em>Thermodynamic Analysis and Comparison of Power Cycles for Small Modular Reactors.</em> <a href="https://www.mdpi.com/1996-1073/17/7/1650" class="ref-link" target="_blank">mdpi.com</a></div></li>
+    <li><span class="ref-num">T5</span><div>NRC. <em>Boiling Water Reactor (BWR) Systems.</em> <a href="https://www.nrc.gov/reading-rm/basic-ref/students/for-educators/03.pdf" class="ref-link" target="_blank">nrc.gov</a></div></li>
+    <li><span class="ref-num">T6</span><div>NTA Net. <em>Control Rods in Nuclear Reactors – It's All About Neutrons.</em> <a href="https://www.ntanet.net/control-rods-in-nuclear-reactors-its-all-about-neutrons/" class="ref-link" target="_blank">ntanet.net</a></div></li>
+  </ul>
+
+  <div class="chapter-div"><span>Robotika, AI & SLAM</span></div>
+  <ul class="ref-list fade-in">
+    <li><span class="ref-num">A1</span><div>ResearchGate. <em>Development of Autonomous Radiation Mapping Robot.</em> <a href="https://www.researchgate.net/publication/314126059_Development_of_Autonomous_Radiation_Mapping_Robot" class="ref-link" target="_blank">researchgate.net</a></div></li>
+    <li><span class="ref-num">A2</span><div>ResearchGate. <em>Mobile robot for radiation mapping in indoor environment.</em> <a href="https://www.researchgate.net/publication/343549257_Mobile_robot_for_radiation_mapping_in_indoor_environment" class="ref-link" target="_blank">researchgate.net</a></div></li>
+    <li><span class="ref-num">A3</span><div>ISAS Journal. <em>Deteksi Helm Keselamatan Menggunakan Jetson Nano dan YOLOv7.</em> <a href="https://journal.isas.or.id/index.php/JACOST/article/download/637/267" class="ref-link" target="_blank">journal.isas.or.id</a></div></li>
+    <li><span class="ref-num">A4</span><div>Medium. <em>Comparison between Hector and GMapping SLAM Algorithms.</em> <a href="https://dibyendu-biswas.medium.com/comparison-between-hector-and-gmapping-2e2dfacbddb" class="ref-link" target="_blank">medium.com</a></div></li>
+    <li><span class="ref-num">A5</span><div>MDPI Sensors. <em>2D SLAM Algorithms Characterization, Calibration, and Comparison.</em> <a href="https://www.mdpi.com/1424-8220/22/18/6903" class="ref-link" target="_blank">mdpi.com</a></div></li>
+    <li><span class="ref-num">A6</span><div>STM Journals. <em>Radiation-Resilient AI: Next-Generation Robotic Systems With Adaptive ML For Nuclear Facility Management.</em> <a href="https://journals.stmjournals.com/jotea/article=2025/view=223003/" class="ref-link" target="_blank">journals.stmjournals.com</a></div></li>
+    <li><span class="ref-num">A7</span><div>Jacobs School of Engineering UCSD. <em>Making Electronics More Resilient to Radiation — CARRE Project.</em> <a href="https://jacobsschool.ucsd.edu/news/release/4024" class="ref-link" target="_blank">jacobsschool.ucsd.edu</a></div></li>
+    <li><span class="ref-num">A8</span><div>Portal Jurnal Peneliti. <em>Rancangan Object Detection Untuk Pemeriksaan Rock Pada Landas Pacu Menggunakan Jetson Nano.</em> <a href="https://jurnal.peneliti.net/index.php/JIWP/article/view/8994" class="ref-link" target="_blank">jurnal.peneliti.net</a></div></li>
+    <li><span class="ref-num">A9</span><div>Instructables. <em>Simplest Geiger Counter : 7 Steps (with Pictures).</em> <a href="https://www.instructables.com/Simplest-Geiger-Counter/" class="ref-link" target="_blank">instructables.com</a></div></li>
+    <li><span class="ref-num">A10</span><div>eInfochips. <em>SLAM Optimization for Autonomous Robots with GPU Acceleration.</em> <a href="https://www.einfochips.com/blog/real-time-slam-optimization-for-autonomous-robots/" class="ref-link" target="_blank">einfochips.com</a></div></li>
+  </ul>
+
+  <div class="info-box ib-tip fade-in" style="margin-top:28px"><div class="ib-icon">🔗</div><div class="ib-text"><strong>Sumber Belajar Interaktif Tambahan</strong>Simulasi online: <a href="https://wokwi.com" class="ref-link" target="_blank">Wokwi.com</a> (Arduino simulator gratis) · <a href="https://www.tinkercad.com" class="ref-link" target="_blank">Tinkercad</a> · Proteus (download) · YouTube: playlist bahan belajar Spesial Project HEI Poltek Nuklir · Google Drive materi: <a href="https://drive.google.com/drive/folders/1ozzV5AnqGrwZlKT19KF00fFctHuYgJJ" class="ref-link" target="_blank">Link Bahan Belajar IPO</a> · <a href="https://drive.google.com/drive/folders/1PrQg2wXreZLYt1p7Yd0NC6FxGUXg15d0" class="ref-link" target="_blank">Link Latihan Dasar</a></div></div>
+</section>
+
+<footer>
+  <div class="f-logo">⚛ Spesial Project</div>
+  <div><strong>Nayif Sobat AI</strong> × Politeknik Teknologi Nuklir Indonesia</div>
+  <div>Elektronika Instrumentasi – BRIN | E-Modul Komprehensif v2.0</div>
+  <div style="margin-top:12px;opacity:.5;font-size:11px">Referensi: 55+ sumber akademik · Regulasi BAPETEN · Standar Internasional IEC 61508 · 2025</div>
+</footer>
+
+</main>
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');}
+function toggleAccordion(el){const b=el.querySelector('.acc-body');b.classList.toggle('open');el.classList.toggle('open');}
+
+const pf=document.getElementById('progressFill');
+window.addEventListener('scroll',()=>{
+  const t=document.body.scrollHeight-window.innerHeight;
+  pf.style.width=(window.scrollY/t*100)+'%';
+  document.getElementById('scrollTop').classList.toggle('visible',window.scrollY>400);
+});
+
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+const sections=document.querySelectorAll('section[id]');
+const navItems=document.querySelectorAll('.nav-item');
+const navObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const id=e.target.getAttribute('id');navItems.forEach(n=>{n.classList.remove('active');if(n.getAttribute('href')==='#'+id)n.classList.add('active');});}});},{threshold:.25});
+sections.forEach(s=>navObs.observe(s));
+navItems.forEach(n=>n.addEventListener('click',()=>{if(window.innerWidth<950)document.getElementById('sidebar').classList.remove('open');}));
+</script>
+</body>
+</html>
