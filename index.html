@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>E-Modul Spesial Project 1 Modal AI doang^^</title>
+<title>E-Modul Spesial Project | Nayif Sobat AI</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -346,6 +346,9 @@ ol.styled li::before{content:counter(item,decimal-leading-zero);font-family:'Spa
   <a href="#topik8" class="nav-item"><span class="nav-num">T8</span>Praktikum Termodinamika</a>
 
   <div class="sb-section">🧪 Evaluasi & Referensi</div>
+  <a href="#topik7" class="nav-item"><span class="nav-num">T7</span>Praktikum Elektronika Nuklir</a>
+  <a href="#topik8" class="nav-item"><span class="nav-num">T8</span>Praktikum Termodinamika</a>
+  <a href="#latihan-dasar" class="nav-item"><span class="nav-num">LD</span>Latihan Dasar (E)</a>
   <a href="#evaluasi" class="nav-item"><span class="nav-num">EV</span>Bank Soal & Evaluasi</a>
   <a href="#ringkasan" class="nav-item"><span class="nav-num">RK</span>Ringkasan & Peta Belajar</a>
   <a href="#referensi" class="nav-item"><span class="nav-num">RF</span>Daftar Referensi</a>
@@ -1124,32 +1127,826 @@ ol.styled li::before{content:counter(item,decimal-leading-zero);font-family:'Spa
   </div>
 </section>
 
-<!-- ===== TOPIK 4, 7, 8 — Ringkas ===== -->
+<!-- ===== TOPIK 4 — SIMULATOR REAKTOR BERBASIS WEB ===== -->
 <section class="section fade-in" id="topik4">
-  <div class="section-tag">// TOPIK 4, 7, 8 — KHUSUS</div>
-  <h2 class="section-title">Simulator Reaktor Web | Elektronika Nuklir | Termodinamika</h2>
+  <div class="section-tag">// TOPIK 4 — KHUSUS</div>
+  <h2 class="section-title">Simulator Reaktor Kartini Berbasis Web</h2>
 
-  <div class="cards-grid fade-in">
-    <div class="card c1">
-      <div class="card-icon">🌐</div>
-      <div class="card-title">Topik 4: Simulator Reaktor Kartini Berbasis Web</div>
-      <div class="card-desc" style="margin-bottom:14px">Reaktor Kartini beroperasi pada daya 100 kW di BRIN Yogyakarta. Simulator web menampilkan parameter operasi real-time: reaktivitas, flux neutron, suhu pendingin, posisi batang kendali.</div>
-      <div style="font-size:12px;color:var(--muted);border-top:1px solid var(--border);padding-top:12px;margin-top:4px"><strong style="color:var(--accent)">Stack Teknologi:</strong> Node.js + Express (backend) → Socket.io (realtime) → Chart.js (grafik) → HTML/CSS/JS (frontend). Atau Python Flask + Plotly Dash untuk lebih sederhana.<br><br><strong style="color:var(--accent)">Referensi:</strong> <a href="https://irlkartini.brin.go.id" class="ref-link" target="_blank">irlkartini.brin.go.id</a> — Internet Reactor Laboratory BRIN</div>
-    </div>
-    <div class="card c3">
-      <div class="card-icon">⚡</div>
-      <div class="card-title">Topik 7: Alat Praktikum Elektronika Nuklir</div>
-      <div class="card-desc" style="margin-bottom:14px">Membangun alat praktikum detektor radiasi berbasis Arduino yang dapat melakukan spektroskopi gamma sederhana menggunakan scintillator NaI(Tl) + SiPM + Raspberry Pi Pico.</div>
-      <div style="font-size:12px;color:var(--muted);border-top:1px solid var(--border);padding-top:12px;margin-top:4px"><strong style="color:var(--accent3)">Referensi:</strong> Reed College Gamma Ray Spectroscopy with Arduino + Open Gamma Project (GitHub: OpenGammaProject/Open-Gamma-Detector) menggunakan NaI(Tl) scintillator + SiPM + Raspberry Pi Pico.</div>
-    </div>
-    <div class="card c4">
-      <div class="card-icon">🌡️</div>
-      <div class="card-title">Topik 8: Alat Praktikum Termodinamika</div>
-      <div class="card-desc" style="margin-bottom:14px">Membuat kit praktikum yang mendemonstrasikan siklus termodinamika (Rankine/Brayton) yang digunakan dalam PLTN. Monitoring suhu multi-titik, perhitungan efisiensi termal.</div>
-      <div style="font-size:12px;color:var(--muted);border-top:1px solid var(--border);padding-top:12px;margin-top:4px"><strong style="color:var(--accent4)">Referensi:</strong> "Thermodynamic Analysis and Comparison of Power Cycles for Small Modular Reactors" (MDPI Energies, 2024) — perbandingan siklus Rankine vs Brayton untuk SMR.</div>
+  <div class="topic-hdr fade-in">
+    <div class="topic-hdr-icon">🌐</div>
+    <div>
+      <div class="topic-hdr-title">Web-Based Nuclear Reactor Simulator</div>
+      <div class="topic-hdr-desc">Membangun simulator interaktif berbasis web yang menampilkan parameter operasi Reaktor Kartini (100 kWth, BRIN Yogyakarta) secara real-time: reaktivitas, fluks neutron, suhu pendingin, dan posisi batang kendali.</div>
+      <div class="topic-tags"><span class="badge b-mcu">Node.js</span><span class="badge b-mcu">Socket.io</span><span class="badge b-output">Chart.js</span><span class="badge b-output">HTML/CSS/JS</span><span class="badge b-sensor">Arduino Serial</span></div>
     </div>
   </div>
+
+  <div class="chapter-div"><span>Blueprint Arsitektur Sistem</span></div>
+  <div class="fade-in" style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin:20px 0;">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-items:center;text-align:center;">
+      <div style="background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.3);border-radius:10px;padding:16px;">
+        <div style="font-size:24px;margin-bottom:8px">🎛️</div>
+        <div style="color:var(--accent);font-weight:700;font-size:12px;font-family:'Space Mono',monospace">① INPUT</div>
+        <div style="color:var(--muted);font-size:11px;margin-top:6px">Arduino + Potensiometer + Tombol SCRAM → Serial USB</div>
+      </div>
+      <div style="background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.3);border-radius:10px;padding:16px;">
+        <div style="font-size:24px;margin-bottom:8px">⚙️</div>
+        <div style="color:#a78bfa;font-weight:700;font-size:12px;font-family:'Space Mono',monospace">② SERVER</div>
+        <div style="color:var(--muted);font-size:11px;margin-top:6px">Node.js + serialport + Express + Kalkulasi reaktivitas</div>
+      </div>
+      <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.3);border-radius:10px;padding:16px;">
+        <div style="font-size:24px;margin-bottom:8px">📡</div>
+        <div style="color:var(--accent3);font-weight:700;font-size:12px;font-family:'Space Mono',monospace">③ WEBSOCKET</div>
+        <div style="color:var(--muted);font-size:11px;margin-top:6px">Socket.io broadcast ke semua browser yang terkoneksi</div>
+      </div>
+      <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:10px;padding:16px;">
+        <div style="font-size:24px;margin-bottom:8px">📊</div>
+        <div style="color:var(--accent4);font-weight:700;font-size:12px;font-family:'Space Mono',monospace">④ DASHBOARD</div>
+        <div style="color:var(--muted);font-size:11px;margin-top:6px">Chart.js grafik realtime + Gauge SVG + Log SCRAM</div>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:11px;color:var(--muted);margin-top:12px">Blueprint Arsitektur Simulator Reaktor Kartini Berbasis Web — Alur Data: Arduino → Node.js → Socket.io → Browser</div>
+  </div>
+
+  <div class="chapter-div"><span>Step-by-Step Pengerjaan Lengkap</span></div>
+  <ul class="steps fade-in">
+    <li class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Install Node.js & Buat Proyek</div><div class="step-desc">Install Node.js LTS dari nodejs.org. Buka terminal: <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:11px">mkdir reaktor-sim && cd reaktor-sim && npm init -y</code>. Install dependencies: <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:11px">npm install express socket.io serialport</code>. Buat folder <em>public/</em> untuk file HTML/CSS/JS frontend.</div></div></li>
+    <li class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Kode Arduino: Kirim Data via Serial</div><div class="step-desc">Arduino membaca potensiometer (nilai 0–1023, mewakili posisi batang kendali 0–100%) dan tombol SCRAM. Setiap 500ms kirim JSON ke Serial: <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:11px">{"rod":75,"scram":0}</code>. Gunakan <code>Serial.println()</code> agar Node.js mudah memisahkan setiap paket data per baris.</div></div></li>
+    <li class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Server Node.js: Baca Serial & Hitung Fisika Reaktor</div><div class="step-desc">server.js membuka port Arduino dengan library serialport. Data masuk → parse JSON → hitung reaktivitas ρ (fungsi dari posisi batang) → hitung perubahan daya dengan persamaan point kinetics → hitung suhu pendingin. Semua hasil di-broadcast ke browser via <code>io.emit()</code> setiap 500ms.</div></div></li>
+    <li class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Frontend: Dashboard Real-Time</div><div class="step-desc">Browser terhubung ke server via <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:11px">const socket = io()</code>. Listen event <code>reactor-data</code>: update teks nilai, push data ke Chart.js, update warna gauge. Tampilkan log event (startup, SCRAM, threshold warning) di area text. Tombol SCRAM di frontend bisa kirim sinyal kembali ke Arduino via socket.</div></div></li>
+    <li class="step"><div class="step-num">5</div><div class="step-content"><div class="step-title">Jalankan & Uji Sistem</div><div class="step-desc">Terminal: <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:11px">node server.js</code>. Buka browser: <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-family:'Space Mono',monospace;font-size:11px">http://localhost:3000</code>. Putar potensiometer → grafik berubah. Tekan SCRAM → daya drop ke nol. Buka 2 tab browser → keduanya update bersamaan (itulah kekuatan WebSocket!).</div></div></li>
+  </ul>
+
+  <div class="chapter-div"><span>Kode: Server Node.js (Penjelasan Baris per Baris)</span></div>
+  <div class="code-block fade-in">
+    <div class="code-hdr"><div class="code-dots"><div class="cdot r"></div><div class="cdot y"></div><div class="cdot g"></div></div><div class="code-lang">Node.js — server.js (Backend Simulator Reaktor)</div></div>
+    <div class="code-body"><pre><span class="cmt">// ─────────────────────────────────────────────────────────────
+// server.js — Backend Simulator Reaktor Kartini
+// Tiga fungsi utama:
+// 1) Baca data Arduino via USB Serial (kabel bawaan Arduino)
+// 2) Hitung parameter fisika reaktor dari data tersebut
+// 3) Kirim hasil ke browser secara real-time via WebSocket
+// ─────────────────────────────────────────────────────────────</span>
+
+<span class="kw">const</span> <span class="vr">express</span>  = <span class="fn">require</span>(<span class="str">'express'</span>);   <span class="cmt">// Web framework: sajikan file HTML</span>
+<span class="kw">const</span> <span class="vr">http</span>     = <span class="fn">require</span>(<span class="str">'http'</span>);       <span class="cmt">// Modul HTTP bawaan Node.js</span>
+<span class="kw">const</span> <span class="vr">socketIo</span> = <span class="fn">require</span>(<span class="str">'socket.io'</span>); <span class="cmt">// Real-time WebSocket</span>
+<span class="kw">const</span> { <span class="vr">SerialPort</span>, <span class="vr">ReadlineParser</span> } = <span class="fn">require</span>(<span class="str">'serialport'</span>);
+
+<span class="kw">const</span> <span class="vr">app</span>    = <span class="fn">express</span>();
+<span class="kw">const</span> <span class="vr">server</span> = <span class="fn">http</span>.<span class="fn">createServer</span>(<span class="vr">app</span>); <span class="cmt">// Bungkus Express dalam HTTP server</span>
+<span class="kw">const</span> <span class="vr">io</span>     = <span class="fn">socketIo</span>(<span class="vr">server</span>);       <span class="cmt">// Pasangkan Socket.io ke HTTP server</span>
+
+<span class="vr">app</span>.<span class="fn">use</span>(<span class="fn">express</span>.<span class="fn">static</span>(<span class="str">'public'</span>)); <span class="cmt">// Folder 'public' bisa diakses browser</span>
+
+<span class="cmt">// ── Buka koneksi ke Arduino via port Serial ──
+// Windows: 'COM3', 'COM4', dll → cek di Device Manager
+// Linux/Mac: '/dev/ttyACM0', '/dev/ttyUSB0'
+// baudRate harus sama dengan Serial.begin(9600) di Arduino</span>
+<span class="kw">const</span> <span class="vr">port</span>   = <span class="kw">new</span> <span class="tp">SerialPort</span>({ path: <span class="str">'COM3'</span>, baudRate: <span class="num">9600</span> });
+<span class="kw">const</span> <span class="vr">parser</span> = <span class="vr">port</span>.<span class="fn">pipe</span>(<span class="kw">new</span> <span class="tp">ReadlineParser</span>({ delimiter: <span class="str">'\n'</span> }));
+<span class="cmt">// ReadlineParser: pisahkan data per baris '\n' agar bisa JSON.parse()</span>
+
+<span class="kw">const</span> <span class="vr">BETA</span>  = <span class="num">0.0065</span>; <span class="cmt">// β = fraksi neutron terlambat Uranium-235</span>
+<span class="kw">const</span> <span class="vr">P0</span>    = <span class="num">100</span>;    <span class="cmt">// Daya nominal Reaktor Kartini = 100 kW</span>
+<span class="kw">let</span>   <span class="vr">power</span> = <span class="num">10</span>;    <span class="cmt">// Daya awal = 10% dari nominal</span>
+
+<span class="cmt">// ── Proses data dari Arduino ──</span>
+<span class="vr">parser</span>.<span class="fn">on</span>(<span class="str">'data'</span>, <span class="vr">line</span> => {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> <span class="vr">d</span> = <span class="fn">JSON</span>.<span class="fn">parse</span>(<span class="vr">line</span>); <span class="cmt">// Ubah string JSON → objek JavaScript</span>
+    <span class="cmt">// d = { rod: 0-100, scram: 0/1 }</span>
+
+    <span class="kw">if</span> (<span class="vr">d</span>.<span class="vr">scram</span>) { <span class="vr">power</span> = <span class="num">0</span>; <span class="vr">io</span>.<span class="fn">emit</span>(<span class="str">'reactor-data'</span>,{<span class="vr">power</span>:<span class="num">0</span>,<span class="vr">scram</span>:<span class="kw">true</span>}); <span class="kw">return</span>; }
+
+    <span class="cmt">// Reaktivitas ρ: rod=50% → ρ=0 (kritis), &lt;50% → negatif (mati), &gt;50% → positif
+    // Rumus linear sederhana untuk simulator: ρ = (rod/100 - 0.5) × 0.02</span>
+    <span class="kw">const</span> <span class="vr">rho</span> = ((<span class="vr">d</span>.<span class="vr">rod</span> / <span class="num">100</span>) - <span class="num">0.5</span>) * <span class="num">0.02</span>;
+
+    <span class="cmt">// Point kinetics (simplifikasi): ΔP = P × (ρ/β) × Δt
+    // ρ/β = rasio reaktivitas terhadap fraksi neutron terlambat
+    // Jika ρ > β (prompt critical) → daya naik sangat cepat!</span>
+    <span class="kw">const</span> <span class="vr">dt</span> = <span class="num">0.5</span>;
+    <span class="vr">power</span> += <span class="vr">power</span> * (<span class="vr">rho</span> / <span class="vr">BETA</span>) * <span class="vr">dt</span>;
+    <span class="vr">power</span>  = <span class="fn">Math</span>.<span class="fn">max</span>(<span class="num">0</span>, <span class="fn">Math</span>.<span class="fn">min</span>(<span class="vr">P0</span>, <span class="vr">power</span>));
+
+    <span class="kw">const</span> <span class="vr">temp</span> = <span class="num">25</span> + (<span class="vr">power</span> / <span class="vr">P0</span>) * <span class="num">45</span>; <span class="cmt">// Suhu 25°C–70°C (range kit)</span>
+
+    <span class="cmt">// io.emit() = kirim ke SEMUA client yang sedang terhubung
+    // Berbeda dari socket.emit() yang hanya ke satu client</span>
+    <span class="vr">io</span>.<span class="fn">emit</span>(<span class="str">'reactor-data'</span>, {
+      <span class="vr">power</span>: <span class="vr">power</span>.<span class="fn">toFixed</span>(<span class="num">1</span>),
+      <span class="vr">powerPct</span>: (<span class="vr">power</span>/<span class="vr">P0</span>*<span class="num">100</span>).<span class="fn">toFixed</span>(<span class="num">0</span>),
+      <span class="vr">temp</span>: <span class="vr">temp</span>.<span class="fn">toFixed</span>(<span class="num">1</span>),
+      <span class="vr">rho</span>: (<span class="vr">rho</span>*<span class="num">1e5</span>).<span class="fn">toFixed</span>(<span class="num">0</span>),  <span class="cmt">// Dalam pcm = per cent mille</span>
+      <span class="vr">rodPos</span>: <span class="vr">d</span>.<span class="vr">rod</span>
+    });
+  } <span class="kw">catch</span>(<span class="vr">e</span>) { <span class="vr">console</span>.<span class="fn">error</span>(<span class="vr">e</span>.<span class="vr">message</span>); }
+});
+
+<span class="vr">server</span>.<span class="fn">listen</span>(<span class="num">3000</span>, () => <span class="vr">console</span>.<span class="fn">log</span>(<span class="str">'Simulator aktif → http://localhost:3000'</span>));</pre></div>
+  </div>
+
+  <div class="code-block fade-in">
+    <div class="code-hdr"><div class="code-dots"><div class="cdot r"></div><div class="cdot y"></div><div class="cdot g"></div></div><div class="code-lang">JavaScript — public/dashboard.js (Frontend: Terima & Tampilkan Data)</div></div>
+    <div class="code-body"><pre><span class="cmt">// ── Koneksi ke Socket.io server ──
+// io() tanpa argumen otomatis terhubung ke server yang sama
+// di mana HTML ini dimuat (http://localhost:3000)</span>
+<span class="kw">const</span> <span class="vr">socket</span> = <span class="fn">io</span>();
+
+<span class="cmt">// ── Setup grafik Chart.js ──</span>
+<span class="kw">const</span> <span class="vr">ctx</span> = <span class="vr">document</span>.<span class="fn">getElementById</span>(<span class="str">'powerChart'</span>).<span class="fn">getContext</span>(<span class="str">'2d'</span>);
+<span class="kw">const</span> <span class="vr">chart</span> = <span class="kw">new</span> <span class="tp">Chart</span>(<span class="vr">ctx</span>, {
+  <span class="vr">type</span>: <span class="str">'line'</span>,
+  <span class="vr">data</span>: { <span class="vr">labels</span>: [], <span class="vr">datasets</span>: [{
+    <span class="vr">label</span>: <span class="str">'Daya (kW)'</span>, <span class="vr">data</span>: [],
+    <span class="vr">borderColor</span>: <span class="str">'#00e5ff'</span>, <span class="vr">fill</span>: <span class="kw">false</span>, <span class="vr">tension</span>: <span class="num">0.4</span>
+  }]},
+  <span class="vr">options</span>: { <span class="vr">animation</span>: { <span class="vr">duration</span>: <span class="num">0</span> }, <span class="vr">scales</span>: { <span class="vr">y</span>: { <span class="vr">min</span>:<span class="num">0</span>, <span class="vr">max</span>:<span class="num">120</span>}}}
+});
+
+<span class="cmt">// ── Terima data dari server (event 'reactor-data') ──
+// Setiap kali server memanggil io.emit('reactor-data', data)
+// fungsi ini dipanggil dengan data tersebut</span>
+<span class="vr">socket</span>.<span class="fn">on</span>(<span class="str">'reactor-data'</span>, (<span class="vr">d</span>) => {
+  <span class="cmt">// Update elemen HTML (nilai numerik di dashboard)</span>
+  <span class="vr">document</span>.<span class="fn">getElementById</span>(<span class="str">'val-power'</span>).<span class="vr">textContent</span>  = <span class="vr">d</span>.<span class="vr">power</span> + <span class="str">' kW'</span>;
+  <span class="vr">document</span>.<span class="fn">getElementById</span>(<span class="str">'val-temp'</span>).<span class="vr">textContent</span>   = <span class="vr">d</span>.<span class="vr">temp</span>  + <span class="str">' °C'</span>;
+  <span class="vr">document</span>.<span class="fn">getElementById</span>(<span class="str">'val-rho'</span>).<span class="vr">textContent</span>    = <span class="vr">d</span>.<span class="vr">rho</span>   + <span class="str">' pcm'</span>;
+  <span class="vr">document</span>.<span class="fn">getElementById</span>(<span class="str">'val-rod'</span>).<span class="vr">textContent</span>    = <span class="vr">d</span>.<span class="vr">rodPos</span>+ <span class="str">' %'</span>;
+
+  <span class="cmt">// Tambah data ke grafik, batasi 60 titik (30 detik history)</span>
+  <span class="vr">chart</span>.<span class="vr">data</span>.<span class="vr">labels</span>.<span class="fn">push</span>(<span class="kw">new</span> <span class="tp">Date</span>().<span class="fn">toLocaleTimeString</span>());
+  <span class="vr">chart</span>.<span class="vr">data</span>.<span class="vr">datasets</span>[<span class="num">0</span>].<span class="vr">data</span>.<span class="fn">push</span>(<span class="fn">parseFloat</span>(<span class="vr">d</span>.<span class="vr">power</span>));
+  <span class="kw">if</span> (<span class="vr">chart</span>.<span class="vr">data</span>.<span class="vr">labels</span>.<span class="vr">length</span> &gt; <span class="num">60</span>) {
+    <span class="vr">chart</span>.<span class="vr">data</span>.<span class="vr">labels</span>.<span class="fn">shift</span>();  <span class="cmt">// Hapus data terlama</span>
+    <span class="vr">chart</span>.<span class="vr">data</span>.<span class="vr">datasets</span>[<span class="num">0</span>].<span class="vr">data</span>.<span class="fn">shift</span>();
+  }
+  <span class="vr">chart</span>.<span class="fn">update</span>();  <span class="cmt">// Re-render grafik</span>
+
+  <span class="kw">if</span> (<span class="vr">d</span>.<span class="vr">scram</span>) {
+    <span class="vr">document</span>.<span class="fn">getElementById</span>(<span class="str">'scram-alert'</span>).<span class="vr">style</span>.<span class="vr">display</span> = <span class="str">'block'</span>;
+  }
+});</pre></div>
+  </div>
+
+  <div class="info-box ib-tip fade-in"><div class="ib-icon">💡</div><div class="ib-text"><strong>Mode Demo Tanpa Hardware Arduino</strong>Tambahkan ini di server.js sebelum server.listen() untuk generate data simulasi tanpa hardware: <code style="font-family:'Space Mono',monospace;font-size:11px">setInterval(()=>{let r=Math.random()*100; parser.emit('data',JSON.stringify({rod:r,scram:0})+'\n');},500);</code></div></div>
 </section>
+
+<!-- ===== TOPIK 7 — ELEKTRONIKA NUKLIR ===== -->
+<section class="section fade-in" id="topik7">
+  <div class="section-tag">// TOPIK 7 — KHUSUS</div>
+  <h2 class="section-title">Praktikum Elektronika Nuklir (Spektroskopi Gamma)</h2>
+
+  <div class="topic-hdr fade-in">
+    <div class="topic-hdr-icon">⚡</div>
+    <div>
+      <div class="topic-hdr-title">Gamma Spectroscopy System — NaI(Tl) + SiPM + Pico</div>
+      <div class="topic-hdr-desc">Membangun sistem spektroskopi gamma menggunakan detektor NaI(Tl) + SiPM, dikombinasikan dengan Raspberry Pi Pico sebagai digitizer, dan PC/Python untuk analisis spektrum energi radioisotop.</div>
+      <div class="topic-tags"><span class="badge b-mcu">Raspberry Pi Pico</span><span class="badge b-sensor">NaI(Tl)+SiPM</span><span class="badge b-mcu">MicroPython</span><span class="badge b-output">Python+matplotlib</span></div>
+    </div>
+  </div>
+
+  <div class="chapter-div"><span>Rantai Deteksi Hardware</span></div>
+  <div class="fade-in" style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin:20px 0;overflow-x:auto;">
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;font-size:11px;font-family:'Space Mono',monospace;">
+      <div style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.4);border-radius:10px;padding:12px 16px;text-align:center;min-width:90px">
+        <div style="font-size:20px">☢️</div>
+        <div style="color:#ef4444;font-weight:700;margin-top:4px">Sumber γ</div>
+        <div style="color:var(--muted);font-size:9px;margin-top:4px">Cs-137 / Co-60<br>E = 662 keV / 1.17+1.33 MeV</div>
+      </div>
+      <div style="color:var(--accent);font-size:16px">→</div>
+      <div style="background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.3);border-radius:10px;padding:12px 16px;text-align:center;min-width:90px">
+        <div style="font-size:20px">💎</div>
+        <div style="color:var(--accent);font-weight:700;margin-top:4px">NaI(Tl)</div>
+        <div style="color:var(--muted);font-size:9px;margin-top:4px">Scintillator kristal<br>Foton γ → cahaya 415nm</div>
+      </div>
+      <div style="color:var(--accent);font-size:16px">→</div>
+      <div style="background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.3);border-radius:10px;padding:12px 16px;text-align:center;min-width:90px">
+        <div style="font-size:20px">🔬</div>
+        <div style="color:#a78bfa;font-weight:700;margin-top:4px">SiPM</div>
+        <div style="color:var(--muted);font-size:9px;margin-top:4px">Photon → pulsa listrik<br>Gain 10⁶, 3.3V bias</div>
+      </div>
+      <div style="color:var(--accent);font-size:16px">→</div>
+      <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.3);border-radius:10px;padding:12px 16px;text-align:center;min-width:90px">
+        <div style="font-size:20px">📡</div>
+        <div style="color:var(--accent3);font-weight:700;margin-top:4px">Pre-Amp</div>
+        <div style="color:var(--muted);font-size:9px;margin-top:4px">Penguat sinyal<br>SNR ↑ sebelum ADC</div>
+      </div>
+      <div style="color:var(--accent);font-size:16px">→</div>
+      <div style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.3);border-radius:10px;padding:12px 16px;text-align:center;min-width:90px">
+        <div style="font-size:20px">🎯</div>
+        <div style="color:#60a5fa;font-weight:700;margin-top:4px">Pico ADC</div>
+        <div style="color:var(--muted);font-size:9px;margin-top:4px">12-bit, 500kSPS<br>Peak detection kode</div>
+      </div>
+      <div style="color:var(--accent);font-size:16px">→</div>
+      <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:10px;padding:12px 16px;text-align:center;min-width:90px">
+        <div style="font-size:20px">📊</div>
+        <div style="color:#f59e0b;font-weight:700;margin-top:4px">PC / Python</div>
+        <div style="color:var(--muted);font-size:9px;margin-top:4px">Histogram energi<br>Identifikasi isotop</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chapter-div"><span>Kode MicroPython — Pico Peak Detector</span></div>
+  <div class="code-block fade-in">
+    <div class="code-hdr"><div class="code-dots"><div class="cdot r"></div><div class="cdot y"></div><div class="cdot g"></div></div><div class="code-lang">MicroPython — Raspberry Pi Pico ADC Peak Detection</div></div>
+    <div class="code-body"><pre><span class="cmt"># ══════════════════════════════════════════════
+# Spektroskopi Gamma — Peak Detector (MicroPython)
+# Raspberry Pi Pico: ADC 12-bit, 3.3V ref → 0.000–3.3V → 0–4095
+# Tugasnya: temukan puncak (peak) pulsa SiPM, kirim nilainya ke PC
+# ══════════════════════════════════════════════</span>
+
+<span class="kw">from</span> machine <span class="kw">import</span> ADC, Pin
+<span class="kw">import</span> utime
+
+<span class="vr">adc</span>  = ADC(<span class="num">26</span>)          <span class="cmt"># GP26 = ADC0 — input sinyal dari pre-amp</span>
+<span class="vr">led</span>  = Pin(<span class="num">25</span>, Pin.OUT)  <span class="cmt"># LED onboard = indikator deteksi event</span>
+
+<span class="cmt"># THRESHOLD: nilai minimum ADC agar dianggap "sinyal radiasi"
+# Bukan noise (noise biasanya &lt; 200 ADC count)
+# Perlu dikalibrasi: mulai dari 300, sesuaikan dengan kondisi lab</span>
+<span class="vr">THRESHOLD</span>  = <span class="num">300</span>
+<span class="vr">DECAY_TIME</span> = <span class="num">50</span>   <span class="cmt"># µs: waktu tunggu setelah peak sebelum reset</span>
+
+<span class="kw">def</span> <span class="fn">find_peak</span>():
+    <span class="cmt">"""Cari nilai puncak dari satu pulsa SiPM.
+    
+    Algoritma:
+    1. Baca ADC terus menerus sampai melewati threshold
+    2. Setelah melewati threshold: catat nilai maksimum
+    3. Setelah pulsa turun (dua kali berturut-turut turun): selesai
+    4. Return nilai puncak = sebanding dengan energi foton gamma
+    """</span>
+    <span class="vr">peak</span>  = <span class="num">0</span>
+    <span class="vr">prev</span>  = <span class="num">0</span>
+    <span class="vr">going_down</span> = <span class="num">0</span>
+    
+    <span class="cmt"># Fase 1: Tunggu sinyal muncul (polling)</span>
+    <span class="kw">while</span> adc.<span class="fn">read_u16</span>() &lt;&lt; <span class="num">4</span> &lt; <span class="vr">THRESHOLD</span>:
+        <span class="kw">pass</span>
+    
+    <span class="cmt"># Fase 2: Ikuti pulsa sampai puncak, lalu turun</span>
+    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="num">200</span>):   <span class="cmt"># Maksimal 200 sample per pulsa</span>
+        <span class="vr">val</span> = adc.<span class="fn">read_u16</span>() &gt;&gt; <span class="num">4</span>  <span class="cmt"># 16-bit → 12-bit (bagi 16)</span>
+        <span class="kw">if</span> <span class="vr">val</span> &gt; <span class="vr">peak</span>: <span class="vr">peak</span> = <span class="vr">val</span>
+        <span class="kw">if</span> <span class="vr">val</span> &lt; <span class="vr">prev</span>: <span class="vr">going_down</span> += <span class="num">1</span>
+        <span class="kw">else</span>: <span class="vr">going_down</span> = <span class="num">0</span>
+        <span class="kw">if</span> <span class="vr">going_down</span> &gt;= <span class="num">5</span>: <span class="kw">break</span>  <span class="cmt"># Pulsa sudah turun → selesai</span>
+        <span class="vr">prev</span> = <span class="vr">val</span>
+    <span class="kw">return</span> <span class="vr">peak</span>
+
+<span class="cmt"># ── Loop utama: deteksi, kirim data ke PC via USB Serial ──</span>
+<span class="fn">print</span>(<span class="str">"START"</span>)  <span class="cmt"># PC tahu Pico sudah siap</span>
+<span class="kw">while</span> <span class="kw">True</span>:
+    <span class="vr">p</span> = <span class="fn">find_peak</span>()
+    <span class="kw">if</span> <span class="vr">p</span> &gt; <span class="vr">THRESHOLD</span>:
+        <span class="fn">print</span>(<span class="vr">p</span>)          <span class="cmt"># Kirim nilai peak → Python di PC baca ini</span>
+        <span class="vr">led</span>.<span class="fn">toggle</span>()     <span class="cmt"># Kedip LED = visual feedback ada event</span>
+        utime.<span class="fn">sleep_us</span>(<span class="vr">DECAY_TIME</span>)  <span class="cmt"># Tunggu pulsa selesai total</span></pre></div>
+  </div>
+
+  <div class="chapter-div"><span>Kode Python PC — Histogram Spektrum Energi</span></div>
+  <div class="code-block fade-in">
+    <div class="code-hdr"><div class="code-dots"><div class="cdot r"></div><div class="cdot y"></div><div class="cdot g"></div></div><div class="code-lang">Python 3 — Spectrum Analyzer: Serial → Histogram matplotlib</div></div>
+    <div class="code-body"><pre><span class="cmt">"""
+Baca data peak dari Pico via Serial, kumpulkan histogram,
+tampilkan spectrum energi secara real-time.
+Install: pip install pyserial matplotlib
+"""</span>
+
+<span class="kw">import</span> serial, matplotlib.pyplot <span class="kw">as</span> plt, numpy <span class="kw">as</span> np
+<span class="kw">from</span> collections <span class="kw">import</span> Counter
+
+<span class="vr">PORT</span>     = <span class="str">'COM3'</span>  <span class="cmt"># Windows: COM3/COM4 | Linux: /dev/ttyACM0</span>
+<span class="vr">BAUD</span>     = <span class="num">115200</span>
+<span class="vr">N_BINS</span>   = <span class="num">256</span>   <span class="cmt"># Resolusi histogram (0–4095 dibagi 256 bin)</span>
+<span class="vr">N_EVENTS</span> = <span class="num">10000</span> <span class="cmt"># Kumpulkan 10.000 event lalu plot</span>
+
+<span class="vr">counts</span> = np.<span class="fn">zeros</span>(<span class="vr">N_BINS</span>)  <span class="cmt"># Array histogram: counts[bin] = jumlah event</span>
+
+<span class="kw">with</span> serial.<span class="fn">Serial</span>(<span class="vr">PORT</span>, <span class="vr">BAUD</span>, timeout=<span class="num">2</span>) <span class="kw">as</span> <span class="vr">ser</span>:
+    <span class="fn">print</span>(<span class="str">"Menunggu data dari Pico..."</span>)
+    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="vr">N_EVENTS</span>):
+        <span class="kw">try</span>:
+            <span class="vr">line</span> = <span class="vr">ser</span>.<span class="fn">readline</span>().<span class="fn">decode</span>().<span class="fn">strip</span>()
+            <span class="kw">if</span> <span class="vr">line</span>.<span class="fn">isdigit</span>():
+                <span class="vr">val</span> = <span class="fn">int</span>(<span class="vr">line</span>)
+                <span class="vr">bin_idx</span> = <span class="fn">min</span>(<span class="vr">val</span> * <span class="vr">N_BINS</span> // <span class="num">4096</span>, <span class="vr">N_BINS</span>-<span class="num">1</span>)
+                <span class="vr">counts</span>[<span class="vr">bin_idx</span>] += <span class="num">1</span>
+        <span class="kw">except</span>: <span class="kw">pass</span>
+
+<span class="cmt"># ── Plot Spektrum ──</span>
+<span class="vr">energi</span> = np.<span class="fn">linspace</span>(<span class="num">0</span>, <span class="num">1400</span>, <span class="vr">N_BINS</span>)  <span class="cmt"># Kalibrasi kasar: 0–1400 keV</span>
+plt.<span class="fn">figure</span>(figsize=(<span class="num">10</span>,<span class="num">5</span>))
+plt.<span class="fn">bar</span>(<span class="vr">energi</span>, <span class="vr">counts</span>, width=<span class="num">5</span>, color=<span class="str">'#00e5ff'</span>, alpha=<span class="num">0.8</span>)
+plt.<span class="fn">xlabel</span>(<span class="str">'Energi (keV)'</span>); plt.<span class="fn">ylabel</span>(<span class="str">'Cacah'</span>)
+plt.<span class="fn">title</span>(<span class="str">'Spektrum Gamma — NaI(Tl) + SiPM + Pico'</span>)
+plt.<span class="fn">axvline</span>(<span class="num">662</span>, color=<span class="str">'red'</span>, linestyle=<span class="str">'--'</span>, label=<span class="str">'Cs-137 662keV'</span>)
+plt.<span class="fn">legend</span>(); plt.<span class="fn">tight_layout</span>(); plt.<span class="fn">show</span>()</pre></div>
+  </div>
+  <div class="info-box ib-tip fade-in"><div class="ib-icon">📊</div><div class="ib-text"><strong>Cara Membaca Spektrum Gamma</strong>Puncak tajam (photopeak) pada histogram = energi karakteristik isotop. Cs-137 → puncak di 662 keV. Co-60 → dua puncak di 1.173 MeV dan 1.332 MeV. Identifikasi isotop = "sidik jari" energi fotonya. Makin lebar puncak = resolusi energi detektor makin buruk.</div></div>
+</section>
+
+
+<!-- ===== TOPIK 8 — TERMODINAMIKA ===== -->
+<section class="section fade-in" id="topik8">
+  <div class="section-tag">// TOPIK 8 — KHUSUS</div>
+  <h2 class="section-title">Praktikum Termodinamika (Siklus Rankine)</h2>
+
+  <div class="topic-hdr fade-in">
+    <div class="topic-hdr-icon">🔥</div>
+    <div>
+      <div class="topic-hdr-title">Demonstrasi Siklus Rankine — 4x DHT22 + Arduino + LCD</div>
+      <div class="topic-hdr-desc">Mengukur suhu di 4 titik siklus Rankine (boiler, turbin, kondenser, pompa) menggunakan sensor DHT22, menghitung efisiensi Carnot secara real-time, dan memvisualisasikan data di LCD serta Serial Plotter.</div>
+      <div class="topic-tags"><span class="badge b-mcu">Arduino Mega</span><span class="badge b-sensor">4x DHT22</span><span class="badge b-output">LCD 20×4 I2C</span><span class="badge b-mcu">Efisiensi Carnot</span></div>
+    </div>
+  </div>
+
+  <div class="chapter-div"><span>Titik-Titik Pengukuran</span></div>
+Pengukuran</span></div>
+  <div class="fade-in" style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin:20px 0;">
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;">
+      <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:10px;padding:16px;">
+        <div style="font-size:18px;margin-bottom:8px">🔥 T1 — Boiler/Heater</div>
+        <div style="color:var(--muted);font-size:12px;line-height:1.7">Suhu panas tertinggi dalam siklus. Diukur setelah heater/elemen pemanas. Pada PLTN nyata ini adalah suhu coolant keluar dari reaktor (≈300°C). Di kit demo: 50–90°C.</div>
+        <div style="font-family:'Space Mono',monospace;font-size:10px;color:#ef4444;margin-top:8px">DHT22 → Pin 2</div>
+      </div>
+      <div style="background:rgba(0,229,255,0.06);border:1px solid rgba(0,229,255,0.2);border-radius:10px;padding:16px;">
+        <div style="font-size:18px;margin-bottom:8px">⚙️ T2 — Turbin (Ekspansi)</div>
+        <div style="color:var(--muted);font-size:12px;line-height:1.7">Suhu setelah uap menggerakkan turbin dan berekspansi. Lebih rendah dari T1. Di kit: simulasi dengan fan yang diputar udara panas. Energi kinetik yang dihasilkan = kerja turbin.</div>
+        <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);margin-top:8px">DHT22 → Pin 3</div>
+      </div>
+      <div style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25);border-radius:10px;padding:16px;">
+        <div style="font-size:18px;margin-bottom:8px">❄️ T3 — Kondenser</div>
+        <div style="color:var(--muted);font-size:12px;line-height:1.7">Suhu pendinginan terendah. Kalor dibuang ke heat sink/reservoir dingin. Di PLTN: air laut atau menara pendingin. Di kit: kipas angin + radiator. Semakin dingin = efisiensi makin tinggi.</div>
+        <div style="font-family:'Space Mono',monospace;font-size:10px;color:#3b82f6;margin-top:8px">DHT22 → Pin 4</div>
+      </div>
+      <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:10px;padding:16px;">
+        <div style="font-size:18px;margin-bottom:8px">🔄 T4 — Ambient/Pompa</div>
+        <div style="color:var(--muted);font-size:12px;line-height:1.7">Suhu lingkungan atau suhu fluida kerja sebelum masuk pompa kembali ke boiler. Digunakan sebagai referensi baseline. Juga untuk mendeteksi apakah sistem sudah steady-state.</div>
+        <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--accent3);margin-top:8px">DHT22 → Pin 5</div>
+      </div>
+    </div>
+    <div class="formula" style="margin-top:16px">
+      <div class="f-label">Efisiensi Carnot (Efisiensi Teoritis Maksimum)</div>
+      <div class="f-eq">η = (1 − T_cold / T_hot) × 100%</div>
+      <div class="f-label" style="margin-top:8px">T dalam Kelvin! · Contoh: T_hot=60°C=333K, T_cold=25°C=298K → η = (1−298/333)×100 = 10.5%</div>
+    </div>
+  </div>
+
+  <div class="chapter-div"><span>Step-by-Step Pengerjaan</span></div>
+  <ul class="steps fade-in">
+    <li class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Siapkan Kit Fisik</div><div class="step-desc">Komponen: 4x DHT22, Arduino Mega, LCD 20×4 I2C, elemen heater 12V (atau hair dryer kecil), fan 12V. Pasang sensor DHT22 di 4 titik: T1=outlet heater, T2=outlet fan/turbin simulasi, T3=outlet kondenser (setelah heatsink), T4=ambient. Pull-up resistor 10kΩ per sensor DHT22.</div></div></li>
+    <li class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Wiring & Library</div><div class="step-desc">Setiap DHT22: VCC→5V, GND→GND, DATA→pin digital berbeda. Install library "DHT sensor library" + "Adafruit Unified Sensor" via Library Manager Arduino IDE. LCD I2C: VCC→5V, GND→GND, SDA→Pin20(Mega), SCL→Pin21(Mega). Alamat I2C default 0x27.</div></div></li>
+    <li class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Upload Kode & Kalibrasi</div><div class="step-desc">Upload kode di bawah. Buka Serial Monitor (9600 baud). Pastikan semua 4 sensor membaca nilai masuk akal (25–35°C di awal, sebelum heater dinyalakan). Jika ada NaN = sensor error → cek koneksi dan resistor pull-up.</div></div></li>
+    <li class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Rekam Data untuk Analisis</div><div class="step-desc">Nyalakan heater, tunggu sistem mencapai steady-state (~5 menit). Buka Serial Plotter Arduino IDE untuk lihat grafik suhu realtime. Salin data CSV dari Serial Monitor ke Excel/Python. Plot T(t) dan η(t). Bandingkan efisiensi terukur vs Carnot teoritis. Diskusi kenapa ada perbedaan = inti laporan!</div></div></li>
+  </ul>
+
+  <div class="chapter-div"><span>Kode Arduino: Multi-Sensor Siklus Rankine</span></div>
+  <div class="code-block fade-in">
+    <div class="code-hdr"><div class="code-dots"><div class="cdot r"></div><div class="cdot y"></div><div class="cdot g"></div></div><div class="code-lang">Arduino C++ — Monitoring Termodinamika Siklus Rankine</div></div>
+    <div class="code-body"><pre><span class="cmt">/* ════════════════════════════════════════════════════
+ * Praktikum Termodinamika — Siklus Rankine Demo
+ * Arduino Mega + 4x DHT22 + LCD 20x4 I2C
+ * Output: suhu 4 titik + efisiensi Carnot + kontrol heater
+ * ════════════════════════════════════════════════════ */</span>
+
+<span class="kw">#include</span> <span class="str">&lt;DHT.h&gt;</span>
+<span class="kw">#include</span> <span class="str">&lt;LiquidCrystal_I2C.h&gt;</span>
+
+<span class="cmt">// ── 4 objek sensor DHT22 di pin berbeda ──
+// Setiap objek DHT mewakili satu sensor fisik</span>
+<span class="tp">DHT</span> <span class="vr">dht1</span>(<span class="num">2</span>, DHT22);  <span class="cmt">// T1: Setelah boiler (panas masuk)</span>
+<span class="tp">DHT</span> <span class="vr">dht2</span>(<span class="num">3</span>, DHT22);  <span class="cmt">// T2: Setelah turbin (ekspansi)</span>
+<span class="tp">DHT</span> <span class="vr">dht3</span>(<span class="num">4</span>, DHT22);  <span class="cmt">// T3: Setelah kondenser (dingin)</span>
+<span class="tp">DHT</span> <span class="vr">dht4</span>(<span class="num">5</span>, DHT22);  <span class="cmt">// T4: Ambient / sebelum pompa</span>
+
+<span class="tp">LiquidCrystal_I2C</span> <span class="vr">lcd</span>(<span class="num">0x27</span>, <span class="num">20</span>, <span class="num">4</span>);  <span class="cmt">// LCD 20 kolom × 4 baris</span>
+<span class="tp">const int</span> <span class="vr">PIN_HEATER</span> = <span class="num">9</span>;   <span class="cmt">// Relay/MOSFET kontrol heater</span>
+<span class="tp">const int</span> <span class="vr">SETPOINT</span>  = <span class="num">60</span>;  <span class="cmt">// Target suhu boiler °C</span>
+
+<span class="cmt">// ── Fungsi hitung efisiensi Carnot ──
+// Hukum Carnot: η = 1 - T_cold/T_hot (suhu dalam KELVIN)
+// Mengapa Kelvin? Karena 0°C ≠ "tidak ada suhu" (berbeda dari 0K)</span>
+<span class="tp">float</span> <span class="fn">efisiensiCarnot</span>(<span class="tp">float</span> <span class="vr">T_hot_C</span>, <span class="tp">float</span> <span class="vr">T_cold_C</span>) {
+  <span class="tp">float</span> <span class="vr">Th</span> = <span class="vr">T_hot_C</span>  + <span class="num">273.15</span>;  <span class="cmt">// °C → K: tambah 273.15</span>
+  <span class="tp">float</span> <span class="vr">Tc</span> = <span class="vr">T_cold_C</span> + <span class="num">273.15</span>;
+  <span class="kw">if</span> (<span class="vr">Th</span> &lt;= <span class="vr">Tc</span>) <span class="kw">return</span> <span class="num">0.0</span>;
+  <span class="kw">return</span> (<span class="num">1.0</span> - <span class="vr">Tc</span> / <span class="vr">Th</span>) * <span class="num">100.0</span>;
+}
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  <span class="vr">dht1</span>.<span class="fn">begin</span>(); <span class="vr">dht2</span>.<span class="fn">begin</span>(); <span class="vr">dht3</span>.<span class="fn">begin</span>(); <span class="vr">dht4</span>.<span class="fn">begin</span>();
+  <span class="vr">lcd</span>.<span class="fn">init</span>(); <span class="vr">lcd</span>.<span class="fn">backlight</span>();
+  <span class="fn">pinMode</span>(<span class="vr">PIN_HEATER</span>, OUTPUT);
+  Serial.<span class="fn">begin</span>(<span class="num">9600</span>);
+  Serial.<span class="fn">println</span>(<span class="str">"T1,T2,T3,T4,Eta_pct,Heater"</span>);  <span class="cmt">// Header CSV untuk logging</span>
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="tp">float</span> <span class="vr">T1</span> = <span class="vr">dht1</span>.<span class="fn">readTemperature</span>();  <span class="cmt">// Baca suhu °C</span>
+  <span class="tp">float</span> <span class="vr">T2</span> = <span class="vr">dht2</span>.<span class="fn">readTemperature</span>();
+  <span class="tp">float</span> <span class="vr">T3</span> = <span class="vr">dht3</span>.<span class="fn">readTemperature</span>();
+  <span class="tp">float</span> <span class="vr">T4</span> = <span class="vr">dht4</span>.<span class="fn">readTemperature</span>();
+
+  <span class="cmt">// isnan() = "Is Not A Number?"
+  // DHT22 mengembalikan NaN saat error komunikasi
+  // Penting dicek agar tidak hitung efisiensi dari nilai sampah</span>
+  <span class="kw">if</span> (<span class="fn">isnan</span>(<span class="vr">T1</span>) || <span class="fn">isnan</span>(<span class="vr">T2</span>) || <span class="fn">isnan</span>(<span class="vr">T3</span>) || <span class="fn">isnan</span>(<span class="vr">T4</span>)) {
+    <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">0</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"ERROR: Sensor Gagal! "</span>);
+    Serial.<span class="fn">println</span>(<span class="str">"ERROR,NaN"</span>);
+    <span class="fn">delay</span>(<span class="num">2000</span>); <span class="kw">return</span>;
+  }
+
+  <span class="tp">float</span> <span class="vr">eta</span> = <span class="fn">efisiensiCarnot</span>(<span class="vr">T1</span>, <span class="vr">T3</span>);  <span class="cmt">// T_hot=T1, T_cold=T3</span>
+  <span class="tp">bool</span>  <span class="vr">heaterOn</span> = (<span class="vr">T1</span> &lt; <span class="vr">SETPOINT</span>);     <span class="cmt">// Hidup jika belum capai target</span>
+  <span class="fn">digitalWrite</span>(<span class="vr">PIN_HEATER</span>, <span class="vr">heaterOn</span> ? HIGH : LOW);
+
+  <span class="cmt">// ── Tampilkan 4 baris di LCD 20×4 ──</span>
+  <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">0</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"T1:"</span>);<span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">T1</span>,<span class="num">1</span>);<span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">" T2:"</span>);<span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">T2</span>,<span class="num">1</span>);
+  <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">1</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"T3:"</span>);<span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">T3</span>,<span class="num">1</span>);<span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">" T4:"</span>);<span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">T4</span>,<span class="num">1</span>);
+  <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">2</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"Eta:"</span>);<span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">eta</span>,<span class="num">1</span>);<span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"% dT:"</span>);<span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">T1</span>-<span class="vr">T3</span>,<span class="num">1</span>);
+  <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">3</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"Heater:"</span>);<span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">heaterOn</span>?<span class="str">"ON  SET:"</span>:<span class="str">"OFF SET:"</span>);<span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">SETPOINT</span>);
+
+  <span class="cmt">// Kirim data CSV → salin dari Serial Monitor ke Excel untuk analisis</span>
+  Serial.<span class="fn">print</span>(<span class="vr">T1</span>);Serial.<span class="fn">print</span>(<span class="str">","</span>);Serial.<span class="fn">print</span>(<span class="vr">T2</span>);Serial.<span class="fn">print</span>(<span class="str">","</span>);
+  Serial.<span class="fn">print</span>(<span class="vr">T3</span>);Serial.<span class="fn">print</span>(<span class="str">","</span>);Serial.<span class="fn">print</span>(<span class="vr">T4</span>);Serial.<span class="fn">print</span>(<span class="str">","</span>);
+  Serial.<span class="fn">print</span>(<span class="vr">eta</span>);Serial.<span class="fn">print</span>(<span class="str">","</span>);Serial.<span class="fn">println</span>(<span class="vr">heaterOn</span>?<span class="str">"1"</span>:<span class="str">"0"</span>);
+
+  <span class="fn">delay</span>(<span class="num">2000</span>);  <span class="cmt">// DHT22 memerlukan minimal 2 detik antar baca!</span>
+}</pre></div>
+  </div>
+</section>
+
+<!-- ===== E. LATIHAN DASAR ===== -->
+<section class="section fade-in" id="latihan-dasar">
+  <div class="section-tag">// BAG E — LATIHAN DASAR</div>
+  <h2 class="section-title">E. Latihan Dasar Spesial Project</h2>
+  <p class="section-desc">Tiga latihan praktis yang sesuai dengan topik Spesial Project. Dapat dilakukan secara langsung (hardware dari UKM Robotika / Nuclear Robotic Team) atau menggunakan simulasi Proteus / Wokwi.com / Webots.</p>
+
+  <div class="info-box ib-info fade-in"><div class="ib-icon">🔬</div><div class="ib-text"><strong>Cara Mendapatkan Hardware</strong>Pinjam kit Arduino dari <strong>UKM Robotika (Nuclear Robotic Team)</strong> Poltek Nuklir. Jika tidak tersedia, gunakan simulasi gratis <strong><a href="https://wokwi.com" class="ref-link" target="_blank">Wokwi.com</a></strong> atau <strong>Proteus</strong>. Semua latihan dapat disimulasikan sepenuhnya tanpa hardware fisik.</div></div>
+
+  <!-- ===== LATIHAN 1 ===== -->
+  <div class="chapter-div"><span>Latihan 1 — Peraga Iradiator (Safety Interlock)</span></div>
+
+  <div class="analogy fade-in">
+    <div class="analogy-lbl">🔑 Konsep Inti</div>
+    <div class="analogy-text">Seperti pintu kulkas: lampu di dalam hanya nyala saat pintu ditutup, dan mati saat dibuka. Safety interlock iradiator bekerja kebalikannya: sumber radiasi (LED) hanya BOLEH aktif saat pintu TERTUTUP, dan HARUS mati saat pintu terbuka — ini adalah prinsip <em>fail-safe by default</em>.</div>
+  </div>
+
+  <!-- Flowchart L1 SVG -->
+  <div class="fade-in" style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin:20px 0;overflow-x:auto;">
+    <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);text-align:center;margin-bottom:16px">FLOWCHART — Safety Interlock Iradiator</div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--muted);font-family:'Space Mono',monospace;">
+      <div style="background:rgba(0,229,255,0.15);border:1px solid #00e5ff;border-radius:20px;padding:8px 24px;color:#00e5ff;font-weight:700">MULAI</div>
+      <div>↓</div>
+      <div style="background:rgba(124,58,237,0.1);border:1px solid #7c3aed;border-radius:8px;padding:8px 20px;color:#a78bfa;text-align:center">Setup PIN_PINTU = INPUT_PULLUP<br>Setup PIN_SUMBER, PIN_ALARM, PIN_AMAN = OUTPUT</div>
+      <div>↓</div>
+      <div style="background:rgba(0,229,255,0.06);border:1px solid rgba(0,229,255,0.3);border-radius:8px;padding:8px 20px;color:#00e5ff;text-align:center">Baca digitalRead(PIN_PINTU)</div>
+      <div>↓</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;max-width:500px;">
+        <div style="text-align:center">
+          <div style="background:rgba(245,158,11,0.1);border:1px solid #f59e0b;border-radius:8px;padding:8px;color:#f59e0b;margin-bottom:8px">Kondisi:<br>Pintu Tertutup?<br>(LOW = Ya)</div>
+          <div style="color:#10b981;font-size:10px">▼ YA</div>
+          <div style="background:rgba(16,185,129,0.1);border:1px solid #10b981;border-radius:8px;padding:8px;color:#10b981">✓ AMAN:<br>LED Sumber ON<br>LED Hijau ON<br>Alarm OFF</div>
+        </div>
+        <div style="text-align:center">
+          <div style="background:rgba(245,158,11,0.1);border:1px solid #f59e0b;border-radius:8px;padding:8px;color:#f59e0b;margin-bottom:8px;opacity:0"> </div>
+          <div style="color:#ef4444;font-size:10px">▼ TIDAK</div>
+          <div style="background:rgba(239,68,68,0.1);border:1px solid #ef4444;border-radius:8px;padding:8px;color:#ef4444">⚠ BAHAYA:<br>LED Sumber OFF<br>Buzzer Alarm ON<br>LED Hijau OFF</div>
+        </div>
+      </div>
+      <div>↓ delay(200ms)</div>
+      <div style="color:var(--accent);font-size:10px">↑ Loop kembali ke atas</div>
+    </div>
+  </div>
+
+  <!-- Wiring Blueprint L1 -->
+  <div class="fade-in" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0;">
+    <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);margin-bottom:12px">📋 BLUEPRINT WIRING LATIHAN 1</div>
+    <div class="wiring">
+      <div class="wire-row"><span class="wire-color wc-yellow"></span><div class="wire-from">Limit Switch Pin 1</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino Pin 3 (INPUT_PULLUP)</div></div>
+      <div class="wire-row"><span class="wire-color wc-black"></span><div class="wire-from">Limit Switch Pin 2</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino GND</div></div>
+      <div class="wire-row"><span class="wire-color wc-red"></span><div class="wire-from">LED Merah (+) → R220Ω</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino Pin 2 (Sumber)</div></div>
+      <div class="wire-row"><span class="wire-color wc-green"></span><div class="wire-from">LED Hijau (+) → R220Ω</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino Pin 5 (Status Aman)</div></div>
+      <div class="wire-row"><span class="wire-color wc-orange"></span><div class="wire-from">Buzzer (+)</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino Pin 4</div></div>
+      <div class="wire-row"><span class="wire-color wc-black"></span><div class="wire-from">Semua GND komponen</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino GND</div></div>
+    </div>
+  </div>
+
+  <div class="code-block fade-in">
+    <div class="code-hdr"><div class="code-dots"><div class="cdot r"></div><div class="cdot y"></div><div class="cdot g"></div></div><div class="code-lang">Arduino C++ — Latihan 1: Safety Interlock (Penjelasan Mendalam per Baris)</div></div>
+    <div class="code-body"><pre><span class="cmt">/* ══════════════════════════════════════════════
+ * LATIHAN 1: Safety Interlock Iradiator
+ * Prinsip FAIL-SAFE: jika terjadi kegagalan → sistem ke kondisi AMAN
+ * INPUT_PULLUP = pin terhubung ke 5V internal → LOW saat switch ditekan
+ * ══════════════════════════════════════════════ */</span>
+
+<span class="tp">const int</span> <span class="vr">PIN_PINTU</span>  = <span class="num">3</span>;  <span class="cmt">// Limit switch mendeteksi posisi pintu</span>
+<span class="tp">const int</span> <span class="vr">PIN_SUMBER</span> = <span class="num">2</span>;  <span class="cmt">// LED merah = simulasi sumber radiasi</span>
+<span class="tp">const int</span> <span class="vr">PIN_ALARM</span>  = <span class="num">4</span>;  <span class="cmt">// Buzzer alarm peringatan</span>
+<span class="tp">const int</span> <span class="vr">PIN_AMAN</span>   = <span class="num">5</span>;  <span class="cmt">// LED hijau = indikator status aman</span>
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  <span class="cmt">// INPUT_PULLUP: Arduino menyambungkan pin ke 5V via resistor internal (~47kΩ)
+  // Akibatnya: tanpa koneksi eksternal → pin terbaca HIGH (5V)
+  // Saat switch ditekan → pin dihubungkan ke GND → terbaca LOW
+  // KEUNTUNGAN fail-safe: kabel putus → pin HIGH → "pintu terbuka" → AMAN!</span>
+  <span class="fn">pinMode</span>(<span class="vr">PIN_PINTU</span>,  INPUT_PULLUP);
+  <span class="fn">pinMode</span>(<span class="vr">PIN_SUMBER</span>, OUTPUT);
+  <span class="fn">pinMode</span>(<span class="vr">PIN_ALARM</span>,  OUTPUT);
+  <span class="fn">pinMode</span>(<span class="vr">PIN_AMAN</span>,   OUTPUT);
+  <span class="cmt">// STARTUP STATE: semua output LOW = kondisi aman saat pertama nyala</span>
+  <span class="fn">digitalWrite</span>(<span class="vr">PIN_SUMBER</span>, LOW);
+  <span class="fn">digitalWrite</span>(<span class="vr">PIN_AMAN</span>,   HIGH);  <span class="cmt">// Hijau nyala = sistem siap</span>
+  Serial.<span class="fn">begin</span>(<span class="num">9600</span>);
+  Serial.<span class="fn">println</span>(<span class="str">"=== INTERLOCK AKTIF — SIAP ==="</span>);
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="cmt">// digitalRead() = baca kondisi pin saat ini
+  // INPUT_PULLUP + Switch ke GND → LOW = switch ditekan = PINTU TERTUTUP
+  // Konversi ke bool agar kode lebih readable: true = tertutup</span>
+  <span class="tp">bool</span> <span class="vr">pintuTertutup</span> = (<span class="fn">digitalRead</span>(<span class="vr">PIN_PINTU</span>) == LOW);
+
+  <span class="kw">if</span> (<span class="vr">pintuTertutup</span>) {
+    <span class="cmt">// ── KONDISI AMAN: izinkan iradiasi ──
+    // Urutan penting: PERTAMA nyalakan indikator aman, LALU sumber
+    // (best practice: konfirmasi aman dulu baru aktifkan bahaya)</span>
+    <span class="fn">digitalWrite</span>(<span class="vr">PIN_AMAN</span>,   HIGH);  <span class="cmt">// Hijau ON</span>
+    <span class="fn">noTone</span>(<span class="vr">PIN_ALARM</span>);              <span class="cmt">// Pastikan buzzer mati</span>
+    <span class="fn">digitalWrite</span>(<span class="vr">PIN_ALARM</span>,  LOW);
+    <span class="fn">digitalWrite</span>(<span class="vr">PIN_SUMBER</span>, HIGH);  <span class="cmt">// Sumber AKTIF (terakhir)</span>
+    Serial.<span class="fn">println</span>(<span class="str">"[OK] Pintu TERTUTUP - Iradiasi berlangsung"</span>);
+
+  } <span class="kw">else</span> {
+    <span class="cmt">// ── KONDISI BAHAYA: SEGERA matikan sumber ──
+    // Ini bagian PALING PENTING. Urutan: PERTAMA matikan sumber,
+    // baru aktifkan alarm. Jangan sampai ada jeda sumber masih nyala!</span>
+    <span class="fn">digitalWrite</span>(<span class="vr">PIN_SUMBER</span>, LOW);   <span class="cmt">// ← MATIKAN SEGERA</span>
+    <span class="fn">digitalWrite</span>(<span class="vr">PIN_AMAN</span>,   LOW);   <span class="cmt">// Hijau OFF</span>
+    <span class="fn">tone</span>(<span class="vr">PIN_ALARM</span>, <span class="num">1500</span>);           <span class="cmt">// Buzzer bunyi 1500 Hz (nada medium)</span>
+    Serial.<span class="fn">println</span>(<span class="str">"[!!!] PINTU TERBUKA - Sumber DIMATIKAN paksa!"</span>);
+  }
+
+  <span class="fn">delay</span>(<span class="num">200</span>);  <span class="cmt">// Periksa kondisi setiap 200ms
+              // Tidak terlalu sering (boros CPU) atau lambat (bahaya)</span>
+}</pre></div>
+  </div>
+
+  <!-- ===== LATIHAN 2 ===== -->
+  <div class="chapter-div"><span>Latihan 2 — Peraga Akselerator (Particle Speed)</span></div>
+
+  <div class="analogy fade-in">
+    <div class="analogy-lbl">⚡ Konsep Inti</div>
+    <div class="analogy-text">Bayangkan 5 gerbang tol berurutan. Partikel melewati setiap gerbang satu per satu. Makin cepat gerbang terbuka bergantian, makin cepat partikel bergerak. Potensiometer = "gas pedal akselerator": putar kanan = percepat partikel. LED menyala satu per satu dari kiri ke kanan = partikel bergerak maju.</div>
+  </div>
+
+  <!-- Flowchart L2 -->
+  <div class="fade-in" style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin:20px 0;overflow-x:auto;">
+    <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);text-align:center;margin-bottom:16px">FLOWCHART — Simulasi Akselerator Partikel</div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--muted);font-family:'Space Mono',monospace;">
+      <div style="background:rgba(0,229,255,0.15);border:1px solid #00e5ff;border-radius:20px;padding:8px 24px;color:#00e5ff;font-weight:700">MULAI</div>
+      <div>↓</div>
+      <div style="background:rgba(124,58,237,0.1);border:1px solid #7c3aed;border-radius:8px;padding:8px 24px;color:#a78bfa;text-align:center">Setup 5 LED (Pin 8–12) = OUTPUT<br>Potensiometer (A0) = INPUT</div>
+      <div>↓</div>
+      <div style="background:rgba(0,229,255,0.06);border:1px solid rgba(0,229,255,0.3);border-radius:8px;padding:8px 24px;color:#00e5ff;text-align:center">Baca analogRead(A0) → nilai 0–1023<br>map() → delay 10ms–500ms</div>
+      <div>↓</div>
+      <div style="background:rgba(16,185,129,0.08);border:1px solid #10b981;border-radius:8px;padding:8px 24px;color:#10b981;text-align:center">For i=0 to 4:<br>LED[i] ON → delay(speed) → LED[i] OFF<br>(Partikel melewati segmen ke-i)</div>
+      <div>↓ Setelah LED ke-5</div>
+      <div style="background:rgba(245,158,11,0.08);border:1px solid #f59e0b;border-radius:8px;padding:8px 24px;color:#f59e0b;text-align:center">Update LCD: tampilkan % kecepatan<br>"LAMBAT" / "SEDANG" / "SUPER CEPAT!"</div>
+      <div>↓</div>
+      <div style="color:var(--accent);font-size:10px">↑ Ulangi loop() — baca pot lagi</div>
+    </div>
+  </div>
+
+  <!-- Wiring Blueprint L2 -->
+  <div class="fade-in" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0;">
+    <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);margin-bottom:12px">📋 BLUEPRINT WIRING LATIHAN 2</div>
+    <div class="wiring">
+      <div class="wire-row"><span class="wire-color wc-blue"></span><div class="wire-from">Potensiometer Pin Kiri</div><div class="wire-arrow">──────→</div><div class="wire-to">GND Arduino</div></div>
+      <div class="wire-row"><span class="wire-color wc-yellow"></span><div class="wire-from">Potensiometer Pin Tengah (Wiper)</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino A0 (Analog Input)</div></div>
+      <div class="wire-row"><span class="wire-color wc-red"></span><div class="wire-from">Potensiometer Pin Kanan</div><div class="wire-arrow">──────→</div><div class="wire-to">5V Arduino</div></div>
+      <div class="wire-row"><span class="wire-color wc-orange"></span><div class="wire-from">LED 1 Anoda (+) → R220Ω</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino Pin 8</div></div>
+      <div class="wire-row"><span class="wire-color wc-orange"></span><div class="wire-from">LED 2–5 Anoda (+) → R220Ω</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino Pin 9, 10, 11, 12</div></div>
+      <div class="wire-row"><span class="wire-color wc-black"></span><div class="wire-from">Semua LED Katoda (–)</div><div class="wire-arrow">──────→</div><div class="wire-to">GND Arduino</div></div>
+      <div class="wire-row"><span class="wire-color wc-green"></span><div class="wire-from">LCD I2C: SDA</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino A4 (Uno) / Pin20 (Mega)</div></div>
+      <div class="wire-row"><span class="wire-color wc-blue"></span><div class="wire-from">LCD I2C: SCL</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino A5 (Uno) / Pin21 (Mega)</div></div>
+    </div>
+  </div>
+
+  <div class="code-block fade-in">
+    <div class="code-hdr"><div class="code-dots"><div class="cdot r"></div><div class="cdot y"></div><div class="cdot g"></div></div><div class="code-lang">Arduino C++ — Latihan 2: Akselerator Partikel (Penjelasan Mendalam)</div></div>
+    <div class="code-body"><pre><span class="cmt">/* ══════════════════════════════════════════════
+ * LATIHAN 2: Simulasi Akselerator Partikel
+ * Konsep: Running LED = partikel bergerak
+ * Potensiometer = kontrol kecepatan (mengatur delay antar LED)
+ * ══════════════════════════════════════════════ */</span>
+
+<span class="kw">#include</span> <span class="str">&lt;LiquidCrystal_I2C.h&gt;</span>
+<span class="tp">LiquidCrystal_I2C</span> <span class="vr">lcd</span>(<span class="num">0x27</span>, <span class="num">16</span>, <span class="num">2</span>);
+
+<span class="cmt">// ── Array menyimpan semua pin LED ──
+// int LED_PINS[] = {8, 9, 10, 11, 12}
+// LED_PINS[0] = 8, LED_PINS[1] = 9, ... LED_PINS[4] = 12
+// Dengan array: bisa akses dengan loop! Tanpa array: harus tulis 5 baris</span>
+<span class="tp">const int</span> <span class="vr">LED_PINS</span>[] = {<span class="num">8</span>, <span class="num">9</span>, <span class="num">10</span>, <span class="num">11</span>, <span class="num">12</span>};
+<span class="tp">const int</span> <span class="vr">POT_PIN</span>   = A0;
+<span class="tp">const int</span> <span class="vr">NUM_LEDS</span>  = <span class="num">5</span>;
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  <span class="kw">for</span> (<span class="tp">int</span> <span class="vr">i</span> = <span class="num">0</span>; <span class="vr">i</span> &lt; <span class="vr">NUM_LEDS</span>; <span class="vr">i</span>++) {
+    <span class="fn">pinMode</span>(<span class="vr">LED_PINS</span>[<span class="vr">i</span>], OUTPUT);
+    <span class="cmt">// Iterasi: i=0→pin8, i=1→pin9, i=2→pin10, i=3→pin11, i=4→pin12</span>
+  }
+  <span class="vr">lcd</span>.<span class="fn">init</span>(); <span class="vr">lcd</span>.<span class="fn">backlight</span>();
+  <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"Akselerator Sim."</span>);
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="cmt">// ── Step 1: Baca Potensiometer ──
+  // analogRead() = konverter ADC 10-bit: tegangan 0–5V → nilai 0–1023
+  // Pot paling kiri (0V) → 0, paling kanan (5V) → 1023</span>
+  <span class="tp">int</span> <span class="vr">potVal</span>   = <span class="fn">analogRead</span>(<span class="vr">POT_PIN</span>);
+
+  <span class="cmt">// ── Step 2: Konversi ke delay menggunakan map() ──
+  // map(nilai, dariMin, dariMax, keMin, keMax) — fungsi remapping linier
+  // pot=0    → 500ms (lambat) | pot=1023 → 10ms (cepat)
+  // HUBUNGAN TERBALIK: pot besar = delay kecil = animasi lebih cepat</span>
+  <span class="tp">int</span> <span class="vr">speedMs</span>  = <span class="fn">map</span>(<span class="vr">potVal</span>, <span class="num">0</span>, <span class="num">1023</span>, <span class="num">500</span>, <span class="num">10</span>);
+  <span class="tp">int</span> <span class="vr">speedPct</span> = <span class="fn">map</span>(<span class="vr">potVal</span>, <span class="num">0</span>, <span class="num">1023</span>, <span class="num">0</span>, <span class="num">100</span>);
+
+  <span class="cmt">// ── Step 3: Update LCD setiap 5 siklus ──
+  // 'static' = variabel bertahan nilainya antar pemanggilan loop()
+  // Tanpa 'static', cycleCount = 0 setiap masuk loop() = tidak berguna!</span>
+  <span class="tp">static int</span> <span class="vr">cycleCount</span> = <span class="num">0</span>;
+  <span class="kw">if</span> (++<span class="vr">cycleCount</span> &gt;= <span class="num">5</span>) {
+    <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">0</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"Speed: "</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">speedPct</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"%   "</span>);
+    <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">1</span>);
+    <span class="cmt">// Operator ternary bertingkat: a ? b : (c ? d : e)
+    // Jika speedPct > 80 → "SUPER CEPAT!" 
+    // Jika speedPct > 40 → "Sedang..."
+    // Selainnya         → "Lambat..."</span>
+    <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">speedPct</span>&gt;<span class="num">80</span>?<span class="str">"SUPER CEPAT!   "</span>:<span class="vr">speedPct</span>&gt;<span class="num">40</span>?<span class="str">"Sedang...      "</span>:<span class="str">"Lambat...      "</span>);
+    <span class="vr">cycleCount</span> = <span class="num">0</span>;
+  }
+
+  <span class="cmt">// ── Step 4: Animasi Running LED ──
+  // Nyalakan LED ke-i, tunggu, matikan → lanjut ke i+1
+  // Setiap LED = satu segmen akselerator yang dilalui partikel</span>
+  <span class="kw">for</span> (<span class="tp">int</span> <span class="vr">i</span> = <span class="num">0</span>; <span class="vr">i</span> &lt; <span class="vr">NUM_LEDS</span>; <span class="vr">i</span>++) {
+    <span class="fn">digitalWrite</span>(<span class="vr">LED_PINS</span>[<span class="vr">i</span>], HIGH);  <span class="cmt">// Nyalakan</span>
+    <span class="fn">delay</span>(<span class="vr">speedMs</span>);                    <span class="cmt">// Tunggu sesuai speed</span>
+    <span class="fn">digitalWrite</span>(<span class="vr">LED_PINS</span>[<span class="vr">i</span>], LOW);   <span class="cmt">// Matikan → lanjut ke i+1</span>
+  }
+  <span class="cmt">// Setelah LED ke-5 selesai → loop() dipanggil lagi dari awal
+  // → pot dibaca ulang → speed bisa berubah tiap siklus penuh</span>
+}</pre></div>
+  </div>
+
+  <!-- ===== LATIHAN 3 ===== -->
+  <div class="chapter-div"><span>Latihan 3 — Portal Monitor Radiasi (Pulse Counter)</span></div>
+
+  <div class="analogy fade-in">
+    <div class="analogy-lbl">🚪 Konsep Inti</div>
+    <div class="analogy-text">Seperti mesin pencacah pelanggan di pintu toko: setiap ada orang masuk → counter bertambah 1. Di portal monitor, setiap partikel radiasi melewati detektor → pulsa listrik terdeteksi → counter +1. Kita hitung berapa pulsa dalam 10 detik → konversi ke CPM (counts per minute). Jika CPM melebihi background → alarm!</div>
+  </div>
+
+  <!-- Flowchart L3 -->
+  <div class="fade-in" style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin:20px 0;overflow-x:auto;">
+    <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);text-align:center;margin-bottom:16px">FLOWCHART — Portal Monitor Radiasi (Pulse Counter)</div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--muted);font-family:'Space Mono',monospace;">
+      <div style="background:rgba(0,229,255,0.15);border:1px solid #00e5ff;border-radius:20px;padding:8px 24px;color:#00e5ff;font-weight:700">MULAI</div>
+      <div>↓</div>
+      <div style="background:rgba(124,58,237,0.1);border:1px solid #7c3aed;border-radius:8px;padding:8px 24px;color:#a78bfa;text-align:center">Setup: count=0, startTime=millis()<br>LCD tampilkan "Menunggu pulsa..."</div>
+      <div>↓</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;width:100%;max-width:550px;">
+        <div style="text-align:center">
+          <div style="background:rgba(0,229,255,0.06);border:1px solid rgba(0,229,255,0.3);border-radius:8px;padding:8px;color:#00e5ff;margin-bottom:8px">CEK TOMBOL:<br>Ada rising edge?<br>(Tekan = 1 pulsa)</div>
+          <div style="color:#10b981;font-size:9px">▼ YA: count++</div>
+          <div style="background:rgba(16,185,129,0.08);border:1px solid #10b981;border-radius:8px;padding:6px;color:#10b981;font-size:10px">Update LCD: "Pulsa: N"</div>
+        </div>
+        <div style="text-align:center">
+          <div style="background:rgba(245,158,11,0.08);border:1px solid #f59e0b;border-radius:8px;padding:8px;color:#f59e0b;margin-bottom:8px">CEK TIMER:<br>millis()-start ≥ 10 detik?</div>
+          <div style="color:#ef4444;font-size:9px">▼ YA: Hitung CPM</div>
+          <div style="background:rgba(239,68,68,0.08);border:1px solid #ef4444;border-radius:8px;padding:6px;color:#ef4444;font-size:10px">CPM = count×6<br>Jika CPM &gt; threshold:<br>🔴 ALARM!</div>
+        </div>
+      </div>
+      <div>↓ Reset count=0, startTime=now()</div>
+      <div style="color:var(--accent);font-size:10px">↑ Ulangi — periode pengukuran baru</div>
+    </div>
+  </div>
+
+  <!-- Wiring Blueprint L3 -->
+  <div class="fade-in" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0;">
+    <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);margin-bottom:12px">📋 BLUEPRINT WIRING LATIHAN 3</div>
+    <div class="wiring">
+      <div class="wire-row"><span class="wire-color wc-yellow"></span><div class="wire-from">Push Button Pin 1</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino Pin 7 (INPUT_PULLUP)</div></div>
+      <div class="wire-row"><span class="wire-color wc-black"></span><div class="wire-from">Push Button Pin 2</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino GND</div></div>
+      <div class="wire-row"><span class="wire-color wc-green"></span><div class="wire-from">LED Hijau Anoda (+) → R220Ω</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino Pin 4 (Status OK)</div></div>
+      <div class="wire-row"><span class="wire-color wc-red"></span><div class="wire-from">LED Merah Anoda (+) → R220Ω</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino Pin 5 (Status Alarm)</div></div>
+      <div class="wire-row"><span class="wire-color wc-orange"></span><div class="wire-from">Buzzer (+)</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino Pin 6</div></div>
+      <div class="wire-row"><span class="wire-color wc-green"></span><div class="wire-from">LCD I2C SDA</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino A4</div></div>
+      <div class="wire-row"><span class="wire-color wc-blue"></span><div class="wire-from">LCD I2C SCL</div><div class="wire-arrow">──────→</div><div class="wire-to">Arduino A5</div></div>
+    </div>
+  </div>
+
+  <div class="code-block fade-in">
+    <div class="code-hdr"><div class="code-dots"><div class="cdot r"></div><div class="cdot y"></div><div class="cdot g"></div></div><div class="code-lang">Arduino C++ — Latihan 3: Pulse Counter dengan millis() Non-Blocking</div></div>
+    <div class="code-body"><pre><span class="cmt">/* ══════════════════════════════════════════════
+ * LATIHAN 3: Portal Monitor Radiasi — Pulse Counter
+ * TEKNIK KUNCI: millis() untuk timing tanpa menghentikan program
+ *
+ * MASALAH dengan delay(10000):
+ * Arduino "beku" 10 detik → tidak bisa baca tombol → pulsa terlewat!
+ *
+ * SOLUSI millis():
+ * Setiap loop(), cek: "sudah berapa ms berlalu?"
+ * Jika belum 10 detik → terus cek tombol
+ * Jika sudah 10 detik → proses hasil, reset timer
+ * ══════════════════════════════════════════════ */</span>
+
+<span class="kw">#include</span> <span class="str">&lt;LiquidCrystal_I2C.h&gt;</span>
+<span class="tp">LiquidCrystal_I2C</span> <span class="vr">lcd</span>(<span class="num">0x27</span>, <span class="num">16</span>, <span class="num">2</span>);
+
+<span class="tp">const int</span>  <span class="vr">PIN_BUTTON</span>  = <span class="num">7</span>;
+<span class="tp">const int</span>  <span class="vr">PIN_BUZZER</span>  = <span class="num">6</span>;
+<span class="tp">const int</span>  <span class="vr">PIN_LED_OK</span>  = <span class="num">4</span>;
+<span class="tp">const int</span>  <span class="vr">PIN_LED_AL</span>  = <span class="num">5</span>;
+<span class="tp">const long</span> <span class="vr">PERIODE_MS</span>  = <span class="num">10000</span>;  <span class="cmt">// 10 detik = 10.000 ms</span>
+<span class="tp">const int</span>  <span class="vr">THRESHOLD</span>   = <span class="num">5</span>;     <span class="cmt">// Lebih dari 5 pulsa/10s = alarm (≈30 CPM)</span>
+
+<span class="tp">int</span>           <span class="vr">count</span>       = <span class="num">0</span>;
+<span class="tp">unsigned long</span> <span class="vr">startMs</span>     = <span class="num">0</span>;
+<span class="tp">bool</span>          <span class="vr">lastBtn</span>     = HIGH; <span class="cmt">// State tombol sebelumnya (edge detection)</span>
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  <span class="fn">pinMode</span>(<span class="vr">PIN_BUTTON</span>, INPUT_PULLUP);
+  <span class="fn">pinMode</span>(<span class="vr">PIN_BUZZER</span>, OUTPUT);
+  <span class="fn">pinMode</span>(<span class="vr">PIN_LED_OK</span>, OUTPUT);
+  <span class="fn">pinMode</span>(<span class="vr">PIN_LED_AL</span>, OUTPUT);
+  <span class="vr">lcd</span>.<span class="fn">init</span>(); <span class="vr">lcd</span>.<span class="fn">backlight</span>();
+  <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">0</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"Portal Monitor  "</span>);
+  <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">1</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"Tekan = 1 Pulsa "</span>);
+  <span class="vr">startMs</span> = <span class="fn">millis</span>();  <span class="cmt">// Catat waktu awal</span>
+  <span class="fn">digitalWrite</span>(<span class="vr">PIN_LED_OK</span>, HIGH);
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="tp">unsigned long</span> <span class="vr">now</span>     = <span class="fn">millis</span>();
+  <span class="tp">unsigned long</span> <span class="vr">elapsed</span> = <span class="vr">now</span> - <span class="vr">startMs</span>;
+
+  <span class="cmt">// ── DETEKSI TEPI NAIK (RISING/FALLING EDGE) ──
+  // Kita ingin SATU TEKAN = SATU PULSA, bukan terus-terus saat ditekan
+  // Caranya: bandingkan state sekarang vs state sebelumnya
+  // "Falling edge" (HIGH→LOW) = tombol baru saja ditekan</span>
+  <span class="tp">bool</span> <span class="vr">btnNow</span> = <span class="fn">digitalRead</span>(<span class="vr">PIN_BUTTON</span>);
+  <span class="kw">if</span> (<span class="vr">btnNow</span> == LOW &amp;&amp; <span class="vr">lastBtn</span> == HIGH) {
+    <span class="vr">count</span>++;  <span class="cmt">// Hitung satu pulsa</span>
+    <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">0</span>);
+    <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"Pulsa:"</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">count</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"       "</span>);
+  }
+  <span class="vr">lastBtn</span> = <span class="vr">btnNow</span>;  <span class="cmt">// Simpan untuk deteksi edge di loop berikutnya</span>
+
+  <span class="cmt">// ── TAMPILKAN SISA WAKTU ──</span>
+  <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">1</span>);
+  <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"Sisa:"</span>);
+  <span class="vr">lcd</span>.<span class="fn">print</span>((<span class="vr">PERIODE_MS</span>-<span class="vr">elapsed</span>)/<span class="num">1000</span>);
+  <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"s        "</span>);
+
+  <span class="cmt">// ── PERIKSA APAKAH PERIODE SELESAI ──
+  // Ini TIDAK memblok program — hanya pengecekan kondisi
+  // Loop terus berjalan → tombol terus bisa dideteksi</span>
+  <span class="kw">if</span> (<span class="vr">elapsed</span> &gt;= <span class="vr">PERIODE_MS</span>) {
+    <span class="tp">int</span> <span class="vr">cpm</span>  = <span class="vr">count</span> * <span class="num">6</span>;  <span class="cmt">// ×6 karena 10s = 1/6 menit</span>
+    <span class="tp">bool</span> <span class="vr">alarm</span> = (<span class="vr">count</span> &gt; <span class="vr">THRESHOLD</span>);
+
+    <span class="vr">lcd</span>.<span class="fn">clear</span>();
+    <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">0</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"CPM: "</span>); <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">cpm</span>);
+    <span class="vr">lcd</span>.<span class="fn">setCursor</span>(<span class="num">0</span>,<span class="num">1</span>);
+    <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="vr">alarm</span> ? <span class="str">"!! KONTAMINASI!"</span> : <span class="str">"Status: BERSIH "</span>);
+
+    <span class="fn">digitalWrite</span>(<span class="vr">PIN_LED_OK</span>, !<span class="vr">alarm</span>);
+    <span class="fn">digitalWrite</span>(<span class="vr">PIN_LED_AL</span>,  <span class="vr">alarm</span>);
+    <span class="kw">if</span> (<span class="vr">alarm</span>) <span class="fn">tone</span>(<span class="vr">PIN_BUZZER</span>, <span class="num">2000</span>, <span class="num">2000</span>);
+
+    <span class="fn">delay</span>(<span class="num">3000</span>);  <span class="cmt">// Tampilkan hasil 3 detik</span>
+    <span class="vr">count</span>  = <span class="num">0</span>;           <span class="cmt">// Reset hitungan</span>
+    <span class="vr">startMs</span> = <span class="fn">millis</span>();   <span class="cmt">// Mulai ulang timer</span>
+    <span class="fn">noTone</span>(<span class="vr">PIN_BUZZER</span>);
+    <span class="vr">lcd</span>.<span class="fn">clear</span>();
+    <span class="vr">lcd</span>.<span class="fn">print</span>(<span class="str">"Periode Baru..."</span>);
+  }
+}</pre></div>
+  </div>
+
+  <div class="info-box ib-warn fade-in"><div class="ib-icon">⚠️</div><div class="ib-text"><strong>Latihan vs Proyek Real: Perbedaan Penting!</strong>Latihan ini memakai <strong>push button</strong> + <strong>polling</strong> = cukup untuk pemahaman. Topik 5 (Portal Monitor sesungguhnya) memakai <strong>GM Tube</strong> + <strong>attachInterrupt()</strong> karena pulsa radiasi nyata sangat cepat (bisa ribuan per detik) dan akan banyak terlewat jika hanya polling biasa.</div></div>
+
+  <div class="info-box ib-tip fade-in"><div class="ib-icon">🔗</div><div class="ib-text"><strong>Simulasi Online & Sumber Belajar Tambahan</strong>Coba semua latihan di <a href="https://wokwi.com" class="ref-link" target="_blank">Wokwi.com</a> (gratis, browser). Kit hardware dari UKM Robotika Nuclear Robotic Team Poltek Nuklir. Bahan: <a href="https://drive.google.com/drive/folders/1ozzV5AnqGrwZlKT19KF00fFctHuYgJJ" class="ref-link" target="_blank">Google Drive IPO</a> · <a href="https://drive.google.com/drive/folders/1PrQg2wXreZLYt1p7Yd0NC6FxGUXg15d0" class="ref-link" target="_blank">Google Drive Latihan Dasar</a></div></div>
+</section>
+
+
 
 <!-- ===== EVALUASI ===== -->
 <section class="section fade-in" id="evaluasi">
